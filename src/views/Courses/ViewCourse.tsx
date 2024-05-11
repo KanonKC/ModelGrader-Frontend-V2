@@ -1,11 +1,11 @@
 import { LibraryBig } from "lucide-react";
 import { useContext } from "react";
-import TopicCollectionAccordionCard from "../components/Cards/CollectionCards/TopicCollectionAccordionCard";
-import ReadOnlyPlate from "../components/ReadOnlyPlate";
-import { ScrollArea } from "../components/shadcn/ScrollArea";
-import { CourseNavSidebarContext } from "../contexts/CourseNavSidebarContexnt";
-import CourseNavbarSidebarLayout from "../layout/CourseNavbarSidebarLayout";
-import { handleDeprecatedDescription } from "../utilities/HandleDeprecatedDescription";
+import TopicCollectionAccordionCard from "../../components/Cards/CollectionCards/TopicCollectionAccordionCard";
+import ReadOnlyPlate from "../../components/ReadOnlyPlate";
+import { ScrollArea } from "../../components/shadcn/ScrollArea";
+import { CourseNavSidebarContext } from "../../contexts/CourseNavSidebarContexnt";
+import CourseNavbarSidebarLayout from "../../layout/CourseNavbarSidebarLayout";
+import { handleDeprecatedDescription } from "../../utilities/HandleDeprecatedDescription";
 
 const ViewCourse = () => {
 	const { course } = useContext(CourseNavSidebarContext);

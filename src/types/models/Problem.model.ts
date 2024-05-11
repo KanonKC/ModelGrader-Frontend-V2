@@ -82,3 +82,12 @@ export type ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulate
 		testcases: TestcaseModel[];
 		group_permissions: ProblemGroupPermissionPopulateGroupModel[];
 	};
+
+
+export type LightWeightProblemPopulateTestcases = {
+    problem_id: string
+    title: string
+    difficulty: number
+    created_date: string
+    updated_date: string
+}

@@ -10,13 +10,13 @@ import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { ProblemService } from "../../../services/Problem.service";
 import { ProblemPopulateTestcases } from "../../../types/models/Problem.model";
+import { MyContext } from "../../../contexts/MyContext";
 
 const MyProblems = () => {
 	const accountId = String(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
 
-	const [problems, setProblems] = useState<ProblemPopulateTestcases[]>([]);
-	const [manageableProblems, setManageableProblems] = useState<ProblemPopulateTestcases[]>([]);
+	const {problems, setProblems,manageableProblems, setManageableProblems,loadProblems} = useContext(MyContext)
 	const [filteredProblems, setFilteredProblems] = useState<ProblemPopulateTestcases[]>([]);
 	const [filteredManageableProblems, setFilteredManageableProblems] = useState<ProblemPopulateTestcases[]>([]);
 	
@@ -37,18 +37,7 @@ const MyProblems = () => {
 	},[searchValue,problems,manageableProblems])
 
 	useEffect(() => {
-		ProblemService.getAllAsCreator(accountId,{
-			start: 0,
-			end: 10
-		}).then((response) => {
-			setProblems(response.data.problems);
-			setManageableProblems(response.data.manageable_problems)
-			return ProblemService.getAllAsCreator(accountId)
-		}).then((response) => {
-			setProblems(response.data.problems);
-			setManageableProblems(response.data.manageable_problems)
-		});
-
+		loadProblems()
 		setSection("PROBLEMS")
 	}, [accountId]);
 

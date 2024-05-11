@@ -10,17 +10,15 @@ import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { CollectionService } from "../../../services/Collection.service";
 import { CollectionPopulateCollectionProblemPopulateProblemModel } from "../../../types/models/Collection.model";
+import { MyContext } from "../../../contexts/MyContext";
 
 const MyCollections = () => {
 	const navigate = useNavigate();
 	const accountId = String(localStorage.getItem("account_id"));
 
-	const [collections, setCollections] = useState<
-		CollectionPopulateCollectionProblemPopulateProblemModel[]
-	>([]);
-	const [manageableCollections, setManageableCollections] = useState<
-		CollectionPopulateCollectionProblemPopulateProblemModel[]
-	>([]);
+	const {collections, setCollections,manageableCollections, setManageableCollections, loadCollections} = useContext(MyContext)
+	
+
 	const [filteredCollections, setFilteredCollections] = useState<
 		CollectionPopulateCollectionProblemPopulateProblemModel[]
 	>([]);
@@ -56,10 +54,7 @@ const MyCollections = () => {
 
 	useEffect(() => {
 		setSection("COLLECTIONS");
-		CollectionService.getAllAsCreator(accountId).then((response) => {
-			setCollections(response.data.collections);
-			setManageableCollections(response.data.manageable_collections);
-		});
+		loadCollections();
 	}, []);
 
 	return (

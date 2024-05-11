@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { Toaster } from "./components/shadcn/Toaster";
-import { CourseNavSidebarContext, getCourseNavSidebarContextStateValue } from "./contexts/CourseNavSidebarContexnt";
+import {
+	CourseNavSidebarContext,
+	getCourseNavSidebarContextStateValue,
+} from "./contexts/CourseNavSidebarContexnt";
 import { LoginContext } from "./contexts/LoginContext";
 import { NavSidebarContext } from "./contexts/NavSidebarContext";
 import Router from "./router";
 import { AuthService } from "./services/Auth.service";
+import { MyContext, getMyContextStateValue } from "./contexts/MyContext";
 
 function App() {
-	const [isLogin, setIsLogin] = useState<boolean|null>(null);
+	const [isLogin, setIsLogin] = useState<boolean | null>(null);
 	const [section, setSection] = useState("");
 	const [isOpenNavSidebar, setIsOpenNavSidebar] = useState(false);
 
@@ -17,20 +21,18 @@ function App() {
 		const account_id = String(localStorage.getItem("account_id"));
 
 		if (!token || !account_id) {
-			setIsLogin(false)
+			setIsLogin(false);
 			return;
 		}
 
 		AuthService.authorize({ token, account_id }).then((response) => {
 			if (response.data.result) {
 				setIsLogin(true);
-			}
-			else {
-				setIsLogin(false)
+			} else {
+				setIsLogin(false);
 				localStorage.removeItem("token");
 				localStorage.removeItem("account_id");
 				localStorage.removeItem("username");
-
 			}
 		});
 	}, []);
@@ -48,10 +50,15 @@ function App() {
 						}}
 					>
 						<CourseNavSidebarContext.Provider
-							value = {getCourseNavSidebarContextStateValue()}
+							value={getCourseNavSidebarContextStateValue()}
 						>
-							<Router />
-							<Toaster />
+							<MyContext.Provider
+								value={getMyContextStateValue()}
+							>
+								<Router />
+								<Toaster />
+								
+							</MyContext.Provider>
 						</CourseNavSidebarContext.Provider>
 					</NavSidebarContext.Provider>
 				</LoginContext.Provider>

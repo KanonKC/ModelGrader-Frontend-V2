@@ -22,8 +22,8 @@ import EditProblem from "./views/My/Problems/EditProblem";
 import MyProblems from "./views/My/Problems/MyProblems";
 import ProblemStatistic from "./views/My/Problems/ProblemStatistic";
 import Register from "./views/Register";
-import ViewCourse from "./views/ViewCourse";
-import ViewCourseProblem from "./views/ViewCourseProblem";
+import ViewCourse from "./views/Courses/ViewCourse";
+import ViewCourseProblem from "./views/Courses/ViewCourseProblem";
 import ViewProblem from "./views/ViewProblem";
 
 const Router = () => {
