@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { LoginContext } from "./contexts/LoginContext";
+import { useAppDispatch, useAppSelector } from "./stores/hooks";
+import { loadAccountFromLocal } from "./stores/slices/accountSlice";
 import CourseManagement from "./views/CourseManagement";
 import Dashboard from "./views/Dashboard";
 import ExploreCourses from "./views/ExploreCourses";
@@ -28,7 +29,14 @@ import ViewProblem from "./views/ViewProblem";
 
 const Router = () => {
 	// const navigate = useNavigate();
-	const { isLogin } = useContext(LoginContext);
+	// const { isLogin } = useContext(LoginContext);
+
+	const isLogin = useAppSelector((state) => state.account.isLogin);
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		dispatch(loadAccountFromLocal());
+	}, [dispatch]);
 
 	return (
 		<Routes>

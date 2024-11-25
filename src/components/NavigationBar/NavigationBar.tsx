@@ -11,12 +11,14 @@ import {
 import { LoginContext } from "../../contexts/LoginContext";
 import ProfileDropdown from './ProfileDropdown';
 import { LayoutDashboard, Library, StickyNote } from "lucide-react";
+import { useAppSelector } from "../../stores/hooks";
 
 
 
 const NavigationBar = (/* { isLogin = false }: { isLogin?: boolean } */) => {
 
-	const {isLogin} = useContext(LoginContext);
+    const username = useAppSelector((state) => state.account.username);
+	const isLogin = useAppSelector((state) => state.account.isLogin);
 
 	const customNavigationMenuTriggerStyle = () => {
 		return (
@@ -154,7 +156,7 @@ const NavigationBar = (/* { isLogin = false }: { isLogin?: boolean } */) => {
 										className={customNavigationMenuTriggerStyle()}
 										href="#"
 									>
-										{localStorage.getItem("username")}
+										{username}
 									</NavigationMenuLink>
 								</ProfileDropdown>
 							</NavigationMenuItem>

@@ -4,25 +4,25 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/shadcn/Button";
 import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "../components/shadcn/Card";
 import { Checkbox } from "../components/shadcn/Checkbox";
 import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "../components/shadcn/Form";
 import { Input } from "../components/shadcn/Input";
 import { ErrorResponseTypes } from "../constants/ErrorResponseTypes";
 import CenterContainer from "../layout/CenterLayout";
-import { AccountService } from "../services/Account.service";
+import AccountAPI from "../services/Account.service";
 
 type RegisterForm = {
 	username: string;
@@ -44,7 +44,7 @@ const Register = () => {
 	const [invalidUsername, setInvalidUsername] = useState(false);
 	const [invalidEmail, setInvalidEmail] = useState(false);
 
-	const validatedForm = (formData: RegisterForm): Boolean => {
+	const validatedForm = (formData: RegisterForm): boolean => {
 		// Password longer than 8 characters
 		const PASSWORD_LONGER_THAN_8_CHARACTERS = formData.password.length >= 8
 		setInvalidPasswordLength(!PASSWORD_LONGER_THAN_8_CHARACTERS)
@@ -71,7 +71,7 @@ const Register = () => {
 
 		const data = form.getValues() as RegisterForm
 		if (validatedForm(data)) {
-			AccountService.create({
+			AccountAPI.create({
 				username: data.username,
 				email: data.email,
 				password: data.password,

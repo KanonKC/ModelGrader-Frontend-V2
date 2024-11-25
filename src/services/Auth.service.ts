@@ -1,8 +1,9 @@
 import axios from "axios";
-import { AuthServiceAPI } from "../types/apis/Auth.api";
+import { Auth, AuthServiceAPI } from "../types/apis/Auth.api";
 import { BASE_URL } from "../constants/BackendBaseURL";
 import { AccountModel } from "../types/models/Account.model";
 import { AuthenticationResultResponse } from "../types/models/Auth.model";
+import { backendAPI } from ".";
 
 export const AuthService: AuthServiceAPI = {
     login: async (request) => {
@@ -20,4 +21,15 @@ export const AuthService: AuthServiceAPI = {
         return response;
     }
 
+}
+
+export interface LoginPayload {
+	emailOrUsername: string;
+	password: string;
+}
+
+export default class AuthAPI {
+    static async login(payload: LoginPayload) {
+        return backendAPI.put<Auth>("/login", payload);
+    }
 }

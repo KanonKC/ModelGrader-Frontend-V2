@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { BASE_URL } from "../constants/BackendBaseURL";
-import { AccountServiceAPI } from "../types/apis/Account.api";
+import { Account, AccountServiceAPI } from "../types/apis/Account.api";
 import { AccountModel } from "../types/models/Account.model";
+import { backendAPI } from '.';
 
 
 
@@ -19,5 +20,25 @@ export const AccountService: AccountServiceAPI = {
     get: async (id) => {
         const response = await axios.get<AccountModel>(`${BASE_URL}/api/accounts/${id}`);
         return response;
+    }
+}
+
+export interface CreateAccountPayload {
+	email: string;
+	password: string;
+	username: string;
+}
+
+export default class AccountAPI {
+    static async create(payload: CreateAccountPayload) {
+        return backendAPI.post<Account>("/register", payload);
+    }
+    
+    static async get(accessToken: string) {
+        return backendAPI.get<Account>("/me", {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
     }
 }

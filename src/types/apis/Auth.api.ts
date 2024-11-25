@@ -22,3 +22,15 @@ export type AuthServiceAPI = {
     logout: (request: LogoutRequest) => Promise<AxiosResponse<AccountModel>>;
     authorize: (request: AuthorizationRequest) => Promise<AxiosResponse<AuthenticationResultResponse>>;
 }
+
+export interface Auth {
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    email: string;
+    password: string;
+    accessToken: string | null;
+    refreshToken: string | null;
+    tokenExpireAt: string | null;
+    accountId: string;
+}

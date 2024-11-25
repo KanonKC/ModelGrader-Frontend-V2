@@ -4,24 +4,25 @@ import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Button } from "../components/shadcn/Button";
 import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "../components/shadcn/Card";
 import { Checkbox } from "../components/shadcn/Checkbox";
 import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "../components/shadcn/Form";
 import { Input } from "../components/shadcn/Input";
 import CenterContainer from "../layout/CenterLayout";
-import { AuthService } from "../services/Auth.service";
+import AccountAPI from "../services/Account.service";
+import AuthAPI from "../services/Auth.service";
 // import { getAuthorization, login } from "../services/auth.service";
 
 const Login = () => {
@@ -33,33 +34,37 @@ const Login = () => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		setLoading(true);
-		setWrongPassword(false);
-		setUserNotFound(false);
-		const { username, password } = form.getValues();
-		AuthService.login({
-			username,
-			password,
-		}).then((response) => {
-			if (response.status === 202) {
-				const account = response.data;
-				localStorage.setItem("account_id", String(account.account_id));
-				localStorage.setItem("username", account.username);
-				if (account.token) {
-					localStorage.setItem("token", account.token);
-				}
-				window.location.href = "/dashboard";
-			}
-			setLoading(false);
-		}).catch((error) => {
-			if (error.response.status === 404) {
-				setUserNotFound(true);
-			}
-			else if (error.response.status === 406) {
-				setWrongPassword(true);
-			}
-			setLoading(false);
-		})
+
+        try {
+
+            setLoading(true);
+            setWrongPassword(false);
+            setUserNotFound(false);
+            const { username, password } = form.getValues();
+
+            const { data: auth } = await AuthAPI.login({
+                emailOrUsername: username,
+                password,
+            });
+
+            localStorage.setItem("token", auth.accessToken!);
+            localStorage.setItem("refreshToken", auth.refreshToken!);
+            localStorage.setItem("tokenExpireAt", auth.tokenExpireAt!);
+
+            const { data: account } = await AccountAPI.get(auth.accessToken!);
+
+            localStorage.setItem("username", account.username);
+            setLoading(false);
+
+        } catch (error) {
+            // else if ((error as Errpr)!.response.status === 404) {
+            //     setUserNotFound(true);
+            // } else if ((error as AxiosError).response.status === 406) {
+            //     setWrongPassword(true);
+            // }
+            setLoading(false);
+        }
+		
 	};
 
 	return (
@@ -85,7 +90,8 @@ const Login = () => {
 											<Input {...field} />
 										</FormControl>
 										<FormMessage>
-											{userNotFound && "User doesn't exist."}
+											{userNotFound &&
+												"User doesn't exist."}
 										</FormMessage>
 									</FormItem>
 								)}

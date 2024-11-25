@@ -17,3 +17,10 @@ export type AccountServiceAPI = {
     getAll: (query?:GetAllAccountQuery) => Promise<AxiosResponse<{accounts: AccountSecureModel[]}>>;
     get: (accountId:string) => Promise<AxiosResponse<AccountModel>>;
 }
+
+export interface Account {
+    id: string;
+    username: string;
+    createdAt: string;
+    updatedAt: string;
+}
