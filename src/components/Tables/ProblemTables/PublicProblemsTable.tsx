@@ -1,32 +1,23 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { FileSpreadsheet, Puzzle } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
-import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLanguage";
-import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../../../types/models/Problem.model";
-import TestcasesGradingIndicator from "../../TestcasesGradingIndicator";
-import { Badge } from "../../shadcn/Badge";
+import { Problem } from "../../../types/apis/Problem.api";
 import { Button } from "../../shadcn/Button";
-import {
-    HoverCard,
-    HoverCardContent,
-    HoverCardTrigger,
-} from "../../shadcn/HoverCard";
 import { DataTable } from "../Prototype/DataTable";
 
 const PublicProblemsTable = ({
 	problems,
 }: {
-	problems: ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[];
+	problems: Problem[];
 }) => {
 	const { courseId } = useParams();
 
-	const columns: ColumnDef<ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel>[] =
+	const columns: ColumnDef<Problem>[] =
 		[
 			{
 				accessorKey: "title",
 				header: "Title",
 				cell: ({ row }) => {
-					console.log(row.original.allowed_languages);
 
 					return (
 						<div className="font-mono flex items-center">
@@ -34,7 +25,7 @@ const PublicProblemsTable = ({
 								className="mr-2 text-blue-400"
 								size={20}
 							/>
-							<Link to={`/problems/${row.original.problem_id}`}>
+							<Link to={`/problems/${row.original.id}`}>
 								{row.original.title}
 							</Link>
 						</div>
@@ -42,92 +33,92 @@ const PublicProblemsTable = ({
 				},
 			},
 
-			{
-				accessorKey: "allowed_languages",
-				header: () => (
-					<div className="text-center">Allowed Languages</div>
-				),
-				cell: ({ row }) => (
-					<div className="font-medium flex justify-center">
-						<div className="font-medium">
-							{row.original.allowed_languages
-								.split(",")
-								.slice(0, 2)
-								.map((lang) => (
-									<span className="mx-0.5">
-										{
-											ProgrammingLanguageOptions.find(
-												(option) =>
-													option.value === lang
-											)?.badge
-										}
-									</span>
-								))}
+			// {
+			// 	accessorKey: "allowed_languages",
+			// 	header: () => (
+			// 		<div className="text-center">Allowed Languages</div>
+			// 	),
+			// 	cell: ({ row }) => (
+			// 		<div className="font-medium flex justify-center">
+			// 			<div className="font-medium">
+			// 				{row.original.allowed_languages
+			// 					.split(",")
+			// 					.slice(0, 2)
+			// 					.map((lang) => (
+			// 						<span className="mx-0.5">
+			// 							{
+			// 								ProgrammingLanguageOptions.find(
+			// 									(option) =>
+			// 										option.value === lang
+			// 								)?.badge
+			// 							}
+			// 						</span>
+			// 					))}
 
-							{row.original.allowed_languages.split(",")
-								.length === 3 && (
-								<span className="mx-0.5">
-									{
-										ProgrammingLanguageOptions.find(
-											(option) =>
-												option.value ===
-												row.original.allowed_languages.split(
-													","
-												)[2]
-										)?.badge
-									}
-								</span>
-							)}
+			// 				{row.original.allowed_languages.split(",")
+			// 					.length === 3 && (
+			// 					<span className="mx-0.5">
+			// 						{
+			// 							ProgrammingLanguageOptions.find(
+			// 								(option) =>
+			// 									option.value ===
+			// 									row.original.allowed_languages.split(
+			// 										","
+			// 									)[2]
+			// 							)?.badge
+			// 						}
+			// 					</span>
+			// 				)}
 
-							{row.original.allowed_languages.split(",").length >
-								3 && (
-								<span className="mx-0.5">
-									<HoverCard>
-										<HoverCardTrigger>
-											<Badge className="bg-neutral-200 text-black cursor-pointer">
-												...{" "}
-												{row.original.allowed_languages.split(
-													","
-												).length - 2}{" "}
-												more
-											</Badge>
-										</HoverCardTrigger>
-										<HoverCardContent>
-											<div className="flex gap-0.5">
-												{row.original.allowed_languages
-													.split(",")
-													.map((lang) => (
-														<div>
-															{
-																ProgrammingLanguageOptions.find(
-																	(option) =>
-																		option.value ===
-																		lang
-																)?.badge
-															}
-														</div>
-													))}
-											</div>
-										</HoverCardContent>
-									</HoverCard>
-								</span>
-							)}
-						</div>
-					</div>
-				),
-			},
+			// 				{row.original.allowed_languages.split(",").length >
+			// 					3 && (
+			// 					<span className="mx-0.5">
+			// 						<HoverCard>
+			// 							<HoverCardTrigger>
+			// 								<Badge className="bg-neutral-200 text-black cursor-pointer">
+			// 									...{" "}
+			// 									{row.original.allowed_languages.split(
+			// 										","
+			// 									).length - 2}{" "}
+			// 									more
+			// 								</Badge>
+			// 							</HoverCardTrigger>
+			// 							<HoverCardContent>
+			// 								<div className="flex gap-0.5">
+			// 									{row.original.allowed_languages
+			// 										.split(",")
+			// 										.map((lang) => (
+			// 											<div>
+			// 												{
+			// 													ProgrammingLanguageOptions.find(
+			// 														(option) =>
+			// 															option.value ===
+			// 															lang
+			// 													)?.badge
+			// 												}
+			// 											</div>
+			// 										))}
+			// 								</div>
+			// 							</HoverCardContent>
+			// 						</HoverCard>
+			// 					</span>
+			// 				)}
+			// 			</div>
+			// 		</div>
+			// 	),
+			// },
 			{
 				accessorKey: "best_submissions",
 				header: "Best Submissions",
-				cell: ({ row }) => (
+				cell: () => (
 					<div className="">
-						<TestcasesGradingIndicator
+						{/* <TestcasesGradingIndicator
 							submissionTestcases={
 								row.original.best_submission?.runtime_output
 							}
 							sizeX={1.5}
 							sizeY={3}
-						/>
+						/> */}
 					</div>
 				),
 			},
@@ -168,8 +159,8 @@ const PublicProblemsTable = ({
 						<Link
 							to={
 								courseId
-									? `/courses/${courseId}/problems/${row.original.problem_id}`
-									: `/problems/${row.original.problem_id}`
+									? `/courses/${courseId}/problems/${row.original.id}`
+									: `/problems/${row.original.id}`
 							}
 						>
 							<Button

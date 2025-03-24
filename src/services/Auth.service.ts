@@ -17,8 +17,9 @@ export const AuthService: AuthServiceAPI = {
     },
 
     authorize: async (request) => {
-        const response = await axios.put<AuthenticationResultResponse>(`${BASE_URL}/api/token`, request);
-        return response;
+        // const response = await axios.put<AuthenticationResultResponse>(`${BASE_URL}/api/token`, request);
+        // return response;
+        return { result: '' }
     }
 
 }

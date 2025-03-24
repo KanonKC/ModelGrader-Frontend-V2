@@ -1,57 +1,90 @@
-import React, { useEffect } from 'react';
-import { PlateEditorValueType } from '../../../types/PlateEditorValueType';
-import { CreateProblemRequestForm } from '../../../types/forms/CreateProblemRequestForm';
-import DetailPlateEditor from '../../DetailPlateEditor';
-import { Input } from '../../shadcn/Input';
-import { Label } from '../../shadcn/Label';
+import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../stores/hooks";
+import {
+    setInstructionType,
+	setPlateTextarea,
+	setTitle,
+} from "../../../stores/slices/myProblemSlice";
+import DetailPlateEditor from "../../DetailPlateEditor";
+import { Input } from "../../shadcn/Input";
+import { Label } from "../../shadcn/Label";
+import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
+import MarkdownInstructionEditor from "../../MarkdownInstructionEditor";
+import PDFInstructionEditor from "../../PDFInstructionEditor";
 
-const GeneralDetail = ({
-	createRequest,
-	setCreateRequest,
-}: {
-	createRequest: CreateProblemRequestForm;
-	setCreateRequest: React.Dispatch<React.SetStateAction<CreateProblemRequestForm>>;
-}) => {
-	// const [editorUpdateCooldown, setEditorUpdateCooldown] = useState(false);
+const GeneralDetail = () => {
 
-	const handleEditorChange = (value: PlateEditorValueType) => {
-		// if (!editorUpdateCooldown) {
-			setCreateRequest({ ...createRequest, description: value });
+	const myProblem = useAppSelector((state) => state.myProblem);
+	const instructionType = useAppSelector(state => state.myProblem.instructionType);
+	const dispatch = useAppDispatch();
 
-			// setEditorUpdateCooldown(true);
-			// setTimeout(() => {
-			// 	setEditorUpdateCooldown(false);
-			// }, 1000);
-		// }
-	};
-
-	useEffect(()=>{
-		console.log("General Detail",createRequest)
-	},[createRequest])
+	const tabList: {
+		value: "plate" | "markdown" | "pdf";
+		label: string;
+	}[] = [
+		{
+			value: "plate",
+			label: "Plate",
+		},
+		{
+			value: "markdown",
+			label: "Markdown",
+		},
+		{
+			value: "pdf",
+			label: "PDF",
+		},
+	];
 
 	return (
 		<div>
 			<Label>Title</Label>
 			<Input
-				value={createRequest.title}
-				onChange={(e) =>
-					setCreateRequest({
-						...createRequest,
-						title: e.target.value,
-					})
-				}
+				value={myProblem.title}
+				onChange={(e) => dispatch(setTitle(e.target.value))}
 				type="text"
 			/>
 
-			<Label>Detail</Label>
-			<div className="rounded-lg border bg-background shadow">
-				<DetailPlateEditor
-					value={createRequest.description}
-					onChange={(e) => handleEditorChange(e)}
-				/>
+			<div className="flex items-end justify-between mb-1.5 mt-4">
+				<Label className="">Instruction</Label>
+				<div>
+					<Tabs value={instructionType}>
+						<TabsList>
+							{tabList.map((tab) => (
+								<TabsTrigger
+									onClick={() =>
+										dispatch(setInstructionType(tab.value))
+									}
+									value={tab.value}
+									key={tab.value}
+								>
+									{tab.label}
+								</TabsTrigger>
+							))}
+						</TabsList>
+					</Tabs>
+				</div>
 			</div>
+			{instructionType === "plate" && (
+				<div className="rounded-lg border bg-background shadow">
+					<DetailPlateEditor
+						value={myProblem.plateTextarea}
+						onChange={(e) => dispatch(setPlateTextarea(e))}
+					/>
+				</div>
+			)}
+			{instructionType === "markdown" && (
+				<div>
+					<MarkdownInstructionEditor />
+				</div>
+			)}
+			{instructionType === "pdf" && (
+				<div>
+					<PDFInstructionEditor />
+				</div>
+			)}
 		</div>
 	);
 };
 
-export default GeneralDetail
+export default GeneralDetail;

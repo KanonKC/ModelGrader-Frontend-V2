@@ -20,7 +20,7 @@ export type AuthorizationRequest = {
 export type AuthServiceAPI = {
     login: (request: LoginRequest) => Promise<AxiosResponse<AccountModel>>;
     logout: (request: LogoutRequest) => Promise<AxiosResponse<AccountModel>>;
-    authorize: (request: AuthorizationRequest) => Promise<AxiosResponse<AuthenticationResultResponse>>;
+    authorize: (request: AuthorizationRequest) => AuthenticationResultResponse // Promise<AxiosResponse<AuthenticationResultResponse>>;
 }
 
 export interface Auth {

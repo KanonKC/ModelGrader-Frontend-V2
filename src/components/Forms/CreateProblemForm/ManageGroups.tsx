@@ -12,17 +12,7 @@ import { GroupService } from "../../../services/Group.service";
 import PermissionSwitchScrollArea from "../../Permissions/PermissionSwitchScrollArea";
 import ProblemPermissionSwitchGroup from "../PermissionSwitchGroups/ProblemPermissionSwitchGroup";
 
-const ManageGroups = ({
-	createRequest,
-	setCreateRequest,
-}: {
-	createRequest: CreateProblemRequestForm;
-	setCreateRequest: React.Dispatch<
-		React.SetStateAction<CreateProblemRequestForm>
-	>;
-}) => {
-	createRequest;
-	setCreateRequest;
+const ManageGroups = () => {
 
 	const accountId = String(localStorage.getItem("account_id"));
 

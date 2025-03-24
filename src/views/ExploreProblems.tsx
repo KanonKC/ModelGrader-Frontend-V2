@@ -3,24 +3,18 @@ import CardContainer from "../components/CardContainer";
 import PublicProblemsTable from "../components/Tables/ProblemTables/PublicProblemsTable";
 import { Separator } from "../components/shadcn/Seperator";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
-import { ProblemService } from "../services/Problem.service";
-import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Problem.model";
+import ProblemAPI from "../services/Problem.service";
+import { Problem } from "../types/apis/Problem.api";
 
 const ExploreProblems = () => {
-	const [problems, setProblems] = useState<
-		ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]
-	>([]);
-
-	const accountId = String(localStorage.getItem("account_id"));
+	
+    const [problemList, setProblemList] = useState<Problem[]>([]);
 
 	useEffect(() => {
-		ProblemService.getAll({
-			account_id: accountId,
-		}).then((response) => {
-      console.log('prob',response.data.problems)
-			setProblems(response.data.problems);
-		});
-	}, [accountId]);
+		ProblemAPI.getAll().then((res) => {
+            setProblemList(res.data.data);
+        })
+	}, []);
 
 	return (
 		<NavbarMenuLayout>
@@ -32,7 +26,7 @@ const ExploreProblems = () => {
 							<PublicProblemCard problem={problem} />
 						))} */}
 					<PublicProblemsTable
-						problems={problems}
+						problems={problemList}
 					/>
 					</CardContainer>
           <Separator orientation="vertical"/>

@@ -17,26 +17,26 @@ function App() {
 	const [section, setSection] = useState("");
 	const [isOpenNavSidebar, setIsOpenNavSidebar] = useState(false);
 
-	useEffect(() => {
-		const token = localStorage.getItem("token");
-		const account_id = String(localStorage.getItem("account_id"));
+	// useEffect(() => {
+	// 	const token = localStorage.getItem("token");
+	// 	const account_id = String(localStorage.getItem("account_id"));
 
-		if (!token || !account_id) {
-			setIsLogin(false);
-			return;
-		}
+	// 	if (!token || !account_id) {
+	// 		setIsLogin(false);
+	// 		return;
+	// 	}
 
-		AuthService.authorize({ token, account_id }).then((response) => {
-			if (response.data.result) {
-				setIsLogin(true);
-			} else {
-				setIsLogin(false);
-				localStorage.removeItem("token");
-				localStorage.removeItem("account_id");
-				localStorage.removeItem("username");
-			}
-		});
-	}, []);
+	// 	AuthService.authorize({ token, account_id }).then((response) => {
+	// 		if (response.data.result) {
+	// 			setIsLogin(true);
+	// 		} else {
+	// 			setIsLogin(false);
+	// 			localStorage.removeItem("token");
+	// 			localStorage.removeItem("account_id");
+	// 			localStorage.removeItem("username");
+	// 		}
+	// 	});
+	// }, []);
 
 	return (
 		<div>

@@ -1,10 +1,10 @@
-import { TestcaseModel } from "../types/models/Problem.model";
+import { Testcase } from "../types/apis/Problem.api";
 
-export function checkRuntimeStatus(testcases: TestcaseModel[]):boolean {
+export function checkRuntimeStatus(testcases: Testcase[]):boolean {
 	for (const testcase of testcases) {
-		if (testcase.runtime_status !== "OK") {
+		if (testcase.isError) {
 			return false;
 		}
 	}
 	return true;
-};
+}

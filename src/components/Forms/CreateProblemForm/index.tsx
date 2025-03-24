@@ -6,10 +6,15 @@ import { TestcaseModel } from "../../../types/models/Problem.model";
 import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
 import FormSaveButton from "../FormSaveButton";
 import GeneralDetail from "./GeneralDetail";
-import ManageGroups from "./ManageGroups";
 import Privacy from "./Privacy";
 import Requirement from "./Requirement";
 import Scoring from "./Scoring";
+import { useAppDispatch, useAppSelector } from "../../../stores/hooks";
+import {
+	createMyProblem,
+	updateMyProblem,
+} from "../../../stores/slices/myProblemSlice";
+import { Card, CardContent, CardHeader, CardTitle } from "../../shadcn/Card";
 
 const TabList = [
 	{
@@ -41,108 +46,81 @@ export type OnProblemSaveCallback = (
 	createRequest: CreateProblemRequestForm
 ) => void;
 
-const CreateProblemForm = ({
-	createRequestInitialValue,
-	onProblemSave,
-	validatedTestcases = [],
-}: {
-	createRequestInitialValue: CreateProblemRequestForm;
-	onProblemSave: OnProblemSaveCallback;
-	validatedTestcases?: TestcaseModel[];
-}) => {
-	const navigate = useNavigate();
-
-	const [loading, setLoading] = useState(false);
+const CreateProblemForm = () => {
+	const myProblem = useAppSelector((state) => state.myProblem);
+	const dispatch = useAppDispatch();
+	// const navigate = useNavigate();
 
 	const [currentForm, setCurrentForm] = useSearchParams();
-	const [createRequest, setCreateRequest] =
-		useState<CreateProblemRequestForm>(createRequestInitialValue);
 
-
-	const handleSave = () => {
-		onProblemSave(setLoading, createRequest);
-	};
-
-
-	useEffect(() => {
-		if (validatedTestcases.length !== 0) {
-			setCreateRequest({
-				...createRequest,
-				validated_testcases: validatedTestcases,
-			});
+	const handleOnClickSaveButton = () => {
+		if (myProblem.id) {
+			dispatch(updateMyProblem());
+		} else {
+			dispatch(createMyProblem());
 		}
-	}, [validatedTestcases]);
-
+	};
+1
 	return (
 		<div className="w-[96%] mx-auto mt-10">
 			<div className="flex justify-between">
-				<h1 className="text-3xl font-bold tracking-tight flex">
-					<ArrowLeft
-						size={40}
-						className="text-gray-400 transition-all pr-0 hover:pr-1 cursor-pointer mr-2"
-						onClick={() => navigate(-1)}
-					/>
-					{createRequest.title === ""
-						? "Create Problem"
-						: createRequest.title}
-				</h1>
-				<div>
-					<div className="flex">
-						<Tabs value={currentForm.get("section") || "general"}>
-							<TabsList>
-								{TabList.map((tab, index) => (
-									<TabsTrigger
-										key={index}
-										value={tab.value}
-										onClick={() =>
-											setCurrentForm({section: tab.value})
-										}
-									>
-										{tab.label}
-									</TabsTrigger>
-								))}
-							</TabsList>
-						</Tabs>
-						<FormSaveButton
-							disabled={loading}
-							onClick={handleSave}
-						/>
-					</div>
-				</div>
+				<Tabs value={currentForm.get("section") || "general"}>
+					<TabsList>
+						{TabList.map((tab, index) => (
+							<TabsTrigger
+								key={index}
+								value={tab.value}
+								onClick={() =>
+									setCurrentForm({
+										section: tab.value,
+									})
+								}
+							>
+								{tab.label}
+							</TabsTrigger>
+						))}
+					</TabsList>
+				</Tabs>
+				<FormSaveButton
+					disabled={myProblem.isLoading}
+					onClick={handleOnClickSaveButton}
+				/>
 			</div>
 
-			<div className="mt-3">
-				{(!currentForm.get("section") || currentForm.get("section") === "general")  && (
-					<GeneralDetail
-						createRequest={createRequest}
-						setCreateRequest={setCreateRequest}
-					/>
-				)}
-				{currentForm.get("section") === "scoring" && (
-					<Scoring
-						createRequest={createRequest}
-						setCreateRequest={setCreateRequest}
-					/>
-				)}
-				{currentForm.get("section") === "requirement" && (
+			<Card className="mt-3">
+				<CardHeader>
+					<CardTitle>
+						{myProblem.title === ""
+							? "Create Problem"
+							: myProblem.title}
+					</CardTitle>
+				</CardHeader>
+				<CardContent className="h-[75vh] mb-4">
+					{(!currentForm.get("section") ||
+						currentForm.get("section") === "general") && (
+						<GeneralDetail />
+					)}
+					{currentForm.get("section") === "scoring" && <Scoring />}
+					{/* {currentForm.get("section") === "requirement" && (
 					<Requirement
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>
-				)}
-				{currentForm.get("section") === "privacy" && (
+				)} */}
+					{/* {currentForm.get("section") === "privacy" && (
 					<Privacy
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>
-				)}
-				{currentForm.get("section") === "groups" && (
+				)} */}
+					{/* {currentForm.get("section") === "groups" && (
 					<ManageGroups
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
 					/>
-				)}
-			</div>
+				)} */}
+				</CardContent>
+			</Card>
 		</div>
 	);
 };

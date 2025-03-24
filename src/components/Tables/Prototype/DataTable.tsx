@@ -60,7 +60,7 @@ export function DataTable<TData, TValue>({
 														header.column.columnDef
 															.header,
 														header.getContext()
-												  )}
+                                            )}
 										</TableHead>
 									);
 								})}
@@ -99,9 +99,9 @@ export function DataTable<TData, TValue>({
 					</TableBody>
 				</Table>
 			</div>
-			<div className="mt-3">
+			{/* <div className="mt-3">
 				<DataTablePagination table={table} />
-			</div>
+			</div> */}
 			{/* <div className="flex items-center justify-end space-x-2 py-4">
 				<Button
 					variant="outline"

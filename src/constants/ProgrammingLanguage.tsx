@@ -31,3 +31,36 @@ export const ProgrammingLanguageLabel:{
     'python': 'Python',
     'javascript': 'Javascript'
 }
+
+export type ProgrammingLanguage = "py" | "c" | "cpp";
+
+export const ProgrammingLanguageLabelTable: {
+    [key in ProgrammingLanguage]: string;
+} = {
+    py: "Python",
+    c: "C",
+    cpp: "C++",
+}
+
+export const ProgrammingLanguageOptionList = Object.keys(ProgrammingLanguageLabelTable).map((key) => ({
+    value: key,
+    label: ProgrammingLanguageLabelTable[key as ProgrammingLanguage]
+}))
+
+export const ProgrammingLanguageMonacoOptionList = [
+    {
+        value: 'python',
+        defaultValue: 'py',
+        label: 'Python'
+    },
+    {
+        value: 'c',
+        defaultValue: 'c',
+        label: 'C'
+    },
+    {
+        value: 'cpp',
+        defaultValue: 'cpp',
+        label: 'C++'
+    },
+]

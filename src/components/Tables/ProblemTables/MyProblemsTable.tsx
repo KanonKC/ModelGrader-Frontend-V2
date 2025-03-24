@@ -1,25 +1,34 @@
 import { ColumnDef } from "@tanstack/react-table";
 import {
 	Check,
+	ChevronLeft,
+	ChevronRight,
 	FileSpreadsheet,
-	MoreHorizontal,
 	Tally4,
 	Tally5,
 	Timer,
 	X,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLanguage";
-import { ProblemPopulateTestcases } from "../../../types/models/Problem.model";
+import { useAppDispatch, useAppSelector } from "../../../stores/hooks";
+import { Problem } from "../../../types/apis/Problem.api";
 import { checkRuntimeStatus } from "../../../utilities/CheckRuntimeStatus";
 import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
-import MyProblemDropdown from "../../Dropdowns/MyProblemDropdown";
+import {
+	Pagination,
+	PaginationContent,
+	PaginationItem,
+	PaginationNext,
+	PaginationPrevious,
+} from "../../shadcn/Pagination";
 import { DataTable } from "../Prototype/DataTable";
 import DataTableSortableLayout from "../Prototype/DataTableSortableLayout";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "../../shadcn/HoverCard";
-import { Badge } from "../../shadcn/Badge";
+import { useEffect, useMemo } from "react";
+import { setCurrentPage } from "../../../stores/slices/myProblemListSlice";
+import { cn } from "../../../lib/utils";
+import { Button } from "../../shadcn/Button";
 
-const columns: ColumnDef<ProblemPopulateTestcases>[] = [
+const columns: ColumnDef<Problem>[] = [
 	{
 		accessorKey: "title",
 		header: ({ column }) => (
@@ -35,7 +44,7 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 			return (
 				<div className="font-mono flex items-center py-2 hover:underline hover:text-green-500">
 					<FileSpreadsheet className="mr-2 text-blue-400" size={20} />
-					<Link to={`/my/problems/${row.original.problem_id}`}>
+					<Link to={`/my/problems/${row.original.id}`}>
 						{row.original.title}
 					</Link>
 				</div>
@@ -89,7 +98,7 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 		cell: ({ row }) => {
 			return (
 				<div className="flex justify-center">
-					{row.original.solution !== "" ? (
+					{row.original.solution?.code !== "" ? (
 						<Check className="text-green-500" />
 					) : (
 						<X className="text-red-500" />
@@ -120,66 +129,66 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 		cell: ({ row }) => (
 			<div className="font-medium">
 				<Timer className="inline-block mr-2" size={20} />
-				{row.original.time_limit}
+				{row.original.solution?.timeLimitMs} ms
 			</div>
 		),
 	},
 
-	{
-		accessorKey: "allowed_languages",
-		header: () => <div className="text-center">Allowed Languages</div>,
-		cell: ({ row }) => (
-			<div className="font-medium flex justify-center">
-				<div className="font-medium">
-					{row.original.allowed_languages
-						.split(",")
-						.slice(0, 2)
-						.map((lang) => (
-							<span className="mx-0.5">
-								{
-									ProgrammingLanguageOptions.find(
-										(option) => option.value === lang
-									)?.badge
-								}
-							</span>
-						))}
+	// {
+	// 	accessorKey: "allowed_languages",
+	// 	header: () => <div className="text-center">Allowed Languages</div>,
+	// 	cell: ({ row }) => (
+	// 		<div className="font-medium flex justify-center">
+	// 			<div className="font-medium">
+	// 				{row.original.allowed_languages
+	// 					.split(",")
+	// 					.slice(0, 2)
+	// 					.map((lang) => (
+	// 						<span className="mx-0.5">
+	// 							{
+	// 								ProgrammingLanguageOptions.find(
+	// 									(option) => option.value === lang
+	// 								)?.badge
+	// 							}
+	// 						</span>
+	// 					))}
 
-					{row.original.allowed_languages.split(",").length > 2 && (
-						<span className="mx-0.5">
-							<HoverCard>
-								<HoverCardTrigger>
-									<Badge className="bg-neutral-200 text-black cursor-pointer">
-										...{" "}
-										{row.original.allowed_languages.split(
-											","
-										).length - 2}{" "}
-										more
-									</Badge>
-								</HoverCardTrigger>
-								<HoverCardContent>
-									<div className="flex gap-0.5">
-										{row.original.allowed_languages
-											.split(",")
-											.map((lang) => (
-												<div>
-													{
-														ProgrammingLanguageOptions.find(
-															(option) =>
-																option.value ===
-																lang
-														)?.badge
-													}
-												</div>
-											))}
-									</div>
-								</HoverCardContent>
-							</HoverCard>
-						</span>
-					)}
-				</div>
-			</div>
-		),
-	},
+	// 				{row.original.allowed_languages.split(",").length > 2 && (
+	// 					<span className="mx-0.5">
+	// 						<HoverCard>
+	// 							<HoverCardTrigger>
+	// 								<Badge className="bg-neutral-200 text-black cursor-pointer">
+	// 									...{" "}
+	// 									{row.original.allowed_languages.split(
+	// 										","
+	// 									).length - 2}{" "}
+	// 									more
+	// 								</Badge>
+	// 							</HoverCardTrigger>
+	// 							<HoverCardContent>
+	// 								<div className="flex gap-0.5">
+	// 									{row.original.allowed_languages
+	// 										.split(",")
+	// 										.map((lang) => (
+	// 											<div>
+	// 												{
+	// 													ProgrammingLanguageOptions.find(
+	// 														(option) =>
+	// 															option.value ===
+	// 															lang
+	// 													)?.badge
+	// 												}
+	// 											</div>
+	// 										))}
+	// 								</div>
+	// 							</HoverCardContent>
+	// 						</HoverCard>
+	// 					</span>
+	// 				)}
+	// 			</div>
+	// 		</div>
+	// 	),
+	// },
 	// Temporary hide this column
 	// {
 	// 	accessorKey: "difficulty",
@@ -207,7 +216,7 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 		),
 		cell: ({ row }) => (
 			<div className="font-mono">
-				{readableDateFormat(row.original.updated_date)}
+				{readableDateFormat(row.original.updatedAt)}
 			</div>
 		),
 	},
@@ -228,24 +237,67 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 	{
 		accessorKey: "action",
 		header: () => <div className="text-center">Action</div>,
-		cell: ({ row }) => (
+		cell: () => (
 			<div className=" flex items-center justify-center">
-				<MyProblemDropdown problem={row.original}>
+				{/* <MyProblemDropdown problem={row.original}>
 					<MoreHorizontal size={20} />
-				</MyProblemDropdown>
+				</MyProblemDropdown> */}
 			</div>
 		),
 	},
 ];
 
-const MyProblemsTable = ({
-	problems,
-}: {
-	problems: ProblemPopulateTestcases[];
-}) => {
+const MyProblemsTable = () => {
+	const problemList = useAppSelector(
+		(state) => state.myProblemList.problemList
+	);
+	const currentPage = useAppSelector(
+		(state) => state.myProblemList.currentPage
+	);
+	const totalProblem = useAppSelector(
+		(state) => state.myProblemList.totalProblem
+	);
+
+	const isFirstPage = useMemo(() => currentPage === 1, [currentPage]);
+	const isLastPage = useMemo(
+		() => totalProblem <= currentPage * 10,
+		[totalProblem, currentPage]
+	);
+
+	const dispatch = useAppDispatch();
+	const goToPrevPage = () => {
+		dispatch(setCurrentPage(currentPage - 1));
+	};
+	const goToNextPage = () => {
+		dispatch(setCurrentPage(currentPage + 1));
+	};
+
+	useEffect(() => {
+		console.log("problemList", problemList);
+	}, [problemList]);
+
 	return (
 		<div>
-			<DataTable columns={columns} data={problems} />
+			<DataTable columns={columns} data={problemList} />
+			<div className="flex justify-end mt-4">
+				<div className="flex items-center gap-4">
+					<Button
+						variant="ghost"
+						disabled={isFirstPage}
+						onClick={goToPrevPage}
+                        >
+						<ChevronLeft size={16} />
+					</Button>
+                    <span className="text-sm font-bold">{currentPage}</span>
+					<Button
+						variant="ghost"
+						disabled={isLastPage}
+						onClick={goToNextPage}
+					>
+						<ChevronRight size={16} />
+					</Button>
+				</div>
+			</div>
 		</div>
 	);
 };

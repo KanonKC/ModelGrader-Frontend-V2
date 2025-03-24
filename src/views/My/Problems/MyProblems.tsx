@@ -8,8 +8,10 @@ import { Input } from "../../../components/shadcn/Input";
 import { Tabs, TabsList, TabsTrigger } from "../../../components/shadcn/Tabs";
 import { NavSidebarContext } from "../../../contexts/NavSidebarContext";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
-import { ProblemService } from "../../../services/Problem.service";
+import ProblemAPI, { ProblemService } from "../../../services/Problem.service";
 import { ProblemPopulateTestcases } from "../../../types/models/Problem.model";
+import { useAppDispatch, useAppSelector } from "../../../stores/hooks";
+import { loadMyProblemList } from "../../../stores/slices/myProblemListSlice";
 
 const MyProblems = () => {
 	const accountId = String(localStorage.getItem("account_id"));
@@ -20,37 +22,57 @@ const MyProblems = () => {
 	const [filteredProblems, setFilteredProblems] = useState<ProblemPopulateTestcases[]>([]);
 	const [filteredManageableProblems, setFilteredManageableProblems] = useState<ProblemPopulateTestcases[]>([]);
 	
-	const {setSection} = useContext(NavSidebarContext)
+	// const {setSection} = useContext(NavSidebarContext)
 
 	const [tabValue, setTabValue] = useState("personal")
 	const [searchValue, setSearchValue] = useState("")
 
-	useEffect(() => {
-		if (!searchValue || searchValue === "") {
-			setFilteredProblems(problems)
-			setFilteredManageableProblems(manageableProblems)
-		}
-		else {
-			setFilteredProblems(problems.filter((problem) => problem.title.toLowerCase().includes(searchValue.toLowerCase())))
-			setFilteredManageableProblems(manageableProblems.filter((problem) => problem.title.toLowerCase().includes(searchValue.toLowerCase())))
-		}
-	},[searchValue,problems,manageableProblems])
+    const problemList = useAppSelector((state) => state.myProblemList.problemList)
+    const currentPage = useAppSelector((state) => state.myProblemList.currentPage)
+    const pageSize = useAppSelector((state) => state.myProblemList.pageSize)
+    const dispatch = useAppDispatch()
 
-	useEffect(() => {
-		ProblemService.getAllAsCreator(accountId,{
-			start: 0,
-			end: 10
-		}).then((response) => {
-			setProblems(response.data.problems);
-			setManageableProblems(response.data.manageable_problems)
-			return ProblemService.getAllAsCreator(accountId)
-		}).then((response) => {
-			setProblems(response.data.problems);
-			setManageableProblems(response.data.manageable_problems)
-		});
+    useEffect(() => {
+        console.log('problemList', problemList)
+    }, [problemList])
 
-		setSection("PROBLEMS")
-	}, [accountId]);
+    useEffect(() => {
+        console.log('dispatch')
+        dispatch(loadMyProblemList({
+            offset: (currentPage - 1) * pageSize,
+            limit: currentPage * pageSize
+        }))
+        // ProblemAPI.getAllMy().then((response) => {
+        //     console.log('response', response.data)
+        // })
+    }, [dispatch, currentPage, pageSize])
+
+	// useEffect(() => {
+	// 	if (!searchValue || searchValue === "") {
+	// 		setFilteredProblems(problems)
+	// 		setFilteredManageableProblems(manageableProblems)
+	// 	}
+	// 	else {
+	// 		setFilteredProblems(problems.filter((problem) => problem.title.toLowerCase().includes(searchValue.toLowerCase())))
+	// 		setFilteredManageableProblems(manageableProblems.filter((problem) => problem.title.toLowerCase().includes(searchValue.toLowerCase())))
+	// 	}
+	// },[searchValue,problems,manageableProblems])
+
+	// useEffect(() => {
+	// 	ProblemService.getAllAsCreator(accountId,{
+	// 		start: 0,
+	// 		end: 10
+	// 	}).then((response) => {
+	// 		setProblems(response.data.problems);
+	// 		setManageableProblems(response.data.manageable_problems)
+	// 		return ProblemService.getAllAsCreator(accountId)
+	// 	}).then((response) => {
+	// 		setProblems(response.data.problems);
+	// 		setManageableProblems(response.data.manageable_problems)
+	// 	});
+
+	// 	setSection("PROBLEMS")
+	// }, [accountId]);
 
 	return (
 		<NavbarSidebarLayout>
@@ -85,12 +107,9 @@ const MyProblems = () => {
 				</div>
 
 				<CardContainer>
-					
 					{tabValue === "personal" && <MyProblemsTable
-						problems={filteredProblems}
 					/>}
 					{tabValue === "manageable" && <MyProblemsTable
-						problems={filteredManageableProblems}
 					/>}
 				</CardContainer>
 			</div>

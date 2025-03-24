@@ -1,84 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import CreateProblemForm, {
-	OnProblemSaveCallback,
-} from "../../../components/Forms/CreateProblemForm";
-import { toast } from "../../../components/shadcn/UseToast";
+import CreateProblemForm from "../../../components/Forms/CreateProblemForm";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
-import { ProblemService } from "../../../services/Problem.service";
-import { transformCreateProblemRequestForm2CreateProblemRequest } from "../../../types/adapters/CreateProblemRequestForm.adapter";
-import { transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm } from "../../../types/adapters/Problem.adapter";
-import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
-import { ProblemPoplulateCreatorModel } from "../../../types/models/Problem.model";
+import { useAppDispatch } from "../../../stores/hooks";
+import { loadMyProblem } from "../../../stores/slices/myProblemSlice";
 
 const EditProblem = () => {
-	const accountId = String(localStorage.getItem("account_id"));
 
 	const { problemId } = useParams();
-	const editProblemId = String(problemId);
 
-	const [problem, setProblem] = useState<ProblemPoplulateCreatorModel>();
+    const dispatch = useAppDispatch()
 
-	const [createRequest, setCreateRequest] =
-		useState<CreateProblemRequestForm>();
-
-	const handleSave: OnProblemSaveCallback = (setLoading, createRequest) => {
-		setLoading(true);
-
-		const { request, groups } =
-			transformCreateProblemRequestForm2CreateProblemRequest(
-				createRequest
-			);
-
-		ProblemService.update(String(editProblemId), accountId, request)
-			.then((response) => {
-				return ProblemService.updateGroupPermissions(
-					response.data.problem_id,
-					accountId,
-					groups
-				);
-			})
-			.then((response) => {
-				console.log("Update Completed", response.data);
-				setLoading(false);
-				toast({
-					title: "Problem Updated",
-				});
-			});
-	};
-
-	useEffect(() => {
-		ProblemService.get(accountId, editProblemId).then((response) => {
-			setProblem(response.data);
-			setCreateRequest(
-				transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm(
-					response.data
-				)
-			);
-            document.title = `${response.data.title} - Edit`;
-		});
-
-
-	}, [accountId, editProblemId]);
+    useEffect(() => {
+        if (!problemId) return
+        dispatch(loadMyProblem(problemId))
+        console.log("Hello")
+    }, [dispatch, problemId])
+    
 	return (
 		<NavbarSidebarLayout>
-			{createRequest && (
-				<CreateProblemForm
-					createRequestInitialValue={createRequest}
-					validatedTestcases={problem?.testcases}
-					onProblemSave={(
-						setLoading,
-
-						createRequest
-					) =>
-						handleSave(
-							setLoading,
-
-							createRequest
-						)
-					}
-				/>
-			)}
+			<CreateProblemForm/>
 		</NavbarSidebarLayout>
 	);
 };

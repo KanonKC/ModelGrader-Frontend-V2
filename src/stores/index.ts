@@ -1,11 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
 import counterSlice from './slices/counterSlice'
 import { accountSlice } from './slices/accountSlice'
+import { myProblemListSlice } from './slices/myProblemListSlice'
+import { myProblemSlice } from './slices/myProblemSlice'
+import { problemSlice } from './slices/problemSlice'
 
 export const store = configureStore({
     reducer: {
         account: accountSlice.reducer,
         counter: counterSlice.reducer,
+        myProblemList: myProblemListSlice.reducer,
+        myProblem: myProblemSlice.reducer,
+        problem: problemSlice.reducer
     }
 })
 

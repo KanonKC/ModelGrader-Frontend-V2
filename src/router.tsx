@@ -62,7 +62,7 @@ const Router = () => {
 					/>
 					<Route
 						path="/my/problems/:problemId"
-						element={<ProblemStatistic />}
+						element={<EditProblem />}
 					/>
 					<Route
 						path="/my/problems/:problemId/edit"

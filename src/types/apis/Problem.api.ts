@@ -7,6 +7,8 @@ import {
 	ProblemPopulateCreatorSecureModel,
 	ProblemPopulateTestcases
 } from "../models/Problem.model";
+import { Account } from "./Account.api";
+import { ProgrammingLanguage } from "../../constants/ProgrammingLanguage";
 
 export type CreateProblemRequest = {
 	title: string;
@@ -113,3 +115,48 @@ export type ProblemServiceAPI = {
 	) => Promise<AxiosResponse<ValidateProgramResponse>>;
 	getPublic: (problemId: string) => Promise<AxiosResponse<ProblemPopulateCreatorSecureModel>>;
 };
+
+export interface Solution {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    code: string;
+    language: ProgrammingLanguage;
+    timeLimitMs: number;
+    memoryLimitKb: number;
+    problemId: string;
+}
+
+export interface Testcase {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    order: number;
+    problemId: string;
+    inputFilename: string;
+    outputFilename: string;
+    inputFileUrl: string;
+    outputFileUrl: string;
+    isError: boolean;
+    isTimeLimitExceeded: boolean;
+    isMemoryLimitExceeded: boolean;
+    isDeprecated: boolean;
+}
+
+export interface ProblemInstruction {
+    type: "plate" | "markdown" | "pdf";
+    markdownContent?: string;
+    pdfUrl?: string;
+    plateContent?: string;
+}
+export interface Problem {
+    id: string;
+    creator: Account;
+    solution: Solution | null;
+    testcases: Testcase[];
+    createdAt: string;
+    updatedAt: string;
+    creatorId: string;
+    title: string;
+    instruction: ProblemInstruction;
+}

@@ -1,17 +1,15 @@
-import { useContext } from "react";
 import {
-	NavigationMenu,
-	NavigationMenuItem,
-	NavigationMenuLink,
-	NavigationMenuList,
-	navigationMenuTriggerStyle
+    NavigationMenu,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    navigationMenuTriggerStyle
 } from "../shadcn/NevigationMenu";
 
 
-import { LoginContext } from "../../contexts/LoginContext";
-import ProfileDropdown from './ProfileDropdown';
 import { LayoutDashboard, Library, StickyNote } from "lucide-react";
 import { useAppSelector } from "../../stores/hooks";
+import ProfileDropdown from './ProfileDropdown';
 
 
 
