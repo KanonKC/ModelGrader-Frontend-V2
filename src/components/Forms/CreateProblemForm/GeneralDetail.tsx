@@ -1,33 +1,36 @@
-import React, { useEffect } from 'react';
-import { PlateEditorValueType } from '../../../types/PlateEditorValueType';
-import { CreateProblemRequestForm } from '../../../types/forms/CreateProblemRequestForm';
-import DetailPlateEditor from '../../DetailPlateEditor';
-import { Input } from '../../shadcn/Input';
-import { Label } from '../../shadcn/Label';
+import React, { useEffect } from "react";
+import { PlateEditorValueType } from "../../../types/PlateEditorValueType";
+import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
+import DetailPlateEditor from "../../DetailPlateEditor";
+import { Input } from "../../shadcn/Input";
+import { Label } from "../../shadcn/Label";
+import MultiTextEditor from "../../MultiTextEditor/MultiTextEditor";
 
 const GeneralDetail = ({
 	createRequest,
 	setCreateRequest,
 }: {
 	createRequest: CreateProblemRequestForm;
-	setCreateRequest: React.Dispatch<React.SetStateAction<CreateProblemRequestForm>>;
+	setCreateRequest: React.Dispatch<
+		React.SetStateAction<CreateProblemRequestForm>
+	>;
 }) => {
 	// const [editorUpdateCooldown, setEditorUpdateCooldown] = useState(false);
 
 	const handleEditorChange = (value: PlateEditorValueType) => {
 		// if (!editorUpdateCooldown) {
-			setCreateRequest({ ...createRequest, description: value });
+		setCreateRequest({ ...createRequest, description: value });
 
-			// setEditorUpdateCooldown(true);
-			// setTimeout(() => {
-			// 	setEditorUpdateCooldown(false);
-			// }, 1000);
+		// setEditorUpdateCooldown(true);
+		// setTimeout(() => {
+		// 	setEditorUpdateCooldown(false);
+		// }, 1000);
 		// }
 	};
 
-	useEffect(()=>{
-		console.log("General Detail",createRequest)
-	},[createRequest])
+	useEffect(() => {
+		console.log("General Detail", createRequest);
+	}, [createRequest]);
 
 	return (
 		<div>
@@ -44,14 +47,13 @@ const GeneralDetail = ({
 			/>
 
 			<Label>Detail</Label>
-			<div className="rounded-lg border bg-background shadow">
-				<DetailPlateEditor
-					value={createRequest.description}
-					onChange={(e) => handleEditorChange(e)}
-				/>
-			</div>
+			<MultiTextEditor
+				value={createRequest.description}
+				onChange={(e) => handleEditorChange(e)}
+				type="markdown"
+			/>
 		</div>
 	);
 };
 
-export default GeneralDetail
+export default GeneralDetail;
