@@ -4,7 +4,7 @@ import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequ
 import DetailPlateEditor from "../../DetailPlateEditor";
 import { Input } from "../../shadcn/Input";
 import { Label } from "../../shadcn/Label";
-import MultiTextEditor from "../../MultiTextEditor/MultiTextEditor";
+import MultiTextEditor, { MultiTextEditorOnChange } from "../../MultiTextEditor/MultiTextEditor";
 
 const GeneralDetail = ({
 	createRequest,
@@ -17,9 +17,14 @@ const GeneralDetail = ({
 }) => {
 	// const [editorUpdateCooldown, setEditorUpdateCooldown] = useState(false);
 
-	const handleEditorChange = (value: PlateEditorValueType) => {
+	const handleEditorChange = ({plateValue,
+		markdownValue,
+		type,}: MultiTextEditorOnChange) => {
 		// if (!editorUpdateCooldown) {
-		setCreateRequest({ ...createRequest, description: value });
+		if (type === "plate") {
+        
+            setCreateRequest({ ...createRequest, description: plateValue ||  });
+        }
 
 		// setEditorUpdateCooldown(true);
 		// setTimeout(() => {
@@ -50,7 +55,7 @@ const GeneralDetail = ({
 			<MultiTextEditor
 				value={createRequest.description}
 				onChange={(e) => handleEditorChange(e)}
-				type="markdown"
+				type="plate"
 			/>
 		</div>
 	);
