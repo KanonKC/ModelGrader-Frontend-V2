@@ -96,6 +96,11 @@ export type ProblemServiceAPI = {
 	) => Promise<
 		AxiosResponse<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>
 	>;
+	getV1: (
+		problemId: string
+	) => Promise<
+		AxiosResponse<ProblemPopulateCreatorSecureModel>
+	>;
 	update: (
 		problemId: string,
 		accountId: string,

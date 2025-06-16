@@ -21,7 +21,11 @@ const ViewProblem = () => {
 		useState<GetSubmissionByAccountProblemResponse>()
 
 	useEffect(() => {
-		ProblemService.getPublic(String(problemId)).then((response) => {
+		// ProblemService.getPublic(String(problemId)).then((response) => {
+		// 	setProblem(response.data);
+		// });
+
+		ProblemService.getV1(String(problemId)).then((response) => {
 			setProblem(response.data);
 		});
 

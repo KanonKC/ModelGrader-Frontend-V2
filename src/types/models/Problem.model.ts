@@ -26,6 +26,7 @@ export type ProblemModel = {
     updated_date: string;
     allowed_languages: string
     difficulty: number;
+    pdf_url: string;
 }
 
 export type ProblemSecureModel = {
@@ -39,6 +40,7 @@ export type ProblemSecureModel = {
     allowed_languages: string
     creator: string
     difficulty: number;
+    pdf_url: string;
 }
 
 export type ProblemPopulateCreatorSecureModel = ProblemSecureModel & {

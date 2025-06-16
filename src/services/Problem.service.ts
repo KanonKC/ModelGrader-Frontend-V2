@@ -20,6 +20,14 @@ export const ProblemService: ProblemServiceAPI = {
         return axios.get<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}`);
     },
 
+    getV1: async (problemId) => {
+        return axios.get<ProblemPopulateCreatorSecureModel>(`${BASE_URL}/api/v1/problems/${problemId}`, {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            }
+        });
+    },
+
     update: async (problemId,accountId,request) => {
         return axios.put<ProblemModel>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}`, request);
     },

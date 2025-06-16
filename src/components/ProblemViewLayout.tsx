@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ProgrammingLanguageOptions } from "../constants/ProgrammingLanguage";
 import {
-	ProblemPoplulateCreatorModel,
-	ProblemPopulateCreatorSecureModel,
+  ProblemPoplulateCreatorModel,
+  ProblemPopulateCreatorSecureModel,
 } from "../types/models/Problem.model";
 import {
-	GetSubmissionByAccountProblemResponse,
-	SubmissionPopulateSubmissionTestcasesSecureModel,
+  GetSubmissionByAccountProblemResponse,
+  SubmissionPopulateSubmissionTestcasesSecureModel,
 } from "../types/models/Submission.model";
 import { handleDeprecatedDescription } from "../utilities/HandleDeprecatedDescription";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
@@ -20,244 +20,249 @@ import TestcasesGradingIndicator from "./TestcasesGradingIndicator";
 import { Button } from "./shadcn/Button";
 import { Combobox } from "./shadcn/Combobox";
 import {
-	ResizableHandle,
-	ResizablePanel,
-	ResizablePanelGroup,
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
 } from "./shadcn/Resizable";
 import { Separator } from "./shadcn/Seperator";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 export type OnSubmitProblemViewLayoutCallback = {
-	setGrading: React.Dispatch<React.SetStateAction<boolean>>;
-	setLastedSubmission: React.Dispatch<
-		React.SetStateAction<
-			SubmissionPopulateSubmissionTestcasesSecureModel | undefined
-		>
-	>;
-	selectedLanguage: string;
-	submitCodeValue: string;
+  setGrading: React.Dispatch<React.SetStateAction<boolean>>;
+  setLastedSubmission: React.Dispatch<
+    React.SetStateAction<
+      SubmissionPopulateSubmissionTestcasesSecureModel | undefined
+    >
+  >;
+  selectedLanguage: string;
+  submitCodeValue: string;
 };
 
 const ProblemViewLayout = ({
-	onSubmit,
-	problem,
-	previousSubmissions,
+  onSubmit,
+  problem,
+  previousSubmissions,
 }: {
-	onSubmit: (callback: OnSubmitProblemViewLayoutCallback) => void;
-	problem: ProblemPoplulateCreatorModel | ProblemPopulateCreatorSecureModel;
-	previousSubmissions: GetSubmissionByAccountProblemResponse;
+  onSubmit: (callback: OnSubmitProblemViewLayoutCallback) => void;
+  problem: ProblemPoplulateCreatorModel | ProblemPopulateCreatorSecureModel;
+  previousSubmissions: GetSubmissionByAccountProblemResponse;
 }) => {
-	const navigate = useNavigate();
+  const navigate = useNavigate();
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
-	// const [problem, setProblem] = useState<ProblemPoplulateCreatorModel>();
-	const [selectedLanguage, setSelectedLanguage] = useState("python");
-	const [grading, setGrading] = useState<boolean>(false);
-	const [submitCodeValue, setSubmitCodeValue] = useState<string | undefined>(
-		""
-	);
+  // const [problem, setProblem] = useState<ProblemPoplulateCreatorModel>();
+  const [selectedLanguage, setSelectedLanguage] = useState("python");
+  const [grading, setGrading] = useState<boolean>(false);
+  const [submitCodeValue, setSubmitCodeValue] = useState<string | undefined>(
+    ""
+  );
 
-	// const [previousSubmissions, setPreviousSubmissions] =
-	useState<GetSubmissionByAccountProblemResponse>();
-	const [lastedSubmission, setLastedSubmission] =
-		useState<SubmissionPopulateSubmissionTestcasesSecureModel>();
+  // const [previousSubmissions, setPreviousSubmissions] =
+  useState<GetSubmissionByAccountProblemResponse>();
+  const [lastedSubmission, setLastedSubmission] =
+    useState<SubmissionPopulateSubmissionTestcasesSecureModel>();
 
-	const handleSubmit = () => {
-		onSubmit({
-			setGrading,
-			setLastedSubmission,
-			selectedLanguage,
-			submitCodeValue: submitCodeValue || "",
-		});
-	};
+  const handleSubmit = () => {
+    onSubmit({
+      setGrading,
+      setLastedSubmission,
+      selectedLanguage,
+      submitCodeValue: submitCodeValue || "",
+    });
+  };
 
-	const handleSelectPreviousSubmission = (submissionId: string) => {
-		let submission = null;
-		if (
-			submissionId === previousSubmissions?.best_submission?.submission_id
-		) {
-			submission = previousSubmissions?.best_submission;
-		} else {
-			previousSubmissions?.submissions?.forEach((sub) => {
-				if (sub.submission_id === submissionId) {
-					submission = sub;
-					return;
-				}
-			});
-		}
+  const handleSelectPreviousSubmission = (submissionId: string) => {
+    let submission = null;
+    if (submissionId === previousSubmissions?.best_submission?.submission_id) {
+      submission = previousSubmissions?.best_submission;
+    } else {
+      previousSubmissions?.submissions?.forEach((sub) => {
+        if (sub.submission_id === submissionId) {
+          submission = sub;
+          return;
+        }
+      });
+    }
 
-		if (submission) {
-			setSubmitCodeValue(submission.submission_code);
-			setLastedSubmission(submission);
-			setSelectedLanguage(submission.language);
-		}
-	};
+    if (submission) {
+      setSubmitCodeValue(submission.submission_code);
+      setLastedSubmission(submission);
+      setSelectedLanguage(submission.language);
+    }
+  };
 
-	useEffect(() => {
-		if (problem && problem?.allowed_languages.length > 0) {
-			setSelectedLanguage(
-				ProgrammingLanguageOptions.filter((lang) =>
-					problem?.allowed_languages.includes(lang.value)
-				)[0].value
-			);
-		}
-	}, [problem]);
+  useEffect(() => {
+    if (problem && problem?.allowed_languages.length > 0) {
+      setSelectedLanguage(
+        ProgrammingLanguageOptions.filter((lang) =>
+          problem?.allowed_languages.includes(lang.value)
+        )[0].value
+      );
+    }
+    console.log("problem from view", problem);
+  }, [problem]);
 
-	// useEffect(() => {
+  // useEffect(() => {
 
-	// 	console.log('pb',JSON.parse(
-	// 		handleDeprecatedDescription(
-	// 			String(problem?.description)
-	// 		)
-	// 	))
-	// },[problem])
+  // 	console.log('pb',JSON.parse(
+  // 		handleDeprecatedDescription(
+  // 			String(problem?.description)
+  // 		)
+  // 	))
+  // },[problem])
 
-	return (
-		<ResizablePanelGroup
-			direction="horizontal"
-			className="flex xxl:mt-10 md:mt-5 h-[80vh] xl:h-[90vh]"
-		>
-			<ResizablePanel
-				defaultSize={50}
-				className="w-1/2 grid content-between"
-			>
-				<div className="ml-3 ">
-					<div className="text-3xl text-green-700 font-bold mb-2 flex">
-						<ArrowLeft
-							size={40}
-							className="cursor-pointer mr-2"
-							onClick={() => navigate(-1)}
-						/>
-						{problem?.title}
-					</div>
+  return (
+    <ResizablePanelGroup
+      direction="horizontal"
+      className="flex xxl:mt-10 md:mt-5 h-[80vh] xl:h-[90vh]"
+    >
+      <ResizablePanel defaultSize={50} className="w-1/2 grid content-between">
+        <div className="ml-3 ">
+          <div className="text-3xl text-green-700 font-bold mb-2 flex">
+            <ArrowLeft
+              size={40}
+              className="cursor-pointer mr-2"
+              onClick={() => navigate(-1)}
+            />
+            {problem?.title}
+          </div>
 
-					<div className="flex text-base justify-between">
-						<div className="flex mr-10">
-							<b className="mr-2">Author</b>
-							<p className="">{problem?.creator.username}</p>
-						</div>
+          <div className="flex text-base justify-between">
+            <div className="flex mr-10">
+              <b className="mr-2">Author</b>
+              <p className="">{problem?.creator.username}</p>
+            </div>
 
-						<div className="flex">
-							<b className="mr-2">Updated Date</b>
-							<p className="">
-								{readableDateFormat(
-									String(problem?.updated_date)
-								)}
-							</p>
-						</div>
+            <div className="flex">
+              <b className="mr-2">Updated Date</b>
+              <p className="">
+                {readableDateFormat(String(problem?.updated_date))}
+              </p>
+            </div>
 
-						{/* <div className="flex">
+            {/* <div className="flex">
 							<b className="mr-2">Difficulty</b>
 							<p className="">
 								<DifficultyBadge level={problem?.difficulty}/>
 							</p>
 						</div> */}
-					</div>
-				</div>
-				<div className="mt-[8px] mb-[16px]">
-					<Separator orientation="horizontal" />
-				</div>
-				<div>
-					{problem && (
-						<ReadOnlyPlate
-							value={JSON.parse(
-								handleDeprecatedDescription(
-									String(problem.description)
-								)
-							)}
-							className="h-[65vh] xl:h-[75vh]"
-						/>
-					)}
-				</div>
-			</ResizablePanel>
-			{/* <div className="mx-3">
+          </div>
+        </div>
+        <div className="mt-[8px] mb-[16px]">
+          <Separator orientation="horizontal" />
+        </div>
+        <div>
+          {problem && problem.pdf_url && (
+            // <ReadOnlyPlate
+            // 	value={JSON.parse(
+            // 		handleDeprecatedDescription(
+            // 			String(problem.description)
+            // 		)
+            // 	)}
+            // 	className="h-[65vh] xl:h-[75vh]"
+            // />
+            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.js">
+              <div style={{ height: "70vh" }}>
+                <Viewer
+                  fileUrl={problem.pdf_url}
+                  plugins={[defaultLayoutPluginInstance]}
+                />
+              </div>
+            </Worker>
+          )}
+        </div>
+      </ResizablePanel>
+      {/* <div className="mx-3">
 				<Separator orientation="vertical" />
 			</div> */}
-			<ResizableHandle className="mx-3" />
-			<ResizablePanel defaultSize={50} className="w-1/2 mr-5">
-				<div className="flex justify-between mb-1 items-center">
-					<div className="flex gap-2">
-						<Combobox
-							label="Select Language"
-							options={ProgrammingLanguageOptions.filter((lang) =>
-								problem?.allowed_languages.includes(lang.value)
-							)}
-							onSelect={(value) => setSelectedLanguage(value)}
-							// initialValue={selectedLanguage}
-							value={selectedLanguage}
-							setValue={setSelectedLanguage}
-						/>
-					</div>
-					<div>
-						{lastedSubmission && !grading && (
-							<TestcasesGradingIndicator
-								submissionTestcases={
-									lastedSubmission.runtime_output
-								}
-							/>
-						)}
-						{grading && (
-							<div className="flex items-center">
-								<Loader2 className="animate-spin mr-2 text-green-400" />
-								Grading ...
-							</div>
-						)}
-					</div>
-				</div>
-				<div className="">
-					<MonacoEditorWrapper>
-						<MonacoEditor
-							onChange={(e) => setSubmitCodeValue(e)}
-							value={submitCodeValue}
-							theme="vs-dark"
-							defaultLanguage="python"
-							language={selectedLanguage}
-						/>
-					</MonacoEditorWrapper>
-				</div>
+      <ResizableHandle className="mx-3" />
+      <ResizablePanel defaultSize={50} className="w-1/2 mr-5">
+        <div className="flex justify-between mb-1 items-center">
+          <div className="flex gap-2">
+            <Combobox
+              label="Select Language"
+              options={ProgrammingLanguageOptions.filter((lang) =>
+                problem?.allowed_languages.includes(lang.value)
+              )}
+              onSelect={(value) => setSelectedLanguage(value)}
+              // initialValue={selectedLanguage}
+              value={selectedLanguage}
+              setValue={setSelectedLanguage}
+            />
+          </div>
+          <div>
+            {lastedSubmission && !grading && (
+              <TestcasesGradingIndicator
+                submissionTestcases={lastedSubmission.runtime_output}
+              />
+            )}
+            {grading && (
+              <div className="flex items-center">
+                <Loader2 className="animate-spin mr-2 text-green-400" />
+                Grading ...
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="">
+          <MonacoEditorWrapper>
+            <MonacoEditor
+              onChange={(e) => setSubmitCodeValue(e)}
+              value={submitCodeValue}
+              theme="vs-dark"
+              defaultLanguage="python"
+              language={selectedLanguage}
+            />
+          </MonacoEditorWrapper>
+        </div>
 
-				<div className="flex justify-between mt-1">
-					<PreviousSubmissionsCombobox
-						bestSubmission={
-							previousSubmissions?.best_submission as SubmissionPopulateSubmissionTestcasesSecureModel
-						}
-						submissions={
-							previousSubmissions?.submissions as SubmissionPopulateSubmissionTestcasesSecureModel[]
-						}
-						onSelect={(submissionId) =>
-							handleSelectPreviousSubmission(String(submissionId))
-						}
-					/>
-					<Button
-						disabled={
-							grading ||
-							!submitCodeValue ||
-							ProgrammingLanguageOptions.filter((lang) =>
-								problem?.allowed_languages.includes(lang.value)
-							).length === 0
-						}
-						onClick={handleSubmit}
-						className="px-10"
-					>
-						{grading ? (
-							<>
-								<Loader2 className="animate-spin mr-2" />
-								Submitting
-							</>
-						) : (
-							<>Submit</>
-						)}
-					</Button>
-				</div>
-			</ResizablePanel>
-		</ResizablePanelGroup>
-	);
+        <div className="flex justify-between mt-1">
+          <PreviousSubmissionsCombobox
+            bestSubmission={
+              previousSubmissions?.best_submission as SubmissionPopulateSubmissionTestcasesSecureModel
+            }
+            submissions={
+              previousSubmissions?.submissions as SubmissionPopulateSubmissionTestcasesSecureModel[]
+            }
+            onSelect={(submissionId) =>
+              handleSelectPreviousSubmission(String(submissionId))
+            }
+          />
+          <Button
+            disabled={
+              grading ||
+              !submitCodeValue ||
+              ProgrammingLanguageOptions.filter((lang) =>
+                problem?.allowed_languages.includes(lang.value)
+              ).length === 0
+            }
+            onClick={handleSubmit}
+            className="px-10"
+          >
+            {grading ? (
+              <>
+                <Loader2 className="animate-spin mr-2" />
+                Submitting
+              </>
+            ) : (
+              <>Submit</>
+            )}
+          </Button>
+        </div>
+      </ResizablePanel>
+    </ResizablePanelGroup>
+  );
 };
 
 const MonacoEditorWrapper = styled.div`
-	height: 80vh;
+  height: 80vh;
 
-	@media (max-height: 900px) {
-		height: 75vh;
-	}
+  @media (max-height: 900px) {
+    height: 75vh;
+  }
 `;
 
 export default ProblemViewLayout;
