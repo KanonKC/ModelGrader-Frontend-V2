@@ -1,4 +1,8 @@
-import { SubmissionTestcaseSecureModel } from "../types/models/Submission.model";
+// Simple type for testcase results
+export type TestcaseResult = {
+	runtime_status: string;
+	is_passed: boolean;
+};
 import {
 	HoverCard,
 	HoverCardContent,
@@ -86,7 +90,7 @@ const TestcasesGradingIndicator = ({
 	sizeY = 4,
 	testcaseGradingResultClassName = "",
 }: {
-	submissionTestcases?: SubmissionTestcaseSecureModel[];
+	submissionTestcases?: TestcaseResult[];
 	disableHover?: boolean;
 	className?: string;
 	sizeX?: number;

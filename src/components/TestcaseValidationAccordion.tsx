@@ -1,12 +1,12 @@
 import { FileDown } from "lucide-react";
-import { RuntimeResult } from "../types/apis/Problem.api";
-import { TestcaseModel } from "../types/models/Problem.model";
+import { ProblemModel } from "../types/models/Problem.model";
+import { SubmissionTestcaseModel } from "../types/models/Submission.model";
 import { convertToSnakeCase } from "../utilities/String";
 import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
 } from "./shadcn/Accordion";
 import { Badge } from "./shadcn/Badge";
 import { Label } from "./shadcn/Label";
@@ -175,11 +175,8 @@ const TestcaseValidationAccordian = ({
 	problem,
 	runtimeResults = [],
 }: {
-	problem: {
-		title: string;
-		testcases: TestcaseModel[];
-	};
-	runtimeResults?: RuntimeResult[] | TestcaseModel[];
+	problem: ProblemModel;
+	runtimeResults?: SubmissionTestcaseModel[];
 }) => {
 	return (
 		<Accordion type="multiple">
@@ -192,8 +189,8 @@ const TestcaseValidationAccordian = ({
 					inputValue={result.input}
 					outputValue={result.output}
 					expectedOutputValue={
-						problem.testcases[index]
-							? problem.testcases[index].output
+						problem.testcases?.[index]
+							? problem.testcases?.[index].output
 							: null
 					}
 					status={

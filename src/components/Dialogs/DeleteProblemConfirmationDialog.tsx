@@ -1,6 +1,6 @@
 import React from "react";
 import { ProblemService } from "../../services/Problem.service";
-import { ProblemModel, ProblemPopulateTestcases, ProblemSecureModel } from "../../types/models/Problem.model";
+import { ProblemModel } from "../../types/models/Problem.model";
 import { Button } from "../shadcn/Button";
 import { Dialog, DialogContent } from "../shadcn/Dialog";
 
@@ -10,7 +10,7 @@ const DeleteProblemConfirmationDialog = ({
   problem,
   afterDelete=()=>{}
 }:{
-  problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel,
+  problem: ProblemModel,
   open: boolean,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>,
   afterDelete?: () => void

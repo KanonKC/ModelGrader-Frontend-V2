@@ -4,11 +4,7 @@ import {
 	Trash
 } from "lucide-react";
 import React, { useState } from "react";
-import {
-	ProblemModel,
-	ProblemPopulateTestcases,
-	ProblemSecureModel
-} from "../../../types/models/Problem.model";
+import { ProblemModel } from "../../../types/models/Problem.model";
 import Checkmark from "../../Checkmark";
 import DeleteProblemConfirmationDialog from "../../Dialogs/DeleteProblemConfirmationDialog";
 import { Card } from "../../shadcn/Card";
@@ -27,7 +23,7 @@ const MyProblemContextMenu = ({
 	problem,
 }: {
 	children: React.ReactNode;
-	problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
+	problem: ProblemModel;
 }) => {
 	const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
@@ -60,7 +56,7 @@ const MyProblemMiniCard = ({
 	disabledHighlight=false,
 	onClick=()=>{}
 }: {
-	problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
+	problem: ProblemModel;
 	disabled?: boolean;
 	disabledHighlight?: boolean;
 	onClick?: () => void;
@@ -116,15 +112,15 @@ const MyProblemMiniCard = ({
 
 						<div className="flex gap-1 text-sm font-medium self-center">
                             <Tooltip>
-                                <TooltipTrigger><Checkmark variant="circle" status/></TooltipTrigger>
+                                <TooltipTrigger><Checkmark variant="circle" status={problem.has_source_code}/></TooltipTrigger>
                                 <TooltipContent>Source Code</TooltipContent>
                             </Tooltip>
                             <Tooltip>
-                                <TooltipTrigger><Checkmark variant="circle" status={false}/></TooltipTrigger>
+                                <TooltipTrigger><Checkmark variant="circle" status={problem.testcase_count > 0}/></TooltipTrigger>
                                 <TooltipContent>Testcase</TooltipContent>
                             </Tooltip>
                             <Tooltip>
-                                <TooltipTrigger><Checkmark variant="circle" status/></TooltipTrigger>
+                                <TooltipTrigger><Checkmark variant="circle" status={problem.no_runtime_error}/></TooltipTrigger>
                                 <TooltipContent>No Runtime Error</TooltipContent>
                             </Tooltip>
 						

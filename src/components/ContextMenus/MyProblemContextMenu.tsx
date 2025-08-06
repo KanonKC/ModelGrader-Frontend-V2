@@ -3,11 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProblemService } from "../../services/Problem.service";
 import { transformCreateProblemRequestForm2CreateProblemRequest } from "../../types/adapters/CreateProblemRequestForm.adapter";
-import {
-	ProblemModel,
-	ProblemPopulateTestcases,
-	ProblemSecureModel,
-} from "../../types/models/Problem.model";
+import { ProblemModel } from "../../types/models/Problem.model";
 import DeleteProblemConfirmationDialog from "../Dialogs/DeleteProblemConfirmationDialog";
 import {
 	ContextMenu,
@@ -17,14 +13,14 @@ import {
 	ContextMenuTrigger,
 } from "../shadcn/ContextMenu";
 import { toast } from "../shadcn/UseToast";
-import { transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm } from "./../../types/adapters/Problem.adapter";
+import { transformProblemModel2CreateProblemRequestForm } from "./../../types/adapters/Problem.adapter";
 
 const MyProblemContextMenu = ({
 	children,
 	problem,
 }: {
 	children: React.ReactNode;
-	problem: ProblemModel | ProblemPopulateTestcases | ProblemSecureModel;
+	problem: ProblemModel;
 }) => {
 	const accountId = String(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
@@ -36,7 +32,7 @@ const MyProblemContextMenu = ({
 			problem.problem_id
 		);
 
-		const createRequest = transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm(
+		const createRequest = transformProblemModel2CreateProblemRequestForm(
 			response.data
 		)
 

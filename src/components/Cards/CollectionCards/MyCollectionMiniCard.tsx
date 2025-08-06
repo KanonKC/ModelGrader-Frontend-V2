@@ -3,8 +3,9 @@ import {
 	Folder
 } from "lucide-react";
 import { useState } from "react";
-import { CollectionPopulateProblemSecureModel } from "../../../types/models/Collection.model";
+import { CollectionModel } from "../../../types/models/Collection.model";
 import { Card } from "../../shadcn/Card";
+import { ProblemModel } from "../../../types/models/Problem.model";
 
 
 
@@ -13,13 +14,15 @@ const MyCollectionMiniCard = ({
     collection,
 	disabled=false,
 	disabledHighlight=false,
+    problemList=[],
 	onClick=()=>{}
 }: {
 	// problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
-    collection:CollectionPopulateProblemSecureModel
+    collection:CollectionModel
 	disabled?: boolean;
 	disabledHighlight?: boolean;
 	onClick?: () => void;
+    problemList?: ProblemModel[]
 }) => {
 
 	const [highlightTitle, setHighlightTitle] = useState(false);
@@ -73,7 +76,7 @@ const MyCollectionMiniCard = ({
 						<div className="flex gap-1 text-sm font-medium self-center">
                             <div className="flex">
                                 <FileSpreadsheet className="text-blue-400 mr-2" />
-                                <p>Problems ({collection.problems.length})</p>
+                                <p>Problems ({problemList.length})</p>
                             </div>
 						
 						</div>

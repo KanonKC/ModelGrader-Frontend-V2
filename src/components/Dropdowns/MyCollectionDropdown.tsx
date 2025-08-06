@@ -33,7 +33,7 @@ const MyCollectionDropdown = ({
 			accountId
 		);
 
-		let createRequest =
+		const createRequest =
 			transformCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel2CreateCollectionRequest(
 				response.data
 			);
@@ -60,7 +60,7 @@ const MyCollectionDropdown = ({
 				);
 			})
 			.then((response) => {
-				let promise = [];
+				const promise = [];
 				for (const problem of problemGroupPermissions) {
 					promise.push(
 						ProblemService.updateGroupPermissions(

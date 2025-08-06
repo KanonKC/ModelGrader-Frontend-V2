@@ -1,6 +1,13 @@
 import { FileSpreadsheet, LibraryBig, StepForward } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { SubmissionPopulateSubmissionTestcaseAndProblemSecureModel } from "../../types/models/Submission.model";
+import { SubmissionModel } from "../../types/models/Submission.model";
+import { ProblemModel } from "../../types/models/Problem.model";
+import { TopicModel } from "../../types/models/Topic.model";
+
+export type SubmissionWithProblemAndTopic = SubmissionModel & {
+	problem: ProblemModel;
+	topic: TopicModel | null;
+};
 import { readableDateFormat } from "../../utilities/ReadableDateFormat";
 import TestcasesGradingIndicator from "../TestcasesGradingIndicator";
 import { Button } from "../shadcn/Button";
@@ -9,7 +16,7 @@ import { Card } from "../shadcn/Card";
 const SubmissionCard = ({
 	submission,
 }: {
-	submission: SubmissionPopulateSubmissionTestcaseAndProblemSecureModel;
+	submission: SubmissionWithProblemAndTopic;
 }) => {
 
     const navigate = useNavigate()

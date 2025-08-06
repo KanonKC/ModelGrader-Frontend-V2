@@ -1,16 +1,19 @@
 import { Folder, LibraryBig } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TopicPopulateTopicCollectionPopulateCollectionModel } from "../../../types/models/Topic.model";
+import { TopicModel } from "../../../types/models/Topic.model";
 import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
 import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
 import MyCourseContextMenu from "../../ContextMenus/MyCourseContextMenu";
 import { Card, CardContent } from "../../shadcn/Card";
+import { CollectionModel } from "../../../types/models/Collection.model";
 
 const MyCourseCard = ({
 	course,
+    collectionList=[]
 }: {
-	course: TopicPopulateTopicCollectionPopulateCollectionModel;
+	course: TopicModel;
+    collectionList?: CollectionModel[];
 }) => {
 	const navigate = useNavigate();
 	const [mouseOver, setMouseOver] = useState(false);
@@ -69,7 +72,7 @@ const MyCourseCard = ({
 						<div className="w-1/6 self-center">
 							<p className="flex items-center">
 								<Folder className="text-yellow-400 mr-2" />
-								Collections ({course.collections.length})
+								Collections ({collectionList.length})
 							</p>
 						</div>
 					</div>

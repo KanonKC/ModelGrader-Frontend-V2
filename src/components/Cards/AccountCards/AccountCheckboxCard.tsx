@@ -1,7 +1,7 @@
 import React from "react";
-import { AccountSecureModel } from "../../../types/models/Account.model";
 import { Card } from "../../shadcn/Card";
 import { Checkbox } from "../../shadcn/Checkbox";
+import { AccountModel } from "../../../types/models/Account.model";
 
 export type AccountCheckboxCardOnClickCallback = {
 	checked: boolean;
@@ -13,7 +13,7 @@ const AccountCheckboxCard = ({
 	checked=false,
     onClick=()=>{}
 }: {
-	account: AccountSecureModel;
+	account: AccountModel;
 	checked?: boolean;
     onClick?: () => void;
 }) => {

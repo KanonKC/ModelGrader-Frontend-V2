@@ -1,8 +1,8 @@
 import { ItemInterface } from "react-sortablejs";
 import { PlateEditorValueType } from "../PlateEditorValueType";
-import { CollectionPopulateCollectionProblemsPopulateProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupAndCollectionGroupPermissionsPopulateGroupModel } from "../models/Collection.model";
+import { CollectionModel } from "../models/Collection.model";
 import { GroupModel } from "../models/Group.model";
-import { ProblemPopulateTestcases } from "../models/Problem.model";
+import { ProblemModel } from "../models/Problem.model";
 import { CollectionPermissionRequestForm } from "./CreateGroupRequestForm";
 import { ProblemGroupPermissionRequestForm } from "./CreateProblemRequestForm";
 
@@ -12,7 +12,7 @@ export type CollectionGroupPermissionRequestForm = {
 } & CollectionPermissionRequestForm
 
 export type ProblemItemInterface = ItemInterface & {
-    problem: ProblemPopulateTestcases;
+    problem: ProblemModel;
     groupPermissions: ProblemGroupPermissionRequestForm[];
 }
 
@@ -21,5 +21,5 @@ export type CreateCollectionRequestForm = {
     description: PlateEditorValueType;
     problemsInterface: ProblemItemInterface[];
     groupPermissions: CollectionGroupPermissionRequestForm[];
-    collection: null | CollectionPopulateCollectionProblemsPopulateProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupAndCollectionGroupPermissionsPopulateGroupModel;
+    collection: CollectionModel | null;
 }

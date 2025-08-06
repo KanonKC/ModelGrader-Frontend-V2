@@ -33,7 +33,7 @@ const MyCourseContextMenu = ({
 			course.topic_id
 		);
 
-		let createRequest =
+		const createRequest =
 			transformTopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel2CreateCourseRequest(
 				response.data
 			);
@@ -60,7 +60,7 @@ const MyCourseContextMenu = ({
 				);
 			})
 			.then((response) => {
-				let promise = [];
+				const promise = [];
 				for (const collection of collectionGroupsPermissions) {
 					promise.push(
 						CollectionService.updateGroupPermissions(

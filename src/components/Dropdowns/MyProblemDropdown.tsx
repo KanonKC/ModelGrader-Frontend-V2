@@ -3,12 +3,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProblemService } from "../../services/Problem.service";
 import { transformCreateProblemRequestForm2CreateProblemRequest } from "../../types/adapters/CreateProblemRequestForm.adapter";
-import { transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm } from "../../types/adapters/Problem.adapter";
-import {
-    ProblemModel,
-    ProblemPopulateTestcases,
-    ProblemSecureModel,
-} from "../../types/models/Problem.model";
+import { transformProblemModel2CreateProblemRequestForm } from "../../types/adapters/Problem.adapter";
+import { ProblemModel } from "../../types/models/Problem.model";
 import DeleteProblemConfirmationDialog from "../Dialogs/DeleteProblemConfirmationDialog";
 import {
     DropdownMenu,
@@ -24,7 +20,7 @@ const MyProblemDropdown = ({
 	problem,
 }: {
 	children: React.ReactNode;
-	problem: ProblemModel | ProblemPopulateTestcases | ProblemSecureModel;
+	problem: ProblemModel;
 }) => {
 	const accountId = String(localStorage.getItem("account_id"));
 	const navigate = useNavigate();
@@ -37,7 +33,7 @@ const MyProblemDropdown = ({
 		);
 
 		const createRequest =
-			transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm(
+			transformProblemModel2CreateProblemRequestForm(
 				response.data
 			);
 

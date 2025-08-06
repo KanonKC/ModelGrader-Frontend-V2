@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLanguage";
-import { ProblemPopulateTestcases } from "../../../types/models/Problem.model";
+import { ProblemModel } from "../../../types/models/Problem.model";
 import { checkRuntimeStatus } from "../../../utilities/CheckRuntimeStatus";
 import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
 import MyProblemDropdown from "../../Dropdowns/MyProblemDropdown";
@@ -23,7 +23,7 @@ import {
 } from "../../shadcn/HoverCard";
 import { Badge } from "../../shadcn/Badge";
 
-const columns: ColumnDef<ProblemPopulateTestcases>[] = [
+const columns: ColumnDef<ProblemModel>[] = [
 	{
 		accessorKey: "title",
 		header: ({ column }) => (
@@ -75,7 +75,7 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 		header: "Testcases",
 		cell: ({ row }) => (
 			<div className="font-medium">
-				{row.original.testcases.length === 0 ? (
+				{row.original.testcases?.length === 0 ? (
 					<Tally5
 						className="inline-block text-red-400 mr-2"
 						size={20}
@@ -86,7 +86,7 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 						size={20}
 					/>
 				)}
-				{row.original.testcases.length}
+				{row.original.testcases?.length}
 			</div>
 		),
 	},
@@ -111,7 +111,7 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 		cell: ({ row }) => {
 			return (
 				<div className="flex justify-center">
-					{checkRuntimeStatus(row.original.testcases) ? (
+					{checkRuntimeStatus(row.original.testcases || []) ? (
 						<Check className="text-green-500" />
 					) : (
 						<X className="text-red-500" />
@@ -251,7 +251,7 @@ const columns: ColumnDef<ProblemPopulateTestcases>[] = [
 const MyProblemsTable = ({
 	problems,
 }: {
-	problems: ProblemPopulateTestcases[];
+	problems: ProblemModel[];
 }) => {
 	return (
 		<div>

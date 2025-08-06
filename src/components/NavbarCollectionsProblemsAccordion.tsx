@@ -2,8 +2,14 @@ import { FileCheck, FileSpreadsheet, Folder } from "lucide-react";
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CourseNavSidebarContext } from "../contexts/CourseNavSidebarContexnt";
-import { ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Problem.model";
-import { TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Topic.model";
+import { ProblemModel } from "../types/models/Problem.model";
+import { CollectionModel } from "../types/models/Collection.model";
+
+// Simplified types for navigation
+export type NavbarCollectionWithProblems = {
+	collection: CollectionModel;
+	problems: ProblemModel[];
+};
 import {
 	Accordion,
 	AccordionContent,
@@ -16,7 +22,7 @@ import { onMiddleClickOpenInNewTab } from "../utilities/OnMiddleClickOpenInNewTa
 const NavbarCollectionProblemCard = ({
 	problem
 }:{
-	problem: ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel
+	problem: ProblemModel
 }) => {
 
 	const {courseId,problemId} = useParams()
@@ -59,7 +65,7 @@ const NavbarCollectionProblemCard = ({
 const NavbarCollectionsProblemsAccordion = ({
 	collections,
 }: {
-	collections: TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[];
+	collections: NavbarCollectionWithProblems[];
 }) => {
 
 	const {
@@ -91,7 +97,7 @@ const NavbarCollectionsProblemsAccordion = ({
 
 	return (
 		<Accordion type="multiple" value={recentOpenCollection}>
-			{collections?.map((topicCollection,index) => (
+			{collections?.map((collectionWithProblems, index) => (
 				<AccordionItem value={String(index)} className="">
 					<AccordionTrigger onClick={() => handleAccordionTrigger(index)} className="py-0 p-3">
 						<Tooltip>
@@ -101,19 +107,18 @@ const NavbarCollectionsProblemsAccordion = ({
 								size={18}
 								className="text-yellow-400 mr-2"
 							/>
-							<p className="w-5/6 line-clamp-1 text-left">{topicCollection.collection.name}</p>
+							<p className="w-5/6 line-clamp-1 text-left">{collectionWithProblems.collection.name}</p>
 						</div>
 							</TooltipTrigger>
 							<TooltipContent>
-								{topicCollection.collection.name}
+								{collectionWithProblems.collection.name}
 							</TooltipContent>
 						</Tooltip>
 					</AccordionTrigger>
 					<AccordionContent>
 						<div className="ml-5 w-[80%] grid gap-y-1">
-							{topicCollection.collection.problems.map((collectionProblem) => (
-
-								<NavbarCollectionProblemCard problem={collectionProblem.problem}/>
+							{collectionWithProblems.problems.map((problem) => (
+								<NavbarCollectionProblemCard key={problem.problem_id} problem={problem}/>
 							))}
 							
 						</div>

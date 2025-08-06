@@ -1,9 +1,6 @@
 import { FileSpreadsheet, Pencil, X } from "lucide-react";
 import { useState } from "react";
-import {
-    ProblemModel,
-    ProblemPopulateTestcases,
-} from "../../../types/models/Problem.model";
+import { ProblemModel } from "../../../types/models/Problem.model";
 import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
 import MyProblemContextMenu from "../../ContextMenus/MyProblemContextMenu";
 import { Card } from "../../shadcn/Card";
@@ -16,7 +13,7 @@ const MyProblemMiniCard2 = ({
 	onClickPencilIcon,
 	onClickXIcon,
 }: {
-	problem: ProblemPopulateTestcases | ProblemModel;
+	problem: ProblemModel;
 	disabled?: boolean;
 	disabledHighlight?: boolean;
 	onClick?: () => void;

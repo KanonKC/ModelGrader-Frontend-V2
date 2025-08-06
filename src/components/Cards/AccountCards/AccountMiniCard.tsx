@@ -2,7 +2,7 @@ import {
 	User
 } from "lucide-react";
 import { useState } from "react";
-import { AccountModel, AccountSecureModel } from "../../../types/models/Account.model";
+import { AccountModel } from "../../../types/models/Account.model";
 import { Card } from "../../shadcn/Card";
 
 const AccountMiniCard = ({
@@ -13,7 +13,7 @@ const AccountMiniCard = ({
 	onClick=()=>{}
 }: {
 	// problem: ProblemPopulateTestcases | ProblemSecureModel | ProblemModel;
-    account: AccountModel | AccountSecureModel;
+    account: AccountModel;
 	disabled?: boolean;
 	disabledHighlight?: boolean;
 	onClick?: () => void;

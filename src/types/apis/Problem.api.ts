@@ -1,12 +1,6 @@
 import { AxiosResponse } from "axios";
 import { GroupModel, ProblemGroupPermissionModel } from "../models/Group.model";
-import {
-	ProblemModel,
-	ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel,
-	ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel,
-	ProblemPopulateCreatorSecureModel,
-	ProblemPopulateTestcases,
-} from "../models/Problem.model";
+import { ProblemModel } from "../models/Problem.model";
 
 export type CreateProblemRequest = {
 	title: string;
@@ -32,8 +26,8 @@ export type GetAllProblemsByAccountResponse = {
 	end: number;
 	total_personal_problems: number;
 	total_manageable_problems: number;
-	problems: ProblemPopulateTestcases[];
-	manageable_problems: ProblemPopulateTestcases[];
+	problems: ProblemModel[];
+	manageable_problems: ProblemModel[];
 };
 
 export type ValidateProgramRequest = {
@@ -64,7 +58,7 @@ export type GetAllProblemsQuery = {
 };
 
 export type GetAllProblemsResponse = {
-	problems: ProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[];
+	problems: ProblemModel[];
 };
 
 export type ProblemGroupPermissionCreateRequest = {
@@ -93,9 +87,7 @@ export type ProblemServiceAPI = {
 	get: (
 		accountId: string,
 		problemId: string
-	) => Promise<
-		AxiosResponse<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>
-	>;
+	) => Promise<AxiosResponse<ProblemModel>>;
 	update: (
 		problemId: string,
 		accountId: string,
@@ -110,13 +102,11 @@ export type ProblemServiceAPI = {
 		problemId: string,
 		accountId: string,
 		groups: ProblemGroupPermissionCreateRequest[]
-	) => Promise<
-		AxiosResponse<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>
-	>;
+	) => Promise<AxiosResponse<ProblemModel>>;
 	validateProgram: (
 		request: ValidateProgramRequest
 	) => Promise<AxiosResponse<ValidateProgramResponse>>;
 	getPublic: (
 		problemId: string
-	) => Promise<AxiosResponse<ProblemPopulateCreatorSecureModel>>;
+	) => Promise<AxiosResponse<ProblemModel>>;
 };

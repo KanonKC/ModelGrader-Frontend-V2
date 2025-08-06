@@ -3,10 +3,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-	ProblemPopulateTestcases,
-	TestcaseModel
-} from "../../../types/models/Problem.model";
+import { ProblemModel, TestcaseModel } from "../../../types/models/Problem.model";
 import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
 import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
 import Checkmark from "../../Checkmark";
@@ -23,7 +20,7 @@ const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
 };
 
 
-const MyProblemCard = ({ problem }: { problem: ProblemPopulateTestcases }) => {
+const MyProblemCard = ({ problem, testcaseList=[] }: { problem: ProblemModel, testcaseList?: TestcaseModel[] }) => {
 	const navigate = useNavigate();
 
 	const [highlightTitle, setHighlightTitle] = useState(false);
@@ -100,11 +97,11 @@ const MyProblemCard = ({ problem }: { problem: ProblemPopulateTestcases }) => {
 								Source Code
 							</div>
 							<div className="flex items-center">
-								<Checkmark status={problem.testcases.length !== 0} />
-								Testcases ({problem.testcases.length})
+								<Checkmark status={testcaseList.length !== 0} />
+								Testcases ({testcaseList.length})
 							</div>
 							<div className="flex items-center">
-								<Checkmark status={checkRuntimeStatus(problem.testcases)} />
+								<Checkmark status={checkRuntimeStatus(testcaseList)} />
 								No Runtime Error
 							</div>
 						</div>

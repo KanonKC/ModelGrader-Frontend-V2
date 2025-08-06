@@ -2,7 +2,14 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Check, LibraryBig, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ProgrammingLanguageOptions } from "../../constants/ProgrammingLanguage";
-import { SubmissionPopulateSubmissionTestcaseAndProblemSecureModel } from "../../types/models/Submission.model";
+import { SubmissionModel } from "../../types/models/Submission.model";
+import { ProblemModel } from "../../types/models/Problem.model";
+import { TopicModel } from "../../types/models/Topic.model";
+
+export type SubmissionWithProblemAndTopic = SubmissionModel & {
+	problem: ProblemModel;
+	topic: TopicModel | null;
+};
 import { readableDateFormat } from "../../utilities/ReadableDateFormat";
 import TestcasesGradingIndicator from "../TestcasesGradingIndicator";
 import { DataTable } from "./Prototype/DataTable";
@@ -10,9 +17,9 @@ import { DataTable } from "./Prototype/DataTable";
 const MyPreviousSubmissionsTable = ({
 	submissions = [],
 }: {
-	submissions?: SubmissionPopulateSubmissionTestcaseAndProblemSecureModel[];
+	submissions?: SubmissionWithProblemAndTopic[];
 }) => {
-	const columns: ColumnDef<SubmissionPopulateSubmissionTestcaseAndProblemSecureModel>[] =
+	const columns: ColumnDef<SubmissionWithProblemAndTopic>[] =
 		[
 			{
 				accessorKey: "problem",

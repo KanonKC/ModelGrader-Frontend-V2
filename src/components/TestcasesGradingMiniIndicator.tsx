@@ -1,5 +1,9 @@
 import { TestcaseStatusIndicatorColor } from '../constants/TestcaseStatusIndicatorColor';
-import { SubmissionTestcaseSecureModel } from '../types/models/Submission.model';
+// Simple type for testcase results
+export type TestcaseResult = {
+	runtime_status: string;
+	is_passed: boolean;
+};
 
 const TestcaseGradingMiniResult = ({
 	status,
@@ -20,7 +24,7 @@ const TestcaseGradingMiniResult = ({
 const TestcasesGradingMiniIndicator = ({
 	submissionTestcases,
 }: {
-	submissionTestcases?: SubmissionTestcaseSecureModel[];
+	submissionTestcases?: TestcaseResult[];
 }) => {
 	return (
 		<div className="flex gap-0.5 items-center">

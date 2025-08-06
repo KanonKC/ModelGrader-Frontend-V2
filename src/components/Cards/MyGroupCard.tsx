@@ -1,7 +1,7 @@
 import { User, Users } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GroupPopulateGroupMemberPopulateAccountSecureModel } from "../../types/models/Group.model";
+import { GroupModel } from "../../types/models/Group.model";
 import { onMiddleClickOpenInNewTab } from "../../utilities/OnMiddleClickOpenInNewTab";
 import { readableDateFormat } from "../../utilities/ReadableDateFormat";
 import { Card, CardContent } from "../shadcn/Card";
@@ -9,7 +9,7 @@ import { Card, CardContent } from "../shadcn/Card";
 const MyGroupCard = ({
     group
 }: {
-    group: GroupPopulateGroupMemberPopulateAccountSecureModel;
+    group: GroupModel;
 }) => {
 	const navigate = useNavigate();
 	const [mouseOver, setMouseOver] = useState(false);

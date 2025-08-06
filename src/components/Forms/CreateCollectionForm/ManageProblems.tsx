@@ -126,7 +126,7 @@ const ManageProblems = ({
 			setAllProblems({
 				...allProblems,
 				...transformProblemModel2ProblemHashedTable(
-					createRequest.collection.problems.map((cp) => cp.problem)
+					createRequest.collection.problems
 				),
 			});
 		}
