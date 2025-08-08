@@ -30,16 +30,20 @@ const GeneralDetail = ({
 		console.log("General Detail",createRequest)
 	},[createRequest])
 
-	const [viewMode, setViewMode] = useState("Plate");
+	const [viewMode, setViewMode] = useState("plate");
+
+	useEffect(()=>{
+		setCreateRequest({ ...createRequest, view_mode: viewMode });
+	}, [viewMode])
 
 	const viewList = [
 		{
-			value: "Plate",
-			label: "Plate Mode",
+			value: "plate",
+			label: "Plate",
 		},
 		{
 			value: "PDF",
-			label: "PDF mode",
+			label: "PDF",
 		}
 	];
 
@@ -58,25 +62,30 @@ const GeneralDetail = ({
 					</Tabs>
 				</div>
 			</div>
-			<Label>Title</Label>
-			<Input
-				value={createRequest.title}
-				onChange={(e) =>
-					setCreateRequest({
-						...createRequest,
-						title: e.target.value,
-					})
-				}
-				type="text"
-			/>
+			
+			{(viewMode == "plate") && (
+				<div>
+					<Label>Title</Label>
+					<Input
+						value={createRequest.title}
+						onChange={(e) =>
+						setCreateRequest({
+							...createRequest,
+							title: e.target.value,
+						})
+						}
+						type="text"
+						/>
 
-			<Label>Detail</Label>
-			<div className="rounded-lg border bg-background shadow">
-				<DetailPlateEditor
-					value={createRequest.description}
-					onChange={(e) => handleEditorChange(e)}
-				/>
-			</div>
+					<Label>Detail</Label>
+					<div className="rounded-lg border bg-background shadow">
+					<DetailPlateEditor
+						value={createRequest.description}
+						onChange={(e) => handleEditorChange(e)}
+					/>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };
