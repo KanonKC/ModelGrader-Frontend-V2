@@ -25,6 +25,7 @@ const formInitialValue: CreateProblemRequestForm = {
 	time_limit: 1.5,
 	groupPermissions: [],
 	allowedLanguage: [],
+	view_mode: "",
 };
 
 const CreateProblem = () => {
