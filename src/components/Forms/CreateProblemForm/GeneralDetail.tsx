@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { PlateEditorValueType } from '../../../types/PlateEditorValueType';
 import { CreateProblemRequestForm } from '../../../types/forms/CreateProblemRequestForm';
 import DetailPlateEditor from '../../DetailPlateEditor';
@@ -30,11 +30,9 @@ const GeneralDetail = ({
 		console.log("General Detail",createRequest)
 	},[createRequest])
 
-	const [viewMode, setViewMode] = useState("plate");
-
-	useEffect(()=>{
-		setCreateRequest({ ...createRequest, view_mode: viewMode });
-	}, [viewMode])
+	const handleViewModeChange = (value: string) => (
+		setCreateRequest({ ...createRequest, view_mode: value })
+	);
 
 	const viewList = [
 		{
@@ -51,7 +49,7 @@ const GeneralDetail = ({
 		<div>
 			<div className="flex justify-between">
 				<div className='flex'>
-					<Tabs value={viewMode} onValueChange={(value) => setViewMode(value)}>
+					<Tabs value={createRequest.view_mode} onValueChange={(value) => (handleViewModeChange(value))}>
   						<TabsList>
     						{viewList.map((tab) => (
       							<TabsTrigger key={tab.value} value={tab.value}>
@@ -63,7 +61,7 @@ const GeneralDetail = ({
 				</div>
 			</div>
 			
-			{(viewMode == "plate") && (
+			{(createRequest.view_mode == "plate") && (
 				<div>
 					<Label>Title</Label>
 					<Input
