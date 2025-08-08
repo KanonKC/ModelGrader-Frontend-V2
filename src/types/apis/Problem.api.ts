@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { GroupModel, ProblemGroupPermissionModel } from "../models/Group.model";
 import { ProblemModel } from "../models/Problem.model";
+import { SubmissionTestcaseModel } from "../models/Submission.model";
 
 export type CreateProblemRequest = {
 	title: string;
@@ -47,7 +48,7 @@ export type ValidateProgramResponse = {
 	runnable: boolean;
 	has_error: boolean;
 	has_timeout: boolean;
-	runtime_results: RuntimeResult[];
+	runtime_results: SubmissionTestcaseModel[];
 };
 
 export type GetAllProblemsQuery = {

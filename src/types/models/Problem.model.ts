@@ -15,20 +15,20 @@ export type ProblemModel = {
     title: string
     description: string | null
     time_limit: number
-    created_date: string;
-    updated_date: string;
-    allowed_languages: string
+    created_date?: string;
+    updated_date?: string;
+    allowed_languages?: string
     solution: string
-    creator: AccountModel
-    difficulty: number;
+    creator?: AccountModel
+    difficulty?: number;
     is_active?: boolean
     is_private?: boolean
     submission_regex?: string
     testcases?: TestcaseModel[]
     best_submission?: SubmissionModel | null
-    has_source_code: boolean
-    testcase_count: number
-    no_runtime_error: boolean
+    has_source_code?: boolean
+    testcase_count?: number
+    no_runtime_error?: boolean
 }
 
 export type ProblemHashedTable = {

@@ -9,7 +9,7 @@ export type CollectionModel = {
 	is_private: boolean;
 	created_date: string;
 	updated_date: string;
-    problems: ProblemModel[];
+    problems: CollectionProblemModel[];
 };
 
 // export type CollectionPopulateProblemSecureModel = CollectionModel & {
@@ -20,22 +20,22 @@ export type CollectionModel = {
 // 	problems: CollectionProblemPopulateProblemSecureModel[];
 // };
 
-// export type CollectionCreateRequest = {
-// 	name: string;
-// 	description?: string;
-// };
+export type CollectionCreateRequest = {
+	name: string;
+	description?: string;
+};
 
-// export type CollectionUpdateRequest = {
-// 	name?: string;
-// 	description?: string;
-// };
+export type CollectionUpdateRequest = {
+	name?: string;
+	description?: string;
+};
 
-// export type CollectionProblemPopulateProblemModel = {
-// 	id: string;
-// 	problem: ProblemModel;
-// 	order: number;
-// 	collection: number;
-// };
+export type CollectionProblemModel = {
+	id: string;
+	problem: ProblemModel;
+	order: number;
+	collection: number;
+};
 
 // export type CollectionProblemPopulateProblemSecureModel = {
 // 	id: string;
@@ -44,11 +44,11 @@ export type CollectionModel = {
 // 	collection: number;
 // };
 
-// export type CollectionHashedTable = {
-// 	[
-// 		collection_id: string
-// 	]: CollectionPopulateCollectionProblemPopulateProblemModel;
-// };
+export type CollectionHashedTable = {
+	[
+		collection_id: string
+	]: CollectionModel;
+};
 
 // export type CollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel =
 // 	{

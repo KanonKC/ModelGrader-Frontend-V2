@@ -63,14 +63,14 @@ const MyProblemCard = ({ problem, testcaseList=[] }: { problem: ProblemModel, te
 							<div>
 								<p className="">Lasted Updated</p>
 								<p className="text-gray-400">
-									{readableDateFormat(problem.updated_date)}
+									{readableDateFormat(problem.updated_date!)}
 								</p>
 							</div>
 
 							<div>
 								<p className="">Created Date</p>
 								<p className="text-gray-400">
-									{readableDateFormat(problem.created_date)}
+									{readableDateFormat(problem.created_date!)}
 								</p>
 							</div>
 						</div>

@@ -30,14 +30,16 @@ export function transformCreateCollectionRequestForm2CreateCollectionRequestForm
 	}));
 
 	const problemGroupPermissions =
-		createRequest.problemsInterface.map((cp) => ({
-			problem_id: cp.problem.problem_id,
-			groupPermissions: cp.groupPermissions.map((gp) => ({
-				group_id: gp.group.group_id,
-				permission_manage_problems: gp.manageProblems,
-				permission_view_problems: gp.viewProblems,
-			})),
-		})) ?? [];
+		createRequest.problemsInterface
+			.filter((cp) => cp.problem.problem_id)
+			.map((cp) => ({
+				problem_id: cp.problem.problem_id || "",
+				groupPermissions: cp.groupPermissions.map((gp) => ({
+					group_id: gp.group.group_id,
+					permission_manage_problems: gp.manageProblems,
+					permission_view_problems: gp.viewProblems,
+				})),
+			})) ?? [];
 
 	return { request, problemIds, groups, problemGroupPermissions };
 }

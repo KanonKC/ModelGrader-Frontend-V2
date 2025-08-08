@@ -112,15 +112,15 @@ const MyProblemMiniCard = ({
 
 						<div className="flex gap-1 text-sm font-medium self-center">
                             <Tooltip>
-                                <TooltipTrigger><Checkmark variant="circle" status={problem.has_source_code}/></TooltipTrigger>
+                                <TooltipTrigger><Checkmark variant="circle" status={!!problem.has_source_code}/></TooltipTrigger>
                                 <TooltipContent>Source Code</TooltipContent>
                             </Tooltip>
                             <Tooltip>
-                                <TooltipTrigger><Checkmark variant="circle" status={problem.testcase_count > 0}/></TooltipTrigger>
+                                <TooltipTrigger><Checkmark variant="circle" status={(problem.testcase_count || 0) > 0}/></TooltipTrigger>
                                 <TooltipContent>Testcase</TooltipContent>
                             </Tooltip>
                             <Tooltip>
-                                <TooltipTrigger><Checkmark variant="circle" status={problem.no_runtime_error}/></TooltipTrigger>
+                                <TooltipTrigger><Checkmark variant="circle" status={!!problem.no_runtime_error}/></TooltipTrigger>
                                 <TooltipContent>No Runtime Error</TooltipContent>
                             </Tooltip>
 						

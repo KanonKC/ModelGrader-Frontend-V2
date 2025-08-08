@@ -12,14 +12,14 @@ export function transformProblemModel2CreateProblemRequestForm(problem: ProblemM
         testcase_delimeter: ":::",
         time_limit: problem.time_limit,
         groupPermissions: [], // Will need to be populated separately
-        allowedLanguage: problem.allowed_languages.split(",")
+        allowedLanguage: problem.allowed_languages?.split(",") || []
     }
 }
 
 export function transformProblemModel2ProblemHashedTable(problems: ProblemModel[]): ProblemHashedTable {
     const result:ProblemHashedTable = {}
     for (const problem of problems) {
-        result[problem.problem_id] = problem
+        result[problem.problem_id || ""] = problem
     }
     return result
 }

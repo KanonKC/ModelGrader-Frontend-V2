@@ -1,10 +1,10 @@
 import { ItemInterface } from "react-sortablejs";
 import { PlateEditorValueType } from "../PlateEditorValueType";
-import { CollectionPopulateCollectionProblemPopulateProblemModel, CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel } from "../models/Collection.model";
 import { GroupModel } from "../models/Group.model";
-import { TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel } from "../models/Topic.model";
+import { TopicModel } from "../models/Topic.model";
 import { CollectionGroupPermissionRequestForm } from "./CreateCollectionRequestForm";
 import { CoursePermissionRequestForm } from "./CreateGroupRequestForm";
+import { CollectionModel } from "../models/Collection.model";
 
 export type CourseGroupPermissionRequestForm = {
     group_id: string;
@@ -13,12 +13,12 @@ export type CourseGroupPermissionRequestForm = {
 
 export type CourseCollectionsGroupPermissionRequestForm = {
     collection_id: string;
-    collection: CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel;
+    collection: CollectionModel;
     groupPermissions: CollectionGroupPermissionRequestForm[];
 }
 
 export type CollectionItemInterface = ItemInterface & {
-    collection: CollectionPopulateCollectionProblemPopulateProblemModel;
+    collection: CollectionModel;
     groupPermissions: CollectionGroupPermissionRequestForm[];
 }
 
@@ -29,6 +29,5 @@ export type CreateCourseRequestForm = {
     isPrivate?: boolean;
     collectionsInterface: CollectionItemInterface[] //ItemInterface[];
     groupPermissions: CourseGroupPermissionRequestForm[];
-    course: null | TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel //| TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndTopicGroupPermissionPopulateGroupModel | TopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel | null;
-    // collectionGroupPermissions: CourseCollectionsGroupPermissionRequestForm[];
+    course: null | TopicModel;
 }

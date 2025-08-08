@@ -6,10 +6,7 @@ import {
 	CollectionItemInterface,
 	CreateCourseRequestForm,
 } from "../../../types/forms/CreateCourseRequestForm";
-import {
-	CollectionHashedTable,
-	CollectionPopulateCollectionProblemPopulateProblemModel,
-} from "../../../types/models/Collection.model";
+import { CollectionHashedTable } from "../../../types/models/Collection.model";
 import MyCollectionMiniCard2 from "../../Cards/CollectionCards/MyCollectionMiniCard2";
 import { Input } from "../../shadcn/Input";
 import { ScrollArea } from "../../shadcn/ScrollArea";
@@ -78,7 +75,7 @@ const ManageCollections = ({
 			...createRequest,
 			collectionsInterface: [...selectedCollectionsSortable],
 		});
-		console.log('selectedCollectionsSortable',selectedCollectionsSortable)
+		console.log("selectedCollectionsSortable", selectedCollectionsSortable);
 	}, [selectedCollectionsSortable]);
 
 	useEffect(() => {
@@ -105,10 +102,7 @@ const ManageCollections = ({
 			setAllCollections({
 				...allCollections,
 				...transformCollectionPopulateProblemSecureModel2CollectionHashedTable(
-					createRequest.course.collections.map(
-						(cc) =>
-							cc.collection as CollectionPopulateCollectionProblemPopulateProblemModel
-					)
+					createRequest.course.collections.map((cc) => cc.collection)
 				),
 			});
 		}
@@ -121,14 +115,12 @@ const ManageCollections = ({
 					id: cc.collection.collection_id,
 					name: cc.collection.name,
 					collection: cc.collection,
-					groupPermissions: cc.groupPermissions.map(
-						(gc) => ({
-							group_id: gc.group.group_id,
-							group: gc.group,
-							manageCollections: gc.manageCollections,
-							viewCollections: gc.viewCollections,
-						})
-					),
+					groupPermissions: cc.groupPermissions.map((gc) => ({
+						group_id: gc.group.group_id,
+						group: gc.group,
+						manageCollections: gc.manageCollections,
+						viewCollections: gc.viewCollections,
+					})),
 				})) ?? ([] as CollectionItemInterface[])
 			);
 			setInitial(false);

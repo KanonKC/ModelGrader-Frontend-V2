@@ -43,7 +43,7 @@ const PublicProblemCard = ({
 								<Label>Author</Label>
 							</div>
 							<div className="leading-3 text-gray-400">
-								<Label>{problem.creator.username}</Label>
+								<Label>{problem.creator?.username}</Label>
 							</div>
 						</div>
 						<div className="w-3/12">
@@ -52,7 +52,7 @@ const PublicProblemCard = ({
 							</div>
 							<div className="leading-3 text-gray-400">
 								<Label>
-									{readableDateFormat(problem.updated_date)}
+									{readableDateFormat(problem.updated_date!)}
 								</Label>
 							</div>
 						</div>

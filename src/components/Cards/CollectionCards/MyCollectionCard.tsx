@@ -79,8 +79,8 @@ const MyCollectionCard = ({
 							Source Code ({problemList.filter(p => p.has_source_code).length}/{problemList.length})
 						</div>
 						<div className="flex items-center">
-							<Checkmark status={problemList.filter(p => p.testcase_count > 0).length === problemList.length} />
-							Testcases ({problemList.filter(p => p.testcase_count > 0).length}/{problemList.length})
+							<Checkmark status={problemList.filter(p => (p.testcase_count || 0) > 0).length === problemList.length} />
+							Testcases ({problemList.filter(p => (p.testcase_count || 0) > 0).length}/{problemList.length})
 						</div>
 						<div className="flex items-center">
 							<Checkmark status={problemList.filter(p => p.no_runtime_error).length === problemList.length} />

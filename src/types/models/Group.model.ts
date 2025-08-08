@@ -29,19 +29,19 @@ export type GroupModel = {
 // 	[id: string]: GroupModel;
 // };
 
-// export type TopicGroupPermissionModel = {
-// 	topic_group_permission_id: string;
-// 	group: string | GroupModel;
-// 	permission_manage_topics: boolean;
-// 	permission_view_topics: boolean;
-// 	permission_view_topics_log: boolean;
-// 	topic: string;
-// };
+export type TopicGroupPermissionModel = {
+	topic_group_permission_id: string;
+	group: string | GroupModel;
+	permission_manage_topics: boolean;
+	permission_view_topics: boolean;
+	permission_view_topics_log: boolean;
+	topic: string;
+};
 
-// export type ProblemGroupPermissionModel = {
-// 	problem_group_permission_id: string;
-// 	group: string;
-// 	permission_manage_problems: boolean;
-// 	permission_view_problems: boolean;
-// 	problem: string;
-// };
+export type ProblemGroupPermissionModel = {
+	problem_group_permission_id: string;
+	group: string;
+	permission_manage_problems: boolean;
+	permission_view_problems: boolean;
+	problem: string;
+};

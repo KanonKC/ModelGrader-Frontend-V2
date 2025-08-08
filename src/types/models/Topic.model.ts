@@ -10,7 +10,14 @@ export type TopicModel = {
     is_private: boolean
     created_date: string
     updated_date: string
-    collections: CollectionModel[]
+    collections: TopicCollectionModel[]
+}
+
+export type TopicCollectionModel = {
+    id: string;
+    collection: CollectionModel;
+    order: number;
+    topic: number;
 }
 
 // export type TopicSecureModel = {
@@ -28,12 +35,7 @@ export type TopicModel = {
 //     collection: CollectionModel[]
 // }
 
-// export type TopicCollectionPopulateCollectionModel = {
-//     id: string;
-//     collection: CollectionModel;
-//     order: number;
-//     topic: number;
-// }
+
 
 // export type TopicPopulateTopicCollectionPopulateCollectionModel = TopicModel & {
 //     collections: TopicCollectionPopulateCollectionModel[]

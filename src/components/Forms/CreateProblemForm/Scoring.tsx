@@ -12,6 +12,7 @@ import { Combobox } from "../../shadcn/Combobox";
 import { Input } from "../../shadcn/Input";
 import { Label } from "../../shadcn/Label";
 import { Separator } from "../../shadcn/Seperator";
+import { transformCreateProblemRequestForm2CreateProblemRequest } from "../../../types/adapters/CreateProblemRequestForm.adapter";
 
 const Scoring = ({
 	createRequest,
@@ -136,7 +137,9 @@ const Scoring = ({
 						createRequest.validated_testcases) && (
 						<TestcaseValidationAccordion
 							problem={{
-								...createRequest,
+								...transformCreateProblemRequestForm2CreateProblemRequest(
+									createRequest
+								).request,
 								testcases: [],
 							}}
 							runtimeResults={

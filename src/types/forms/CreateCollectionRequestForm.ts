@@ -1,6 +1,5 @@
 import { ItemInterface } from "react-sortablejs";
 import { PlateEditorValueType } from "../PlateEditorValueType";
-import { CollectionModel } from "../models/Collection.model";
 import { GroupModel } from "../models/Group.model";
 import { ProblemModel } from "../models/Problem.model";
 import { CollectionPermissionRequestForm } from "./CreateGroupRequestForm";
@@ -21,5 +20,7 @@ export type CreateCollectionRequestForm = {
     description: PlateEditorValueType;
     problemsInterface: ProblemItemInterface[];
     groupPermissions: CollectionGroupPermissionRequestForm[];
-    collection: CollectionModel | null;
+    collection: {
+        problems: ProblemModel[];
+    };
 }

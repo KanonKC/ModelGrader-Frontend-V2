@@ -3,10 +3,7 @@ import { ReactSortable } from "react-sortablejs";
 import { AccountService } from "../../../services/Account.service";
 import { transformAccountModels2AccountHashedTable } from "../../../types/adapters/Account.adapter";
 import { CreateGroupRequestForm } from "../../../types/forms/CreateGroupRequestForm";
-import {
-	AccountHashedTable,
-	AccountSecureModel,
-} from "../../../types/models/Account.model";
+import { AccountHashedTable } from "../../../types/models/Account.model";
 import AccountMiniCard2 from "../../Cards/AccountCards/AccountMiniCard2";
 import { Button } from "../../shadcn/Button";
 import { Input } from "../../shadcn/Input";
@@ -32,7 +29,8 @@ const ManageMembers = ({
 		ItemInterface[]
 	>([]);
 
-	const [uploadedAccounts, setUploadedAccounts] = useState<AccountHashedTable>({});
+	const [uploadedAccounts, setUploadedAccounts] =
+		useState<AccountHashedTable>({});
 
 	const [uploadedAccountsSortable, setUploadedAccountsSortable] = useState<
 		ItemInterface[]
@@ -67,16 +65,19 @@ const ManageMembers = ({
 	};
 
 	const handleAddAllMembers = () => {
-		const addedItem:ItemInterface[] = []
+		const addedItem: ItemInterface[] = [];
 		uploadedAccountsSortable.map((item) => {
-			console.log("AAAAA")
+			console.log("AAAAA");
 			if (!selectedAccountsSortableIds.includes(item.id as string)) {
-				addedItem.push(item)
+				addedItem.push(item);
 			}
-		})
+		});
 
-		setSelectedAccountsSortable([...selectedAccountsSortable, ...addedItem]);
-	}
+		setSelectedAccountsSortable([
+			...selectedAccountsSortable,
+			...addedItem,
+		]);
+	};
 
 	useEffect(() => {
 		setCreateRequest({
@@ -111,7 +112,9 @@ const ManageMembers = ({
 		console.log("Create Request", createRequest);
 	}, [createRequest]);
 
-	const [accountReferenceFromFile, setAccountReferenceFromFile] = useState<string[]>([]);
+	const [accountReferenceFromFile, setAccountReferenceFromFile] = useState<
+		string[]
+	>([]);
 
 	const handleUploadFile = (files: FileList | null) => {
 		if (!files) return;
@@ -124,28 +127,30 @@ const ManageMembers = ({
 				const content = e.target?.result;
 				const lines = (content as string).split("\n");
 
-				setAccountReferenceFromFile(lines)
+				setAccountReferenceFromFile(lines);
 			};
 			reader.readAsText(file);
-		}
-		else if (file.type === "text/csv") {
+		} else if (file.type === "text/csv") {
 			const reader = new FileReader();
 			reader.onload = function (e) {
 				const content = e.target?.result;
-				console.log(content)
-				const lines = (content as string).split("\n").map((line) => line.split(",")[0]);
+				console.log(content);
+				const lines = (content as string)
+					.split("\n")
+					.map((line) => line.split(",")[0]);
 
-				setAccountReferenceFromFile(lines)
+				setAccountReferenceFromFile(lines);
 			};
 			reader.readAsText(file);
 		}
-	}
-
+	};
 
 	useEffect(() => {
 		if (accountReferenceFromFile.length === 0) return;
 
-		AccountService.getAll({search: accountReferenceFromFile?.join(",")}).then((response) => {
+		AccountService.getAll({
+			search: accountReferenceFromFile?.join(","),
+		}).then((response) => {
 			setUploadedAccounts(
 				transformAccountModels2AccountHashedTable(
 					response.data.accounts
@@ -157,16 +162,13 @@ const ManageMembers = ({
 					name: account.username,
 				}))
 			);
-		})
-	},[accountReferenceFromFile])
-
-
+		});
+	}, [accountReferenceFromFile]);
 
 	return (
 		<div>
 			<div className="flex justify-between">
 				<h1 className="text-2xl font-bold">Manage Members</h1>
-
 			</div>
 
 			<div className="flex">
@@ -191,11 +193,7 @@ const ManageMembers = ({
 												)
 											}
 											key={item.id}
-											account={
-												allAccounts[
-													item.id as string
-												] as AccountSecureModel
-											}
+											account={allAccounts[item.id]}
 										/>
 									))}
 								</ReactSortable>
@@ -252,11 +250,7 @@ const ManageMembers = ({
 													)
 												}
 												key={item.id}
-												account={
-													allAccounts[
-														item.id as string
-													] as AccountSecureModel
-												}
+												account={allAccounts[item.id]}
 											/>
 										</div>
 									))}
@@ -264,9 +258,23 @@ const ManageMembers = ({
 							</ScrollArea>
 						</TabsContent>
 						<TabsContent value="upload">
-							<Input onChange={(e) => handleUploadFile(e.target.files)} className="cursor-pointer" type="file" accept=".txt,.csv" />
+							<Input
+								onChange={(e) =>
+									handleUploadFile(e.target.files)
+								}
+								className="cursor-pointer"
+								type="file"
+								accept=".txt,.csv"
+							/>
 							<div className="flex justify-end my-2">
-								<Button onClick={handleAddAllMembers} disabled={accountReferenceFromFile.length === 0} >Add All</Button>
+								<Button
+									onClick={handleAddAllMembers}
+									disabled={
+										accountReferenceFromFile.length === 0
+									}
+								>
+									Add All
+								</Button>
 							</div>
 							<ScrollArea className="h-[80vh] md:h-[60vh] pr-5">
 								<ReactSortable
@@ -303,9 +311,7 @@ const ManageMembers = ({
 												}
 												key={item.id}
 												account={
-													uploadedAccounts[
-														item.id as string
-													] as AccountSecureModel
+													uploadedAccounts[item.id]
 												}
 											/>
 										</div>

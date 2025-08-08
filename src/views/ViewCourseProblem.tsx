@@ -6,7 +6,7 @@ import ProblemViewLayout, {
 import CourseNavbarSidebarLayout from "../layout/CourseNavbarSidebarLayout";
 import { ProblemService } from "../services/Problem.service";
 import { SubmissionService } from "../services/Submission.service";
-import { ProblemPopulateCreatorSecureModel } from "../types/models/Problem.model";
+import { ProblemModel } from "../types/models/Problem.model";
 import { GetSubmissionByAccountProblemResponse } from "../types/models/Submission.model";
 
 const ViewCourseProblem = () => {
@@ -14,7 +14,7 @@ const ViewCourseProblem = () => {
 	const { courseId, problemId } = useParams();
 
 
-	const [problem, setProblem] = useState<ProblemPopulateCreatorSecureModel>();
+	const [problem, setProblem] = useState<ProblemModel>();
 	const [previousSubmissions, setPreviousSubmissions] =
 		useState<GetSubmissionByAccountProblemResponse>();
 
@@ -65,7 +65,7 @@ const ViewCourseProblem = () => {
 			<div className="ml-5">
 				<ProblemViewLayout
 					onSubmit={(e) => handleSubmit(e)}
-					problem={problem as ProblemPopulateCreatorSecureModel}
+					problem={problem as ProblemModel}
 					previousSubmissions={
 						previousSubmissions as GetSubmissionByAccountProblemResponse
 					}
