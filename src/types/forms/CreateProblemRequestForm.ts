@@ -19,4 +19,5 @@ export type CreateProblemRequestForm = {
 	validated_testcases?: TestcaseModel[];
 	groupPermissions: ProblemGroupPermissionRequestForm[];
 	allowedLanguage: string[];
+	view_mode: string;
 };
