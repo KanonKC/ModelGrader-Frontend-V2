@@ -1,18 +1,18 @@
 import axios from "axios";
 import { BASE_URL } from "../constants/BackendBaseURL";
 import { GetAllSubmissionsResponse, GetSubmissionsByCretorProblemResponse, SubmissionServiceAPI } from "../types/apis/Submission.api";
-import { GetSubmissionByAccountProblemResponse, SubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Submission.model";
+import { GetSubmissionByAccountProblemResponse, SubmissionModel } from "../types/models/Submission.model";
 
 
 
 export const SubmissionService: SubmissionServiceAPI = {
     submit: async (accountId, problemId, request) => {
-        const response = await axios.post<SubmissionPopulateSubmissionTestcasesSecureModel>(`${BASE_URL}/api/problems/${problemId}/accounts/${accountId}/submissions`,request);
+        const response = await axios.post<SubmissionModel>(`${BASE_URL}/api/problems/${problemId}/accounts/${accountId}/submissions`,request);
         return response;
     },
 
     topicSubmit: async (accountId,topicId, problemId, request) => {
-        const response = await axios.post<SubmissionPopulateSubmissionTestcasesSecureModel>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}/problems/${problemId}/submissions`,request);
+        const response = await axios.post<SubmissionModel>(`${BASE_URL}/api/accounts/${accountId}/topics/${topicId}/problems/${problemId}/submissions`,request);
         return response;
     },
 

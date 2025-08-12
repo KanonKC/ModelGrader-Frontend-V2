@@ -2,7 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
-import { TestcaseModel } from "../../../types/models/Problem.model";
+import { SubmissionTestcaseModel } from "../../../types/models/Submission.model";
 import { Tabs, TabsList, TabsTrigger } from "../../shadcn/Tabs";
 import FormSaveButton from "../FormSaveButton";
 import GeneralDetail from "./GeneralDetail";
@@ -48,7 +48,7 @@ const CreateProblemForm = ({
 }: {
 	createRequestInitialValue: CreateProblemRequestForm;
 	onProblemSave: OnProblemSaveCallback;
-	validatedTestcases?: TestcaseModel[];
+	validatedTestcases?: SubmissionTestcaseModel[];
 }) => {
 	const navigate = useNavigate();
 

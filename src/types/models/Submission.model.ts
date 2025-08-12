@@ -1,3 +1,6 @@
+import { AccountModel } from "./Account.model";
+import { ProblemModel } from "./Problem.model";
+import { TopicModel } from "./Topic.model";
 
 export type SubmissionTestcaseModel = {
     submission_testcase_id: string;
@@ -16,8 +19,8 @@ export type SubmissionTestcaseModel = {
 
 export type SubmissionModel = {
 	submission_id: string;
-	problem: number;
-    topic: string | null;
+	problem: ProblemModel;
+    topic: TopicModel | null;
     language: string;
 	submission_code: string;
 	is_passed: boolean;
@@ -25,7 +28,7 @@ export type SubmissionModel = {
 	score: number;
 	max_score: number;
 	passed_ratio: number;
-	account: number;
+	account: AccountModel;
     runtime_output?: SubmissionTestcaseModel[];
 };
 
@@ -83,10 +86,10 @@ export type GetSubmissionByAccountProblemSubmissionModel = {
     runtime_output: SubmissionTestcaseModel[]
 }
 
-// export type GetSubmissionByAccountProblemResponse = {
-//     best_submission: SubmissionPopulateSubmissionTestcasesSecureModel
-//     submissions: SubmissionPopulateSubmissionTestcasesSecureModel[]
-// }
+export type GetSubmissionByAccountProblemResponse = {
+    best_submission: SubmissionModel
+    submissions: SubmissionModel[]
+}
 
 // export type SubmissionPopulateSubmissionTestcasesSecureModel = {
 //     submission_id: string

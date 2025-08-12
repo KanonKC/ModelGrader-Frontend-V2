@@ -39,7 +39,7 @@ const MyGroupsTable = ({
 				cell: ({ row }) => (
 					<div className="flex items-center font-medium">
 						<User className="mr-2 text-red-400" size={20} />
-						{row.original.members.length}
+						{row.original.members?.length}
 					</div>
 				),
 			},

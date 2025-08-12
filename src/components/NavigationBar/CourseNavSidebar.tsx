@@ -3,8 +3,7 @@ import { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CourseNavSidebarContext } from "../../contexts/CourseNavSidebarContexnt";
 import { TopicService } from "../../services/Topic.service";
-import { TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../../types/models/Topic.model";
-import NavbarCollectionsProblemsAccordion from "../NavbarCollectionsProblemsAccordion";
+import NavbarCollectionsProblemsAccordion, { NavbarCollectionWithProblems } from "../NavbarCollectionsProblemsAccordion";
 import { ScrollArea } from "../shadcn/ScrollArea";
 import { Separator } from "../shadcn/Seperator";
 
@@ -81,7 +80,7 @@ const CourseNavSidebar = () => {
 						<ScrollArea className="h-[80vh]">
 							<NavbarCollectionsProblemsAccordion
 								collections={
-									course?.collections as TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]
+									course?.collections as unknown as NavbarCollectionWithProblems[]
 								}
 							/>
 						</ScrollArea>

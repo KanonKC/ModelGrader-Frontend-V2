@@ -1,6 +1,6 @@
 import { PlateEditorValueType } from "../PlateEditorValueType";
 import { GroupModel } from "../models/Group.model";
-import { TestcaseModel } from "../models/Problem.model";
+import { SubmissionTestcaseModel } from "../models/Submission.model";
 import { ProblemPermissionRequestForm } from "./CreateGroupRequestForm";
 
 export type ProblemGroupPermissionRequestForm = {
@@ -16,7 +16,7 @@ export type CreateProblemRequestForm = {
 	testcases: string;
 	testcase_delimeter: string;
 	time_limit: number;
-	validated_testcases?: TestcaseModel[];
+	validated_testcases?: SubmissionTestcaseModel[];
 	groupPermissions: ProblemGroupPermissionRequestForm[];
 	allowedLanguage: string[];
 };

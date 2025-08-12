@@ -2,10 +2,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import { FileSpreadsheet, Folder, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 import { CollectionModel } from "../../types/models/Collection.model";
-import { ProblemModel } from "../../types/models/Problem.model";
 import { readableDateFormat } from "../../utilities/ReadableDateFormat";
-import { DataTable } from "./Prototype/DataTable";
 import MyCollectionDropdown from "../Dropdowns/MyCollectionDropdown";
+import { DataTable } from "./Prototype/DataTable";
 
 export type CollectionWithProblemsCount = CollectionModel & {
 	problemCount: number;

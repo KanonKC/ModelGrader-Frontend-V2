@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "../constants/BackendBaseURL";
 import { GetAllProblemsByAccountResponse, GetAllProblemsResponse, ProblemServiceAPI, ValidateProgramResponse } from "../types/apis/Problem.api";
-import { ProblemModel, ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel, ProblemPopulateCreatorSecureModel } from "../types/models/Problem.model";
+import { ProblemModel } from "../types/models/Problem.model";
 
 export const ProblemService: ProblemServiceAPI = {
     create: async (accountId,request) => {
@@ -17,7 +17,7 @@ export const ProblemService: ProblemServiceAPI = {
     },
 
     get: async (accountId,problemId) => {
-        return axios.get<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}`);
+        return axios.get<ProblemModel>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}`);
     },
 
     update: async (problemId,accountId,request) => {
@@ -33,7 +33,7 @@ export const ProblemService: ProblemServiceAPI = {
     // },
 
     updateGroupPermissions: async (problemId, accountId,groups) => {
-        return axios.put<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}/groups`, {groups});
+        return axios.put<ProblemModel>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}/groups`, {groups});
     },
 
     validateProgram: async (request) => {
@@ -41,6 +41,6 @@ export const ProblemService: ProblemServiceAPI = {
     },
 
     getPublic: async (problemId) => {
-        return axios.get<ProblemPopulateCreatorSecureModel>(`${BASE_URL}/api/problems/${problemId}`);
+        return axios.get<ProblemModel>(`${BASE_URL}/api/problems/${problemId}`);
     },
 }

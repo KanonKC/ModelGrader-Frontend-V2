@@ -141,6 +141,7 @@ const Scoring = ({
 									createRequest
 								).request,
 								testcases: [],
+                                problem_id: "",
 							}}
 							runtimeResults={
 								validationResult?.runtime_results

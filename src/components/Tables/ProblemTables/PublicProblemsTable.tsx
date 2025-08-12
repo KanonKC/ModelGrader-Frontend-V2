@@ -13,47 +13,41 @@ import {
 } from "../../shadcn/HoverCard";
 import { DataTable } from "../Prototype/DataTable";
 
-const PublicProblemsTable = ({
-	problems,
-}: {
-	problems: ProblemModel[];
-}) => {
+const PublicProblemsTable = ({ problems }: { problems: ProblemModel[] }) => {
 	const { courseId } = useParams();
 
-	const columns: ColumnDef<ProblemModel>[] =
-		[
-			{
-				accessorKey: "title",
-				header: "Title",
-				cell: ({ row }) => {
-					console.log(row.original.allowed_languages);
+	const columns: ColumnDef<ProblemModel>[] = [
+		{
+			accessorKey: "title",
+			header: "Title",
+			cell: ({ row }) => {
+				console.log(row.original.allowed_languages);
 
-					return (
-						<div className="font-mono flex items-center">
-							<FileSpreadsheet
-								className="mr-2 text-blue-400"
-								size={20}
-							/>
-							<Link
-								to={`/problems/${row.original.problem_id}`}
-								target="_blank"
-							>
-								{row.original.title}
-							</Link>
-						</div>
-					);
-				},
+				return (
+					<div className="font-mono flex items-center">
+						<FileSpreadsheet
+							className="mr-2 text-blue-400"
+							size={20}
+						/>
+						<Link
+							to={`/problems/${row.original.problem_id}`}
+							target="_blank"
+						>
+							{row.original.title}
+						</Link>
+					</div>
+				);
 			},
+		},
 
-			{
-				accessorKey: "allowed_languages",
-				header: () => (
-					<div className="text-center">Allowed Languages</div>
-				),
-				cell: ({ row }) => (
-					<div className="font-medium flex justify-center">
-						<div className="font-medium">
-							{row.original.allowed_languages
+		{
+			accessorKey: "allowed_languages",
+			header: () => <div className="text-center">Allowed Languages</div>,
+			cell: ({ row }) => (
+				<div className="font-medium flex justify-center">
+					<div className="font-medium">
+						{row.original.allowed_languages &&
+							row.original.allowed_languages
 								.split(",")
 								.slice(0, 2)
 								.map((lang) => (
@@ -67,14 +61,15 @@ const PublicProblemsTable = ({
 									</span>
 								))}
 
-							{row.original.allowed_languages.split(",")
-								.length === 3 && (
+						{row.original.allowed_languages &&
+							row.original.allowed_languages.split(",").length ===
+								3 && (
 								<span className="mx-0.5">
 									{
 										ProgrammingLanguageOptions.find(
 											(option) =>
 												option.value ===
-												row.original.allowed_languages.split(
+												row.original.allowed_languages?.split(
 													","
 												)[2]
 										)?.badge
@@ -82,7 +77,8 @@ const PublicProblemsTable = ({
 								</span>
 							)}
 
-							{row.original.allowed_languages.split(",").length >
+						{row.original.allowed_languages &&
+							row.original.allowed_languages.split(",").length >
 								3 && (
 								<span className="mx-0.5">
 									<HoverCard>
@@ -115,82 +111,82 @@ const PublicProblemsTable = ({
 									</HoverCard>
 								</span>
 							)}
-						</div>
 					</div>
-				),
-			},
-			{
-				accessorKey: "best_submissions",
-				header: "Best Submissions",
-				cell: ({ row }) => (
-					<div className="">
-						<TestcasesGradingIndicator
-							submissionTestcases={
-								row.original.best_submission?.runtime_output
-							}
-							sizeX={1.5}
-							sizeY={3}
-						/>
-					</div>
-				),
-			},
+				</div>
+			),
+		},
+		{
+			accessorKey: "best_submissions",
+			header: "Best Submissions",
+			cell: ({ row }) => (
+				<div className="">
+					<TestcasesGradingIndicator
+						submissionTestcases={
+							row.original.best_submission?.runtime_output
+						}
+						sizeX={1.5}
+						sizeY={3}
+					/>
+				</div>
+			),
+		},
 
-			{
-				accessorKey: "author",
-				header: "Author",
-				cell: ({ row }) => (
-					<div className="font-medium">
-						{row.original.creator.username}
-					</div>
-				),
-			},
+		{
+			accessorKey: "author",
+			header: "Author",
+			cell: ({ row }) => (
+				<div className="font-medium">
+					{row.original.creator?.username}
+				</div>
+			),
+		},
 
-			// {
-			// 	accessorKey: "difficulty",
-			// 	header: "Difficulty",
-			// 	cell: ({ row }) => (
-			// 		<DifficultyBadge level={row.original.difficulty}/>
-			// 	),
-			// },
+		// {
+		// 	accessorKey: "difficulty",
+		// 	header: "Difficulty",
+		// 	cell: ({ row }) => (
+		// 		<DifficultyBadge level={row.original.difficulty}/>
+		// 	),
+		// },
 
-			// {
-			// 	accessorKey: "updated_date",
-			// 	header: "Updated Date",
-			// 	cell: ({ row }) => (
-			// 		<div className="font-mono">
-			// 			{readableDateFormat(row.original.updated_date)}
-			// 		</div>
-			// 	),
-			// },
+		// {
+		// 	accessorKey: "updated_date",
+		// 	header: "Updated Date",
+		// 	cell: ({ row }) => (
+		// 		<div className="font-mono">
+		// 			{readableDateFormat(row.original.updated_date)}
+		// 		</div>
+		// 	),
+		// },
 
-			{
-				accessorKey: "action",
-				header: "",
-				cell: ({ row }) => (
-					<div className="flex items-center">
-						<Link
-							target="_blank"
-							to={
-								courseId
-									? `/courses/${courseId}/problems/${row.original.problem_id}`
-									: `/problems/${row.original.problem_id}`
-							}
+		{
+			accessorKey: "action",
+			header: "",
+			cell: ({ row }) => (
+				<div className="flex items-center">
+					<Link
+						target="_blank"
+						to={
+							courseId
+								? `/courses/${courseId}/problems/${row.original.problem_id}`
+								: `/problems/${row.original.problem_id}`
+						}
+					>
+						<Button
+
+						// onClick={() =>
+						// 	navigate(`/problems/${problem.problem_id}`)
+						// }
+						// className="bg-white border-green-500 border-2 text-green-500 hover:bg-green-500 hover:text-white"
 						>
-							<Button
-
-							// onClick={() =>
-							// 	navigate(`/problems/${problem.problem_id}`)
-							// }
-							// className="bg-white border-green-500 border-2 text-green-500 hover:bg-green-500 hover:text-white"
-							>
-								<Puzzle className="mr-2" />
-								Solve This Problem
-							</Button>
-						</Link>
-					</div>
-				),
-			},
-		];
+							<Puzzle className="mr-2" />
+							Solve This Problem
+						</Button>
+					</Link>
+				</div>
+			),
+		},
+	];
 
 	return (
 		<div>

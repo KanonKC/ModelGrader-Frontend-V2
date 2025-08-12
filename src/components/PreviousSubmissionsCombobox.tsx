@@ -6,10 +6,6 @@ import * as React from "react";
 import { ProgrammingLanguageOptions } from "../constants/ProgrammingLanguage";
 import { TestcaseStatusIndicatorColor } from "../constants/TestcaseStatusIndicatorColor";
 import { cn } from "../lib/utils";
-import {
-  SubmissionPopulateSubmissionTestcasesSecureModel,
-  SubmissionTestcaseSecureModel,
-} from "../types/models/Submission.model";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
 import { Button } from "./shadcn/Button";
 import {
@@ -22,6 +18,7 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "./shadcn/Popover";
 import { ScrollArea } from "./shadcn/ScrollArea";
 import { Separator } from "./shadcn/Seperator";
+import { SubmissionModel, SubmissionTestcaseModel } from "../types/models/Submission.model";
 
 const TestcaseGradingMiniResult = ({
   status,
@@ -42,7 +39,7 @@ const TestcaseGradingMiniResult = ({
 const TestcasesGradingMiniIndicator = ({
   submissionTestcases,
 }: {
-  submissionTestcases?: SubmissionTestcaseSecureModel[];
+  submissionTestcases?: SubmissionTestcaseModel[];
 }) => {
   return (
     <div className="flex gap-0.5 items-center">
@@ -59,7 +56,7 @@ const TestcasesGradingMiniIndicator = ({
 const OptionLabel = ({
   submission,
 }: {
-  submission: SubmissionPopulateSubmissionTestcasesSecureModel;
+  submission: SubmissionModel;
 }) => {
   return (
     <div className="w-full">
@@ -92,8 +89,8 @@ export function PreviousSubmissionsCombobox({
   bestSubmission,
   onSelect,
 }: {
-  submissions: SubmissionPopulateSubmissionTestcasesSecureModel[];
-  bestSubmission: SubmissionPopulateSubmissionTestcasesSecureModel;
+  submissions: SubmissionModel[];
+  bestSubmission: SubmissionModel;
   onSelect?: (value: string) => void;
 }) {
   const [open, setOpen] = React.useState(false);

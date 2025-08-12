@@ -1,5 +1,4 @@
 import { FileSpreadsheet, Folder } from "lucide-react";
-import { TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../types/models/Topic.model";
 import PublicProblemMiniCard from "./Cards/ProblemCards/PublicProblemMiniCard";
 import {
 	Accordion,
@@ -8,11 +7,12 @@ import {
 	AccordionTrigger,
 } from "./shadcn/Accordion";
 import { ScrollArea } from "./shadcn/ScrollArea";
+import { TopicCollectionModel } from "../types/models/Topic.model";
 
 const TopicCollectionsAccordian = ({
 	collections,
 }: {
-	collections: TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[];
+	collections: TopicCollectionModel[];
 }) => {
 	return (
 		<Accordion type="multiple" className="">
