@@ -82,8 +82,8 @@ export type CreateImportPdfRequest = FormData;
 
 export type ProblemServiceAPI = {
 	create: (
-		accountId: string,
-		request: CreateProblemRequest
+		request: CreateProblemRequest,
+		token: string,
 	) => Promise<AxiosResponse<ProblemModel>>;
 	getAll: (
 		query?: GetAllProblemsQuery

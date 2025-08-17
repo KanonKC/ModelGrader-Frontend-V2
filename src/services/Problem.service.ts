@@ -4,8 +4,12 @@ import { GetAllProblemsByAccountResponse, GetAllProblemsResponse, ProblemService
 import { ProblemModel, ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel, ProblemPopulateCreatorSecureModel } from "../types/models/Problem.model";
 
 export const ProblemService: ProblemServiceAPI = {
-    create: async (accountId,request) => {
-        return axios.post<ProblemModel>(`${BASE_URL}/api/accounts/${accountId}/problems`, request);
+    create: async (request, token) => {
+        return axios.post<ProblemModel>(`${BASE_URL}/api/v1/problems`, request, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
     },
 
     getAll: async (query) => {

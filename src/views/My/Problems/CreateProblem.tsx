@@ -41,7 +41,7 @@ const CreateProblem = () => {
 				createRequest
 			);
 
-			const createRes = await ProblemService.create(accountId, request)
+			const createRes = await ProblemService.create(request, token)
 			const updateGroupRes = await ProblemService.updateGroupPermissions(
 				createRes.data.problem_id,
 				accountId,
