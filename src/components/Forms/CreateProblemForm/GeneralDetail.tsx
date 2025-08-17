@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PlateEditorValueType } from '../../../types/PlateEditorValueType';
 import { CreateProblemRequestForm } from '../../../types/forms/CreateProblemRequestForm';
 import DetailPlateEditor from '../../DetailPlateEditor';
@@ -45,15 +45,17 @@ const GeneralDetail = ({
 		if (file) {
 			setPdfFile(file);
 			setCreateRequest({ ...createRequest, title: file.name })
+			setPdfUrl(URL.createObjectURL(file))
 		}
 	};
 
-	const isTempEmptyPdf = (f: File | null) => !f || f.size === 0;
+	const [pdfUrl, setPdfUrl] = useState(createRequest.pdf_url)
 
-	const pdfUrl = useMemo(() => {
-  		if (isTempEmptyPdf(pdfFile)) return null;
-  		return URL.createObjectURL(pdfFile!);
-	}, [pdfFile]);
+	useEffect(()=>{
+		if (pdfFile.size !== 0) {
+			setPdfUrl(URL.createObjectURL(pdfFile))
+		}
+	},[])
 
 	const viewList = [
 		{

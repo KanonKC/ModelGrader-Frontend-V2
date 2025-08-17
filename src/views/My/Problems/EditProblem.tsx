@@ -6,13 +6,14 @@ import CreateProblemForm, {
 import { toast } from "../../../components/shadcn/UseToast";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { ProblemService } from "../../../services/Problem.service";
-import { transformCreateProblemRequestForm2CreateProblemRequest } from "../../../types/adapters/CreateProblemRequestForm.adapter";
+import { transformCreateProblemRequestForm2CreateProblemRequest, transformFile2ImportPdfRequest } from "../../../types/adapters/CreateProblemRequestForm.adapter";
 import { transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm } from "../../../types/adapters/Problem.adapter";
 import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
 import { ProblemPoplulateCreatorModel } from "../../../types/models/Problem.model";
 
 const EditProblem = () => {
 	const accountId = String(localStorage.getItem("account_id"));
+	const token = String(localStorage.getItem("token"));
 
 	const { problemId } = useParams();
 	const editProblemId = String(problemId);
@@ -22,33 +23,39 @@ const EditProblem = () => {
 	const [createRequest, setCreateRequest] =
 		useState<CreateProblemRequestForm>();
 
-	const handleSave: OnProblemSaveCallback = (setLoading, createRequest) => {
-		setLoading(true);
+	const newHandleSave: OnProblemSaveCallback = async (setLoading, createRequest, pdfFile) => {
+		try {
+			setLoading(true);
 
-		const { request, groups } =
-			transformCreateProblemRequestForm2CreateProblemRequest(
+			const { request, groups } = transformCreateProblemRequestForm2CreateProblemRequest(
 				createRequest
 			);
 
-		ProblemService.update(String(editProblemId), accountId, request)
-			.then((response) => {
-				return ProblemService.updateGroupPermissions(
-					response.data.problem_id,
+			const updateRes = await ProblemService.update(String(editProblemId), request, token);
+			const updateGroupRes = await ProblemService.updateGroupPermissions(
+					updateRes.data.problem_id,
 					accountId,
-					groups
-				);
-			})
-			.then((response) => {
-				console.log("Update Completed", response.data);
-				setLoading(false);
-				toast({
-					title: "Problem Updated",
-				});
+					groups,
+				)
+
+			if (pdfFile.size !== 0 && createRequest.view_mode === "PDF") {
+					const pdfRequest = transformFile2ImportPdfRequest(pdfFile);
+					ProblemService.importPdf(updateGroupRes.data.problem_id, pdfRequest, token)
+					console.log("Import Pdf complete")
+			}
+			toast({
+				title: "Problem Updated",
 			});
-	};
+		} catch (e) {
+			console.log(e)
+			toast({ title: "Create failed" });
+		} finally {
+			setLoading(false)
+		}
+	}
 
 	useEffect(() => {
-		ProblemService.get(accountId, editProblemId).then((response) => {
+		ProblemService.getv1(editProblemId, token).then((response) => {
 			setProblem(response.data);
 			setCreateRequest(
 				transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm(
@@ -68,13 +75,13 @@ const EditProblem = () => {
 					validatedTestcases={problem?.testcases}
 					onProblemSave={(
 						setLoading,
-
-						createRequest
+						createRequest,
+						pdfFile
 					) =>
-						handleSave(
+						newHandleSave(
 							setLoading,
-
-							createRequest
+							createRequest,
+							pdfFile
 						)
 					}
 				/>

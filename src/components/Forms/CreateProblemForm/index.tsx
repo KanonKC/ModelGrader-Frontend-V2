@@ -59,7 +59,7 @@ const CreateProblemForm = ({
 	const [createRequest, setCreateRequest] =
 		useState<CreateProblemRequestForm>(createRequestInitialValue);
 
-	const [pdfFile, setPdfFile] = useState(new File([], "emptyTemp.pdf", { type: "application/pdf" }));
+	const [pdfFile, setPdfFile] = useState(new File([], "empty.pdf", { type: "application/pdf" }));
 
 	const handleSave = () => {
 		onProblemSave(setLoading, createRequest, pdfFile);
