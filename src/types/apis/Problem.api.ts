@@ -78,6 +78,8 @@ export type ProblemGroupPermissionPopulateGroupModel =
 		group: GroupModel;
 	};
 
+export type CreateImportPdfRequest = FormData;
+
 export type ProblemServiceAPI = {
 	create: (
 		accountId: string,
@@ -119,4 +121,9 @@ export type ProblemServiceAPI = {
 	getPublic: (
 		problemId: string
 	) => Promise<AxiosResponse<ProblemPopulateCreatorSecureModel>>;
+	importPdf: (
+		problemID: string,
+		request: CreateImportPdfRequest,
+		token: string
+	) => Promise<void>
 };

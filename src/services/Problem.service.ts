@@ -43,4 +43,12 @@ export const ProblemService: ProblemServiceAPI = {
     getPublic: async (problemId) => {
         return axios.get<ProblemPopulateCreatorSecureModel>(`${BASE_URL}/api/problems/${problemId}`);
     },
+
+    importPdf: async (problemId, request, token) => {
+        axios.put<null>(`${BASE_URL}/api/v1/problems/${problemId}/import/pdf`, request, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
+    },
 }

@@ -1,5 +1,5 @@
 import { testcaseParse } from "../../utilities/TestcaseFormat";
-import { CreateProblemRequest, ProblemGroupPermissionCreateRequest } from "../apis/Problem.api";
+import { CreateProblemRequest, ProblemGroupPermissionCreateRequest, CreateImportPdfRequest } from "../apis/Problem.api";
 import { CreateProblemRequestForm } from "../forms/CreateProblemRequestForm";
 
 export const transformCreateProblemRequestForm2CreateProblemRequest = (
@@ -29,4 +29,10 @@ export const transformCreateProblemRequestForm2CreateProblemRequest = (
 	}))
 
 	return {request, groups};
+};
+
+export const transformFile2ImportPdfRequest = (pdfFile: File): CreateImportPdfRequest => {
+	const request = new FormData();
+	request.append("file", pdfFile, pdfFile.name);
+	return request
 };
