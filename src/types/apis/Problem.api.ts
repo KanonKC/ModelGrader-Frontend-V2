@@ -98,10 +98,14 @@ export type ProblemServiceAPI = {
 	) => Promise<
 		AxiosResponse<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>
 	>;
+	getv1: (
+		problemId: string,
+		token: string,
+	) => Promise<AxiosResponse<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>>;
 	update: (
 		problemId: string,
-		accountId: string,
-		request: UpdateProblemRequest | CreateProblemRequest
+		request: UpdateProblemRequest | CreateProblemRequest,
+		token: string,
 	) => Promise<AxiosResponse<ProblemModel>>;
 	// deleteMultiple: (problemIds:string[]) => Promise<AxiosResponse<null>>;
 	delete: (

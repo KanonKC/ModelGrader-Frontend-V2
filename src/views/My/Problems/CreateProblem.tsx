@@ -26,6 +26,7 @@ const formInitialValue: CreateProblemRequestForm = {
 	groupPermissions: [],
 	allowedLanguage: [],
 	view_mode: "plate",
+	pdf_url: "",
 };
 
 const CreateProblem = () => {
@@ -48,7 +49,7 @@ const CreateProblem = () => {
 				groups,
 			)
 
-			if (pdfFile.name !== "emptyTemp.pdf" && createRequest.view_mode === "PDF") {
+			if (pdfFile.size !== 0 && createRequest.view_mode === "PDF") {
 				const pdfRequest = transformFile2ImportPdfRequest(pdfFile);
 				ProblemService.importPdf(updateGroupRes.data.problem_id, pdfRequest, token)
 				console.log("Import Pdf complete")

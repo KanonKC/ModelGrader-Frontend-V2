@@ -27,6 +27,7 @@ export type ProblemModel = {
     allowed_languages: string;
     difficulty: number;
     view_mode: string;
+    pdf_url: string;
 }
 
 export type ProblemSecureModel = {
