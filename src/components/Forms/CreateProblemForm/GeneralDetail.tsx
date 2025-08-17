@@ -44,6 +44,7 @@ const GeneralDetail = ({
 		const file = e.target.files?.[0];
 		if (file) {
 			setPdfFile(file);
+			setCreateRequest({ ...createRequest, title: file.name })
 		}
 	};
 
@@ -107,6 +108,11 @@ const GeneralDetail = ({
 
 			{(createRequest.view_mode == "PDF") && (
 				<div>
+					<Label>Upload File</Label>
+					<FileInput
+						accept="application/pdf"
+						onChange={(e) => {handlePdfChange(e)}}
+					/>
 					<Label>Title</Label>
 					<Input
 						value={createRequest.title}
@@ -117,12 +123,8 @@ const GeneralDetail = ({
 						})
 						}
 						type="text"
-					/>
-					<Label>Upload File</Label>
-					<FileInput
-						accept="application/pdf"
-						onChange={(e) => {handlePdfChange(e)}}
-					/>
+						disabled={pdfFile.size === 0}
+					/>					
 					<Label>Preview</Label>
 					{pdfUrl ? (
   						<Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
@@ -132,7 +134,7 @@ const GeneralDetail = ({
   						<div className="flex h-full items-center justify-center text-sm text-muted-foreground">
     						No PDF selected
   						</div>
-)}
+					)}
 				</div>
 			)}
 		</div>
