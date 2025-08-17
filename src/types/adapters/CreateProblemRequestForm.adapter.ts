@@ -20,6 +20,7 @@ export const transformCreateProblemRequestForm2CreateProblemRequest = (
 		),
 		time_limit: createRequest.time_limit,
 		allowed_languages: createRequest.allowedLanguage.filter((language) => language !== "").join(","),
+		view_mode: createRequest.view_mode,
 	}
 
 	const groups = createRequest.groupPermissions.map((groupPermission) => ({
