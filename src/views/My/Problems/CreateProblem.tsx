@@ -51,7 +51,7 @@ const CreateProblem = () => {
 
 			if (pdfFile.size !== 0 && createRequest.view_mode === "PDF") {
 				const pdfRequest = transformFile2ImportPdfRequest(pdfFile);
-				ProblemService.importPdf(updateGroupRes.data.problem_id, pdfRequest, token)
+				await ProblemService.importPdf(updateGroupRes.data.problem_id, pdfRequest, token)
 				console.log("Import Pdf complete")
 			}
 			toast({
