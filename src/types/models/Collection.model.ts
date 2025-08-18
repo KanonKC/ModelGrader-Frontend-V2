@@ -10,6 +10,7 @@ export type CollectionModel = {
 	created_date: string;
 	updated_date: string;
     problems: CollectionProblemModel[];
+	group_permissions?: CollectionGroupPermissionModel[];
 };
 
 // export type CollectionPopulateProblemSecureModel = CollectionModel & {
@@ -63,37 +64,44 @@ export type CollectionHashedTable = {
 // 		problems: CollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[];
 // 	};
 
-// export type CollectionPopulateCollectionProblemPopulateProblemModel =
-// 	CollectionModel & {
-// 		problems: CollectionProblemPopulateProblemModel[];
-// 	};
+export type CollectionProblemPopulateProblemModel = {
+	id: string;
+	problem: ProblemModel;
+	order: number;
+	collection: number;
+};
 
-// export type CollectionGroupPermissionModel = {
-// 	collection_group_permission_id: string;
-// 	group: string;
-// 	permission_manage_collections: boolean;
-// 	permission_view_collections: boolean;
-// 	collection: string;
-// };
+export type CollectionPopulateCollectionProblemPopulateProblemModel =
+	CollectionModel & {
+		problems: CollectionProblemPopulateProblemModel[];
+	};
 
-// export type CollectionGroupPermissionPopulateGroupModel =
-// 	CollectionGroupPermissionModel & {
-// 		group: GroupModel;
-// 	};
+export type CollectionGroupPermissionModel = {
+	collection_group_permission_id: string;
+	group: string;
+	permission_manage_collections: boolean;
+	permission_view_collections: boolean;
+	collection: string;
+};
 
-// export type CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel =
-// 	CollectionModel & {
-// 		problems: CollectionProblemPopulateProblemModel[];
-// 		group_permissions: CollectionGroupPermissionPopulateGroupModel[];
-// 	};
+export type CollectionGroupPermissionPopulateGroupModel =
+	CollectionGroupPermissionModel & {
+		group: any; // GroupModel would cause circular dependency
+	};
 
-// export type CollectionProblemsPopulateProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel =
-// 	CollectionProblemModel & {
-// 		problem: ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel;
-// 	};
+export type CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel =
+	CollectionModel & {
+		problems: CollectionProblemPopulateProblemModel[];
+		group_permissions: CollectionGroupPermissionPopulateGroupModel[];
+	};
 
-// export type CollectionPopulateCollectionProblemsPopulateProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupAndCollectionGroupPermissionsPopulateGroupModel =
-// 	CollectionModel & {
-// 		group_permissions: CollectionGroupPermissionPopulateGroupModel[];
-// 		problems: CollectionProblemsPopulateProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel[];
-// 	};
+export type CollectionProblemsPopulateProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel =
+	CollectionProblemModel & {
+		problem: any; // ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel;
+	};
+
+export type CollectionPopulateCollectionProblemsPopulateProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupAndCollectionGroupPermissionsPopulateGroupModel =
+	CollectionModel & {
+		group_permissions: CollectionGroupPermissionPopulateGroupModel[];
+		problems: CollectionProblemsPopulateProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel[];
+	};

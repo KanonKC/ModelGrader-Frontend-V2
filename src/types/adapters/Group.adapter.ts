@@ -6,10 +6,10 @@ export function transformGroupPopulateGroupMemberPopulateAccountSecureModel2Crea
         name: group.name,
         description: group.description,
         color: group.color,
-        membersInterface: group.members.map(member => {
+        membersInterface: group.members.map((member: any) => {
             return {
-                id: member.account.account_id,
-                name: member.account.username,
+                id: typeof member.account === 'object' ? member.account.account_id : member.account,
+                name: typeof member.account === 'object' ? member.account.username : '',
                 group: member.group,
                 created_date: member.created_date
             }

@@ -108,7 +108,10 @@ const MyCollections = () => {
 					{
 						tabValue === "personal" && (
 							<MyCollectionsTable
-								collections={filteredCollections}
+								collections={filteredCollections.map(collection => ({
+									...collection,
+									problemCount: collection.problems?.length || 0
+								}))}
 							/>
 						)
 						// <MyCollectionCard collection={collection} />
@@ -116,7 +119,10 @@ const MyCollections = () => {
 					{tabValue === "manageable" &&
 						// filteredManageableCollections.map((collection) => (
 							<MyCollectionsTable
-								collections={filteredManageableCollections}
+								collections={filteredManageableCollections.map(collection => ({
+									...collection,
+									problemCount: collection.problems?.length || 0
+								}))}
 							/>
 							// <MyCollectionCard collection={collection} />
 						}

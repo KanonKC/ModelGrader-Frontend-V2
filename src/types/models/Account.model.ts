@@ -9,6 +9,13 @@ export type AccountModel = {
     is_private?: boolean
 }
 
+export type AccountSecureModel = {
+    account_id: string
+    username: string
+    is_active?: boolean
+    is_private?: boolean
+}
+
 export type AccountHashedTable = {
     [id:string]: AccountModel
 }

@@ -20,15 +20,17 @@ export type TopicCollectionModel = {
     topic: number;
 }
 
-// export type TopicSecureModel = {
-//     topic_id: string
-//     creator: string
-//     name: string
-//     description: string | null
-//     image_url: string | null
-//     created_date: string
-//     updated_date: string
-// }
+export type TopicSecureModel = {
+    topic_id: string
+    creator: string
+    name: string
+    description: string | null
+    image_url: string | null
+    is_active: boolean
+    is_private: boolean
+    created_date: string
+    updated_date: string
+}
 
 // export type TopicCollectionModel = {
 //     topic: TopicModel;
@@ -37,20 +39,27 @@ export type TopicCollectionModel = {
 
 
 
-// export type TopicPopulateTopicCollectionPopulateCollectionModel = TopicModel & {
-//     collections: TopicCollectionPopulateCollectionModel[]
-// }
+export type TopicCollectionPopulateCollectionModel = {
+    id: string;
+    collection: CollectionModel;
+    order: number;
+    topic: number;
+}
 
-// export type TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = {
-//     id: string;
-//     collection: CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel;
-//     order: number;
-//     topic: number;
-// }
+export type TopicPopulateTopicCollectionPopulateCollectionModel = TopicModel & {
+    collections: TopicCollectionPopulateCollectionModel[]
+}
 
-// export type TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = TopicSecureModel & {
-//     collections: TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]
-// }
+export type TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = {
+    id: string;
+    collection: any; // CollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel;
+    order: number;
+    topic: number;
+}
+
+export type TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel = TopicSecureModel & {
+    collections: TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel[]
+}
 
 // export type TopicPopulateTopicCollectionPopulateCollectionAndTopicGroupPermissionPopulateGroupModel = TopicModel & {
 //     collections: TopicCollectionPopulateCollectionModel[]
@@ -61,19 +70,28 @@ export type TopicCollectionModel = {
 //     collection: CollectionPopulateCollectionProblemPopulateProblemModel
 // }
 
-// export type TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndTopicGroupPermissionPopulateGroupModel = TopicModel & {
-//     collections: TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemModel[]
-//     group_permissions: TopicGroupPermissionPopulateGroupModel[]
-// }
+export type TopicGroupPermissionPopulateGroupModel = {
+    topic_group_permission_id: string;
+    group: any; // GroupModel
+    permission_manage_topics: boolean;
+    permission_view_topics: boolean;
+    permission_view_topics_log: boolean;
+    topic: string;
+};
 
-// export type TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel = {
-//     id: string;
-//     collection: CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel;
-//     order: number;
-//     topic: number;
-// }
+export type TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndTopicGroupPermissionPopulateGroupModel = TopicModel & {
+    collections: any[] // TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemModel[]
+    group_permissions: TopicGroupPermissionPopulateGroupModel[]
+}
 
-// export type TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel = TopicModel & {
-//     collections: TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel[]
-//     group_permissions: TopicGroupPermissionPopulateGroupModel[]
-// }
+export type TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel = {
+    id: string;
+    collection: any; // CollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel;
+    order: number;
+    topic: number;
+}
+
+export type TopicPopulateTopicCollectionPopulateCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupAndTopicGroupPermissionPopulateGroupModel = TopicModel & {
+    collections: TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel[]
+    group_permissions: TopicGroupPermissionPopulateGroupModel[]
+}

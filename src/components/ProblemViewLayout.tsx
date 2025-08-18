@@ -7,7 +7,8 @@ import { ProgrammingLanguageOptions } from "../constants/ProgrammingLanguage";
 import { ProblemModel } from "../types/models/Problem.model";
 import {
     GetSubmissionByAccountProblemResponse,
-    SubmissionModel
+    SubmissionModel,
+    SubmissionPopulateSubmissionTestcasesSecureModel
 } from "../types/models/Submission.model";
 import { handleDeprecatedDescription } from "../utilities/HandleDeprecatedDescription";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
@@ -26,7 +27,7 @@ import { Separator } from "./shadcn/Seperator";
 export type OnSubmitProblemViewLayoutCallback = {
 	setGrading: React.Dispatch<React.SetStateAction<boolean>>;
 	setLastedSubmission: React.Dispatch<
-		React.SetStateAction<SubmissionModel | undefined>
+		React.SetStateAction<SubmissionPopulateSubmissionTestcasesSecureModel | undefined>
 	>;
 	selectedLanguage: string;
 	submitCodeValue: string;
@@ -53,7 +54,7 @@ const ProblemViewLayout = ({
 
 	//   const [previousSubmissions, setPreviousSubmissions] =
 	//   useState<GetSubmissionByAccountProblemResponse>();
-	const [lastedSubmission, setLastedSubmission] = useState<SubmissionModel>();
+	const [lastedSubmission, setLastedSubmission] = useState<SubmissionPopulateSubmissionTestcasesSecureModel>();
 
 	const handleSubmit = () => {
 		onSubmit({
@@ -81,7 +82,7 @@ const ProblemViewLayout = ({
 
 		if (submission) {
 			setSubmitCodeValue(submission.submission_code);
-			setLastedSubmission(submission);
+			setLastedSubmission(submission as any); // Type conversion needed
 			setSelectedLanguage(submission.language);
 		}
 	};

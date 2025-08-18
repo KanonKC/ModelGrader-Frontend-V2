@@ -12,10 +12,10 @@ export type SubmissionTestcaseModel = {
     runtime_status: string;
 }
 
-// export type SubmissionTestcaseSecureModel = {
-// 	is_passed: boolean;
-// 	runtime_status: string;
-// };
+export type SubmissionTestcaseSecureModel = {
+	is_passed: boolean;
+	runtime_status: string;
+};
 
 export type SubmissionModel = {
 	submission_id: string;
@@ -91,27 +91,27 @@ export type GetSubmissionByAccountProblemResponse = {
     submissions: SubmissionModel[]
 }
 
-// export type SubmissionPopulateSubmissionTestcasesSecureModel = {
-//     submission_id: string
-//     problem: number
-//     language: string
-//     submission_code: string
-//     is_passed: boolean
-//     date: string
-//     score: number
-//     max_score: number
-//     passed_ratio: number
-//     runtime_output: SubmissionTestcaseSecureModel[]
-// }
+export type SubmissionPopulateSubmissionTestcasesSecureModel = {
+    submission_id: string
+    problem: number
+    language: string
+    submission_code: string
+    is_passed: boolean
+    date: string
+    score: number
+    max_score: number
+    passed_ratio: number
+    runtime_output: SubmissionTestcaseSecureModel[]
+}
 
-// export type SubmissionPopulateSubmissionTestcaseAndProblemSecureModel = SubmissionModel & {
-//     problem: ProblemSecureModel;
-//     runtime_output: SubmissionTestcaseSecureModel[];
-//     topic: TopicSecureModel | null;
-// }
+export type SubmissionPopulateSubmissionTestcaseAndProblemSecureModel = SubmissionModel & {
+    problem: any; // ProblemSecureModel;
+    runtime_output: SubmissionTestcaseSecureModel[];
+    topic: any | null; // TopicSecureModel | null;
+}
 
-// export type SubmissionPopulateSubmissionTestcaseAndAccountModel = SubmissionModel & {
-//     account: AccountSecureModel;
-//     runtime_output: SubmissionTestcaseModel[];
-//     topic: TopicSecureModel | null;
-// }
+export type SubmissionPopulateSubmissionTestcaseAndAccountModel = SubmissionModel & {
+    account: any; // AccountSecureModel;
+    runtime_output: SubmissionTestcaseModel[];
+    topic: any | null; // TopicSecureModel | null;
+}

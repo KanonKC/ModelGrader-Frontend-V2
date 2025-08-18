@@ -18,12 +18,23 @@ export type GroupModel = {
 	members?: AccountModel[];
 };
 
-// export type GroupMemberModel = {
-// 	group_member_id: string;
-// 	group: number;
-// 	account: AccountModel | number;
-// 	created_date: string;
-// };
+export type GroupMemberModel = {
+	group_member_id: string;
+	group: number;
+	account: AccountModel | number;
+	created_date: string;
+};
+
+export type GroupPopulateGroupMemberPopulateAccountSecureModel = GroupModel & {
+	members: GroupMemberPopulateAccountSecureModel[];
+};
+
+export type GroupMemberPopulateAccountSecureModel = {
+	group_member_id: string;
+	group: number;
+	account: AccountModel;
+	created_date: string;
+};
 
 // export type GroupHashedTable = {
 // 	[id: string]: GroupModel;

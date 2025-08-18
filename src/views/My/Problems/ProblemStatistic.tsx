@@ -28,7 +28,11 @@ const ProblemStatistic = () => {
 		if (!problemId) return;
 		ProblemService.get(accountId, problemId)
 			.then((response) => {
-				setProblem(response.data);
+				const problemWithPermissions = {
+					...response.data,
+					group_permissions: response.data.group_permissions || []
+				};
+				setProblem(problemWithPermissions);
 				document.title = `${response.data.title}`;
 				return SubmissionService.getByCreatorProblem(
 					accountId,

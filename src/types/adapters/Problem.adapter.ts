@@ -23,3 +23,17 @@ export function transformProblemModel2ProblemHashedTable(problems: ProblemModel[
     }
     return result
 }
+
+export function transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm(problem: any): CreateProblemRequestForm {
+    return {
+        title: problem.title,
+        description: JSON.parse(handleDeprecatedDescription(String(problem.description))),
+        language: problem.language,
+        solution: problem.solution,
+        testcases: problem.testcases?.map((testcase: any) => testcase.input).join(":::\n") || "",
+        testcase_delimeter: ":::",
+        time_limit: problem.time_limit,
+        groupPermissions: problem.group_permissions || [],
+        allowedLanguage: problem.allowed_languages?.split(",") || []
+    }
+}

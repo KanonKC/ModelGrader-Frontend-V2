@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CreateProblemForm, {
-	OnProblemSaveCallback,
+    OnProblemSaveCallback,
 } from "../../../components/Forms/CreateProblemForm";
 import { toast } from "../../../components/shadcn/UseToast";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
@@ -10,6 +10,7 @@ import { transformCreateProblemRequestForm2CreateProblemRequest } from "../../..
 import { transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm } from "../../../types/adapters/Problem.adapter";
 import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
 import { ProblemPoplulateCreatorModel } from "../../../types/models/Problem.model";
+import { SubmissionTestcaseModel } from "../../../types/models/Submission.model";
 
 const EditProblem = () => {
 	const accountId = String(localStorage.getItem("account_id"));
@@ -49,10 +50,14 @@ const EditProblem = () => {
 
 	useEffect(() => {
 		ProblemService.get(accountId, editProblemId).then((response) => {
-			setProblem(response.data);
+			const problemWithPermissions = {
+				...response.data,
+				group_permissions: response.data.group_permissions || []
+			};
+			setProblem(problemWithPermissions);
 			setCreateRequest(
 				transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm(
-					response.data
+					problemWithPermissions
 				)
 			);
             document.title = `${response.data.title} - Edit`;
@@ -65,7 +70,7 @@ const EditProblem = () => {
 			{createRequest && (
 				<CreateProblemForm
 					createRequestInitialValue={createRequest}
-					validatedTestcases={problem?.testcases}
+					validatedTestcases={problem?.testcases as unknown as SubmissionTestcaseModel[]}
 					onProblemSave={(
 						setLoading,
 

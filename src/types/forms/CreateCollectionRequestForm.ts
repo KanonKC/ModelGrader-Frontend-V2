@@ -22,5 +22,5 @@ export type CreateCollectionRequestForm = {
     groupPermissions: CollectionGroupPermissionRequestForm[];
     collection: {
         problems: ProblemModel[];
-    };
+    } | null;
 }

@@ -35,7 +35,10 @@ const MyCollectionContextMenu = ({
 
 		const createRequest =
 			transformCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel2CreateCollectionRequest(
-				response.data
+				{
+					...response.data,
+					group_permissions: response.data.group_permissions || []
+				} as any
 			);
 
 		createRequest.title += " (Copy)";

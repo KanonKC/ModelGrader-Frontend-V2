@@ -13,6 +13,6 @@ export function SubmitProblemResponse2GetSubmissionByAccountProblemResponse(subm
         max_score: submission.max_score,
         passed_ratio: submission.passed_ratio,
         account: submission.account,
-        runtime_output: submission.runtime_output
+        runtime_output: submission.runtime_output as any // Type conversion needed
     }
 }
