@@ -8,9 +8,9 @@ import {
 } from "../../../types/forms/CreateCollectionRequestForm";
 import { ProblemHashedTable } from "../../../types/models/Problem.model";
 import MyProblemMiniCard2 from "../../Cards/ProblemCards/MyProblemMiniCard2";
-import { Input } from "../../shadcn/Input";
-import { ScrollArea } from "../../shadcn/ScrollArea";
-import { Separator } from "../../shadcn/Seperator";
+import { Input } from "../../ui/Input";
+import { ScrollArea } from "../../ui/ScrollArea";
+import { Separator } from "../../ui/Seperator";
 
 const ManageProblems = ({
 	createRequest,

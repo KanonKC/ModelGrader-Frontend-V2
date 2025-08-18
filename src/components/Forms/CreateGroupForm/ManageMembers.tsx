@@ -8,11 +8,11 @@ import {
 	AccountSecureModel,
 } from "../../../types/models/Account.model";
 import AccountMiniCard2 from "../../Cards/AccountCards/AccountMiniCard2";
-import { Button } from "../../shadcn/Button";
-import { Input } from "../../shadcn/Input";
-import { ScrollArea } from "../../shadcn/ScrollArea";
-import { Separator } from "../../shadcn/Seperator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../shadcn/Tabs";
+import { Button } from "../../ui/Button";
+import { Input } from "../../ui/Input";
+import { ScrollArea } from "../../ui/ScrollArea";
+import { Separator } from "../../ui/Seperator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/Tabs";
 import { ItemInterface } from "./../../../../node_modules/react-sortablejs/dist/index.d";
 
 const ManageMembers = ({

@@ -11,17 +11,17 @@ import {
   SubmissionTestcaseSecureModel,
 } from "../types/models/Submission.model";
 import { readableDateFormat } from "../utilities/ReadableDateFormat";
-import { Button } from "./shadcn/Button";
+import { Button } from "./ui/Button";
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-} from "./shadcn/Command";
-import { Popover, PopoverContent, PopoverTrigger } from "./shadcn/Popover";
-import { ScrollArea } from "./shadcn/ScrollArea";
-import { Separator } from "./shadcn/Seperator";
+} from "./ui/Command";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/Popover";
+import { ScrollArea } from "./ui/ScrollArea";
+import { Separator } from "./ui/Seperator";
 
 const TestcaseGradingMiniResult = ({
   status,

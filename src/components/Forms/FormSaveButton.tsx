@@ -1,6 +1,6 @@
 import { ArrowDownToLine, Loader2, Plus } from "lucide-react";
 import { useParams } from "react-router-dom";
-import { Button } from "../shadcn/Button";
+import { Button } from "../ui/Button";
 
 const FormSaveButton = ({
     disabled,

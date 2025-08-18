@@ -1,5 +1,5 @@
 import { GroupModel } from "../types/models/Group.model";
-import { Checkbox } from "./shadcn/Checkbox";
+import { Checkbox } from "./ui/Checkbox";
 
 const GroupCheckbox = ({
     group,

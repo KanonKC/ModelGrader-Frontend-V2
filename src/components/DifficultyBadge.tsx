@@ -1,4 +1,4 @@
-import { Badge } from './shadcn/Badge'
+import { Badge } from './ui/Badge'
 
 const DifficultyBadge = ({level=0}:{
     level: number

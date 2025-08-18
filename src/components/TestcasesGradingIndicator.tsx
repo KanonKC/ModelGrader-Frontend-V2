@@ -3,7 +3,7 @@ import {
 	HoverCard,
 	HoverCardContent,
 	HoverCardTrigger,
-} from "./shadcn/HoverCard";
+} from "./ui/HoverCard";
 
 type TestcaseGradingResultStatus = "OK" | "TIMEOUT" | "ERROR" | "FAILED";
 

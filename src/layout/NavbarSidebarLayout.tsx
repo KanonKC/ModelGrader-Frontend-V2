@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import NavSidebar from "../components/NavigationBar/NavSidebar";
-import { Separator } from "../components/shadcn/Seperator";
+import { Separator } from "../components/ui/Seperator";
 import { LoginContext } from "../contexts/LoginContext";
 import NavbarMenuLayout from "./NavbarMenuLayout";
 

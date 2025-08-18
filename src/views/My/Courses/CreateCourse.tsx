@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import CreateCourseForm, {
 	OnCourseSavedCallback,
 } from "../../../components/Forms/CreateCourseForm";
-import { toast } from "../../../components/shadcn/UseToast";
+import { toast } from "../../../components/ui/UseToast";
 import { EmptyEditorValue } from "../../../constants/DummyEditorValue";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { CollectionService } from "../../../services/Collection.service";

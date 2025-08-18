@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollArea } from "../shadcn/ScrollArea";
+import { ScrollArea } from "../ui/ScrollArea";
 
 const PermissionSwitchScrollArea = ({
 	children,

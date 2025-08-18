@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactSortable } from "react-sortablejs";
-import { ScrollArea } from "./shadcn/ScrollArea";
+import { ScrollArea } from "./ui/ScrollArea";
 
 const SortableCardContainer = ({
 	children,

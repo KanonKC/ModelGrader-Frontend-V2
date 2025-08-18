@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import CreateCollectionForm, {
 	OnCollectionSavedCallback,
 } from "../../../components/Forms/CreateCollectionForm";
-import { toast } from "../../../components/shadcn/UseToast";
+import { toast } from "../../../components/ui/UseToast";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { CollectionService } from "../../../services/Collection.service";
 import { ProblemService } from "../../../services/Problem.service";

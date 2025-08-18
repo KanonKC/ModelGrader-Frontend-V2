@@ -2,15 +2,15 @@ import React, { useState } from "react";
 
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { Button } from "../components/shadcn/Button";
+import { Button } from "../components/ui/Button";
 import {
 	Card,
 	CardContent,
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from "../components/shadcn/Card";
-import { Checkbox } from "../components/shadcn/Checkbox";
+} from "../components/ui/Card";
+import { Checkbox } from "../components/ui/Checkbox";
 import {
 	Form,
 	FormControl,
@@ -18,8 +18,8 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from "../components/shadcn/Form";
-import { Input } from "../components/shadcn/Input";
+} from "../components/ui/Form";
+import { Input } from "../components/ui/Input";
 import CenterContainer from "../layout/CenterLayout";
 import { AuthService } from "../services/Auth.service";
 // import { getAuthorization, login } from "../services/auth.service";

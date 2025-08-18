@@ -8,17 +8,17 @@ import {
 import { CreateProblemRequestForm } from "../../types/forms/CreateProblemRequestForm";
 import { GroupModel } from "../../types/models/Group.model";
 import GroupCheckbox from "../GroupCheckbox";
-import { Button } from "../shadcn/Button";
+import { Button } from "../ui/Button";
 import {
 	ContextMenu,
 	ContextMenuContent,
 	ContextMenuItem,
 	ContextMenuTrigger,
-} from "../shadcn/ContextMenu";
-import { Dialog, DialogContent } from "../shadcn/Dialog";
-import { ScrollArea } from "../shadcn/ScrollArea";
-import { Separator } from "../shadcn/Seperator";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../shadcn/Tooltip";
+} from "../ui/ContextMenu";
+import { Dialog, DialogContent } from "../ui/Dialog";
+import { ScrollArea } from "../ui/ScrollArea";
+import { Separator } from "../ui/Seperator";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/Tooltip";
 
 export type GroupAndPermissionManagerOnAddGroupsCallback = {
 	addingGroups: GroupModel[];

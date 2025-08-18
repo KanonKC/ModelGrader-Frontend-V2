@@ -1,8 +1,8 @@
 import { LibraryBig, StepForward } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { TopicModel } from "../../../types/models/Topic.model";
-import { Button } from "../../shadcn/Button";
-import { Card } from "../../shadcn/Card";
+import { Button } from "../../ui/Button";
+import { Card } from "../../ui/Card";
 
 const PublicCourseCard = ({ course }: { course: TopicModel }) => {
     

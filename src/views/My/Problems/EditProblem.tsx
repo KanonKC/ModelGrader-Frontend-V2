@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import CreateProblemForm, {
 	OnProblemSaveCallback,
 } from "../../../components/Forms/CreateProblemForm";
-import { toast } from "../../../components/shadcn/UseToast";
+import { toast } from "../../../components/ui/UseToast";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { ProblemService } from "../../../services/Problem.service";
 import { transformCreateProblemRequestForm2CreateProblemRequest } from "../../../types/adapters/CreateProblemRequestForm.adapter";

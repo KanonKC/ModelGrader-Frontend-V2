@@ -5,8 +5,8 @@ import { CourseNavSidebarContext } from "../../contexts/CourseNavSidebarContexnt
 import { TopicService } from "../../services/Topic.service";
 import { TopicCollectionPopulateCollectionPopulateCollectionProblemPopulateProblemPopulateAccountAndSubmissionPopulateSubmissionTestcasesSecureModel } from "../../types/models/Topic.model";
 import NavbarCollectionsProblemsAccordion from "../NavbarCollectionsProblemsAccordion";
-import { ScrollArea } from "../shadcn/ScrollArea";
-import { Separator } from "../shadcn/Seperator";
+import { ScrollArea } from "../ui/ScrollArea";
+import { Separator } from "../ui/Seperator";
 
 const CourseNavSidebar = () => {
 	const navigate = useNavigate();

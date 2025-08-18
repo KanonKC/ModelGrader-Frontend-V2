@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import NavbarMenuLayout from "./NavbarMenuLayout";
 import CourseNavSidebar from "../components/NavigationBar/CourseNavSidebar";
-import { Separator } from "../components/shadcn/Seperator";
+import { Separator } from "../components/ui/Seperator";
 import { CourseNavSidebarContext } from "../contexts/CourseNavSidebarContexnt";
 
 const CourseNavbarSidebarLayout = ({

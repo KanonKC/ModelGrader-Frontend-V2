@@ -11,7 +11,7 @@ import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenI
 import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
 import Checkmark from "../../Checkmark";
 import MyProblemContextMenu from "../../ContextMenus/MyProblemContextMenu";
-import { Card, CardContent } from "../../shadcn/Card";
+import { Card, CardContent } from "../../ui/Card";
 
 const checkRuntimeStatus = (testcases: TestcaseModel[]) => {
 	for (const testcase of testcases) {

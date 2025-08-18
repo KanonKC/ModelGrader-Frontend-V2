@@ -15,8 +15,8 @@ import {
 	ContextMenuItem,
 	ContextMenuSeparator,
 	ContextMenuTrigger,
-} from "../shadcn/ContextMenu";
-import { toast } from "../shadcn/UseToast";
+} from "../ui/ContextMenu";
+import { toast } from "../ui/UseToast";
 import { transformProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel2CreateProblemRequestForm } from "./../../types/adapters/Problem.adapter";
 
 const MyProblemContextMenu = ({

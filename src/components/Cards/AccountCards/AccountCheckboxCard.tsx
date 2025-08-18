@@ -1,7 +1,7 @@
 import React from "react";
 import { AccountSecureModel } from "../../../types/models/Account.model";
-import { Card } from "../../shadcn/Card";
-import { Checkbox } from "../../shadcn/Checkbox";
+import { Card } from "../../ui/Card";
+import { Checkbox } from "../../ui/Checkbox";
 
 export type AccountCheckboxCardOnClickCallback = {
 	checked: boolean;

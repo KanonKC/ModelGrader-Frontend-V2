@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import CreateCourseForm, {
 	OnCourseSavedCallback,
 } from "../../../components/Forms/CreateCourseForm";
-import { toast } from "../../../components/shadcn/UseToast";
+import { toast } from "../../../components/ui/UseToast";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { TopicService } from "../../../services/Topic.service";
 import { transformCreateCourseRequestForm2CreateTopicRequest } from "../../../types/adapters/CreateCourseRequestForm.adapter";

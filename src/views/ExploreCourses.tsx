@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Separator } from '../components/shadcn/Seperator'
+import { Separator } from '../components/ui/Seperator'
 import NavbarMenuLayout from '../layout/NavbarMenuLayout'
 import { TopicService } from '../services/Topic.service'
 

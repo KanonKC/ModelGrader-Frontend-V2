@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { cn } from "../../lib/utils";
-import { Card } from "../shadcn/Card";
+import { Card } from "../ui/Card";
 
 const RuntimeOutputTextarea = ({
 	value = "",

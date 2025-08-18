@@ -6,8 +6,8 @@ import {
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-} from "./shadcn/Accordion";
-import { ScrollArea } from "./shadcn/ScrollArea";
+} from "./ui/Accordion";
+import { ScrollArea } from "./ui/ScrollArea";
 
 const TopicCollectionsAccordian = ({
 	collections,

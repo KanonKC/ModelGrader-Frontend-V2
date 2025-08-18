@@ -2,7 +2,7 @@ import { Pencil } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import MyProblemSubmissionsTable from "../../../components/Tables/MyProblemSubmissionsTable";
-import { Button } from "../../../components/shadcn/Button";
+import { Button } from "../../../components/ui/Button";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { SubmissionService } from "../../../services/Submission.service";
 import { ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel } from "../../../types/models/Problem.model";

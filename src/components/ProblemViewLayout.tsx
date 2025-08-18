@@ -17,14 +17,14 @@ import { readableDateFormat } from "../utilities/ReadableDateFormat";
 import PreviousSubmissionsCombobox from "./PreviousSubmissionsCombobox";
 import ReadOnlyPlate from "./ReadOnlyPlate";
 import TestcasesGradingIndicator from "./TestcasesGradingIndicator";
-import { Button } from "./shadcn/Button";
-import { Combobox } from "./shadcn/Combobox";
+import { Button } from "./ui/Button";
+import { Combobox } from "./ui/Combobox";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "./shadcn/Resizable";
-import { Separator } from "./shadcn/Seperator";
+} from "./ui/Resizable";
+import { Separator } from "./ui/Seperator";
 
 export type OnSubmitProblemViewLayoutCallback = {
   setGrading: React.Dispatch<React.SetStateAction<boolean>>;

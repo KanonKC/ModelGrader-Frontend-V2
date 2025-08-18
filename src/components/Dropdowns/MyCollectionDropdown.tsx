@@ -13,8 +13,8 @@ import {
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "../shadcn/DropdownMenu";
-import { toast } from "../shadcn/UseToast";
+} from "../ui/DropdownMenu";
+import { toast } from "../ui/UseToast";
 
 const MyCollectionDropdown = ({
 	children,

@@ -1,8 +1,8 @@
 import React from 'react';
 import { CreateCollectionRequestForm } from '../../../types/forms/CreateCollectionRequestForm';
 import DetailPlateEditor from '../../DetailPlateEditor';
-import { Input } from '../../shadcn/Input';
-import { Label } from '../../shadcn/Label';
+import { Input } from '../../ui/Input';
+import { Label } from '../../ui/Label';
 import { PlateEditorValueType } from '../../../types/PlateEditorValueType';
 
 const GeneralDetail = ({

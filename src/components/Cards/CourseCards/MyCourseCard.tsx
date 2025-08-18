@@ -5,7 +5,7 @@ import { TopicPopulateTopicCollectionPopulateCollectionModel } from "../../../ty
 import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
 import { readableDateFormat } from "../../../utilities/ReadableDateFormat";
 import MyCourseContextMenu from "../../ContextMenus/MyCourseContextMenu";
-import { Card, CardContent } from "../../shadcn/Card";
+import { Card, CardContent } from "../../ui/Card";
 
 const MyCourseCard = ({
 	course,

@@ -1,9 +1,9 @@
 import React, { ReactNode, useEffect } from "react";
 import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLanguage";
 import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
-import { Checkbox } from "../../shadcn/Checkbox";
-import { Input } from "../../shadcn/Input";
-import { Label } from "../../shadcn/Label";
+import { Checkbox } from "../../ui/Checkbox";
+import { Input } from "../../ui/Input";
+import { Label } from "../../ui/Label";
 
 const AllowedLanguageCheckbox = ({
 	children,

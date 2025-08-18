@@ -7,9 +7,9 @@ import {
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-} from "./shadcn/Accordion";
-import { Badge } from "./shadcn/Badge";
-import { Label } from "./shadcn/Label";
+} from "./ui/Accordion";
+import { Badge } from "./ui/Badge";
+import { Label } from "./ui/Label";
 import RuntimeOutputTextarea from "./Textareas/RuntimeOutputTextarea";
 
 const minimizer = (text: string | null): string => {

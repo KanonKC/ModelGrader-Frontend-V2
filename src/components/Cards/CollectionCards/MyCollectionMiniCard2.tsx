@@ -8,7 +8,7 @@ import {
 } from "../../../types/models/Collection.model";
 import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
 import MyCollectionContextMenu from "../../ContextMenus/MyCollectionContextMenu";
-import { Card } from "../../shadcn/Card";
+import { Card } from "../../ui/Card";
 
 
 

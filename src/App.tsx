@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { Toaster } from "./components/shadcn/Toaster";
+import { Toaster } from "./components/ui/Toaster";
 import { CourseNavSidebarContext, getCourseNavSidebarContextStateValue } from "./contexts/CourseNavSidebarContexnt";
 import { LoginContext } from "./contexts/LoginContext";
 import { NavSidebarContext } from "./contexts/NavSidebarContext";

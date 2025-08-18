@@ -11,14 +11,14 @@ import {
 } from "../../../types/models/Problem.model";
 import Checkmark from "../../Checkmark";
 import DeleteProblemConfirmationDialog from "../../Dialogs/DeleteProblemConfirmationDialog";
-import { Card } from "../../shadcn/Card";
+import { Card } from "../../ui/Card";
 import {
 	ContextMenu,
 	ContextMenuContent,
 	ContextMenuItem,
 	ContextMenuTrigger,
-} from "../../shadcn/ContextMenu";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../../shadcn/Tooltip";
+} from "../../ui/ContextMenu";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../../ui/Tooltip";
 
 
 

@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { PlateEditorValueType } from '../../../types/PlateEditorValueType';
 import { CreateProblemRequestForm } from '../../../types/forms/CreateProblemRequestForm';
 import DetailPlateEditor from '../../DetailPlateEditor';
-import { Input } from '../../shadcn/Input';
-import { Label } from '../../shadcn/Label';
+import { Input } from '../../ui/Input';
+import { Label } from '../../ui/Label';
 
 const GeneralDetail = ({
 	createRequest,

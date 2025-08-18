@@ -7,7 +7,7 @@ import {
 	CarouselItem,
 	CarouselNext,
 	CarouselPrevious,
-} from "../components/shadcn/Carousel";
+} from "../components/ui/Carousel";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 import { SubmissionService } from "../services/Submission.service";
 import { TopicService } from "../services/Topic.service";

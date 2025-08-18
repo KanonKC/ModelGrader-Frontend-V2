@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription } from "../shadcn/Card";
+import { Card, CardContent, CardDescription } from "../ui/Card";
 
 const MyCollectionCard = () => {
 	return (

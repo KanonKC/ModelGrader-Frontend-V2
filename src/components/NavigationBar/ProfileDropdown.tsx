@@ -8,7 +8,7 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "../shadcn/DropdownMenu";
+} from "../ui/DropdownMenu";
 
 import {
 	FileSpreadsheet,

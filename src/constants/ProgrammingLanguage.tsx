@@ -1,4 +1,4 @@
-import { Badge } from "../components/shadcn/Badge"
+import { Badge } from "../components/ui/Badge"
 
 export const ProgrammingLanguageOptions = [
     {

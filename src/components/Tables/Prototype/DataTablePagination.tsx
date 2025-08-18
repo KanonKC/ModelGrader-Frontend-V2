@@ -8,14 +8,14 @@ import {
 
 import { Table } from "@tanstack/react-table";
 
-import { Button } from "../../shadcn/Button";
+import { Button } from "../../ui/Button";
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "../../shadcn/Select";
+} from "../../ui/Select";
 
 interface DataTablePaginationProps<TData> {
 	table: Table<TData>;

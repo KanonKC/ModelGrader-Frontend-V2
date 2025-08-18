@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import { Separator } from "../shadcn/Seperator";
-import { Switch } from "../shadcn/Switch";
+import { Separator } from "../ui/Seperator";
+import { Switch } from "../ui/Switch";
 
 const PermissionSwitch = ({
 	title = "Title",

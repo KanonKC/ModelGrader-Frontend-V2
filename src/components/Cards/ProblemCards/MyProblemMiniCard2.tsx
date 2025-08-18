@@ -6,7 +6,7 @@ import {
 } from "../../../types/models/Problem.model";
 import { onMiddleClickOpenInNewTab } from "../../../utilities/OnMiddleClickOpenInNewTab";
 import MyProblemContextMenu from "../../ContextMenus/MyProblemContextMenu";
-import { Card } from "../../shadcn/Card";
+import { Card } from "../../ui/Card";
 
 const MyProblemMiniCard2 = ({
 	problem,

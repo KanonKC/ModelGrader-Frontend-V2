@@ -4,7 +4,7 @@ import {
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-} from "../components/shadcn/Accordion";
+} from "../components/ui/Accordion";
 import NavbarMenuLayout from "../layout/NavbarMenuLayout";
 
 const CourseManagement = () => {
