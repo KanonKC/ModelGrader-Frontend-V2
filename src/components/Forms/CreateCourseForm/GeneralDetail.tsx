@@ -1,9 +1,9 @@
 import React from 'react';
-import { CreateCourseRequestForm } from '../../../types/forms/CreateCourseRequestForm';
+import { CreateCourseRequestForm } from "@/types/forms/CreateCourseRequestForm";
 import DetailPlateEditor from '../../DetailPlateEditor';
 import { Input } from '../../ui/Input';
 import { Label } from '../../ui/Label';
-import { PlateEditorValueType } from '../../../types/PlateEditorValueType';
+import { PlateEditorValueType } from "@/types/PlateEditorValueType";
 
 const GeneralDetail = ({
 	createRequest,

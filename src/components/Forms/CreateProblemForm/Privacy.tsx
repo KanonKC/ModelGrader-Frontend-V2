@@ -1,5 +1,5 @@
 import React from 'react';
-import { CreateProblemRequestForm } from '../../../types/forms/CreateProblemRequestForm';
+import { CreateProblemRequestForm } from "@/types/forms/CreateProblemRequestForm";
 import { Label } from '../../ui/Label';
 import { Switch } from '../../ui/Switch';
 

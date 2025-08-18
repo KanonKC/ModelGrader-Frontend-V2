@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect } from "react";
 import { ProgrammingLanguageOptions } from "../../../constants/ProgrammingLanguage";
-import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
+import { CreateProblemRequestForm } from "@/types/forms/CreateProblemRequestForm";
 import { Checkbox } from "../../ui/Checkbox";
 import { Input } from "../../ui/Input";
 import { Label } from "../../ui/Label";

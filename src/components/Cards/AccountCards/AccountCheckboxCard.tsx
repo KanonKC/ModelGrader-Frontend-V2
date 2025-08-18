@@ -1,5 +1,5 @@
 import React from "react";
-import { AccountSecureModel } from "../../../types/models/Account.model";
+import { AccountSecureModel } from "@/types/models/Account.model";
 import { Card } from "../../ui/Card";
 import { Checkbox } from "../../ui/Checkbox";
 

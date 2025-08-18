@@ -1,5 +1,5 @@
 import React from 'react';
-import { CreateGroupRequestForm } from '../../../types/forms/CreateGroupRequestForm';
+import { CreateGroupRequestForm } from "@/types/forms/CreateGroupRequestForm";
 import { Input } from '../../ui/Input';
 import { Label } from '../../ui/Label';
 import { Textarea } from '../../ui/Textarea';

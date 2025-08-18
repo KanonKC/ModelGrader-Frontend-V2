@@ -2,8 +2,8 @@ import {
 	User
 } from "lucide-react";
 import { useState } from "react";
-import { AccountModel, AccountSecureModel } from "../../../types/models/Account.model";
 import { Card } from "../../ui/Card";
+import { AccountModel, AccountSecureModel } from "@/types/models/Account.model";
 
 const AccountMiniCard = ({
 	// problem,
