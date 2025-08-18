@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import CreateCollectionForm, {
 	OnCollectionSavedCallback,
 } from "../../../components/Forms/CreateCollectionForm";
-import { toast } from "../../../components/shadcn/UseToast";
+import { toast } from "../../../components/ui/UseToast";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
 import { CollectionService } from "../../../services/Collection.service";
 import { transformCollectionPopulateCollectionProblemsPopulateProblemAndCollectionGroupPermissionsPopulateGroupModel2CreateCollectionRequest } from "../../../types/adapters/Collection.adapter";
