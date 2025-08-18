@@ -63,7 +63,7 @@ const GeneralDetail = ({
 			label: "Plate",
 		},
 		{
-			value: "PDF",
+			value: "pdf",
 			label: "PDF",
 		}
 	];
@@ -108,7 +108,7 @@ const GeneralDetail = ({
 				</div>
 			)}
 
-			{(createRequest.view_mode == "PDF") && (
+			{(createRequest.view_mode == "pdf") && (
 				<div>
 					<Label>Upload File</Label>
 					<FileInput
