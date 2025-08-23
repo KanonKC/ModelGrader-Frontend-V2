@@ -4,8 +4,12 @@ import { GetAllProblemsByAccountResponse, GetAllProblemsResponse, ProblemService
 import { ProblemModel, ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel, ProblemPopulateCreatorSecureModel } from "@/types/models/Problem.model";
 
 export const ProblemService: ProblemServiceAPI = {
-    create: async (accountId,request) => {
-        return axios.post<ProblemModel>(`${BASE_URL}/api/accounts/${accountId}/problems`, request);
+    create: async (request, token) => {
+        return axios.post<ProblemModel>(`${BASE_URL}/api/v1/problems`, request, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
     },
 
     getAll: async (query) => {
@@ -20,8 +24,20 @@ export const ProblemService: ProblemServiceAPI = {
         return axios.get<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}`);
     },
 
-    update: async (problemId,accountId,request) => {
-        return axios.put<ProblemModel>(`${BASE_URL}/api/accounts/${accountId}/problems/${problemId}`, request);
+    getv1: async (problemId, token) => {
+        return axios.get<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>(`${BASE_URL}/api/v1/problems/${problemId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+    },
+
+    update: async (problemId, request, token) => {
+        return axios.put<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>(`${BASE_URL}/api/v1/problems/${problemId}`, request, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
     },
 
     delete: async (problemId,accountId) => {
@@ -42,5 +58,13 @@ export const ProblemService: ProblemServiceAPI = {
 
     getPublic: async (problemId) => {
         return axios.get<ProblemPopulateCreatorSecureModel>(`${BASE_URL}/api/problems/${problemId}`);
+    },
+
+    importPdf: async (problemId, request, token) => {
+        axios.put<null>(`${BASE_URL}/api/v1/problems/${problemId}/import/pdf`, request, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
     },
 }

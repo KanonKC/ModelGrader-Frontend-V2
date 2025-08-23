@@ -38,7 +38,8 @@ export type OnProblemSaveCallback = (
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>,
 	// problemid: string,
 	// setProblemId: React.Dispatch<React.SetStateAction<number>>,
-	createRequest: CreateProblemRequestForm
+	createRequest: CreateProblemRequestForm,
+	pdfFile: File,
 ) => void;
 
 const CreateProblemForm = ({
@@ -58,9 +59,10 @@ const CreateProblemForm = ({
 	const [createRequest, setCreateRequest] =
 		useState<CreateProblemRequestForm>(createRequestInitialValue);
 
+	const [pdfFile, setPdfFile] = useState(new File([], "empty.pdf", { type: "application/pdf" }));
 
 	const handleSave = () => {
-		onProblemSave(setLoading, createRequest);
+		onProblemSave(setLoading, createRequest, pdfFile);
 	};
 
 
@@ -116,6 +118,8 @@ const CreateProblemForm = ({
 					<GeneralDetail
 						createRequest={createRequest}
 						setCreateRequest={setCreateRequest}
+						pdfFile={pdfFile}
+						setPdfFile={setPdfFile}
 					/>
 				)}
 				{currentForm.get("section") === "scoring" && (

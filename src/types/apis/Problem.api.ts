@@ -78,10 +78,12 @@ export type ProblemGroupPermissionPopulateGroupModel =
 		group: GroupModel;
 	};
 
+export type CreateImportPdfRequest = FormData;
+
 export type ProblemServiceAPI = {
 	create: (
-		accountId: string,
-		request: CreateProblemRequest
+		request: CreateProblemRequest,
+		token: string,
 	) => Promise<AxiosResponse<ProblemModel>>;
 	getAll: (
 		query?: GetAllProblemsQuery
@@ -96,10 +98,14 @@ export type ProblemServiceAPI = {
 	) => Promise<
 		AxiosResponse<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>
 	>;
+	getv1: (
+		problemId: string,
+		token: string,
+	) => Promise<AxiosResponse<ProblemPopulateAccountAndTestcasesAndProblemGroupPermissionsPopulateGroupModel>>;
 	update: (
 		problemId: string,
-		accountId: string,
-		request: UpdateProblemRequest | CreateProblemRequest
+		request: UpdateProblemRequest | CreateProblemRequest,
+		token: string,
 	) => Promise<AxiosResponse<ProblemModel>>;
 	// deleteMultiple: (problemIds:string[]) => Promise<AxiosResponse<null>>;
 	delete: (
@@ -119,4 +125,9 @@ export type ProblemServiceAPI = {
 	getPublic: (
 		problemId: string
 	) => Promise<AxiosResponse<ProblemPopulateCreatorSecureModel>>;
+	importPdf: (
+		problemID: string,
+		request: CreateImportPdfRequest,
+		token: string
+	) => Promise<void>
 };

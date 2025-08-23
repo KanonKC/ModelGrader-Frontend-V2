@@ -1,5 +1,5 @@
-import { testcaseParse } from "@/utilities/TestcaseFormat";
-import { CreateProblemRequest, ProblemGroupPermissionCreateRequest } from "../apis/Problem.api";
+import { testcaseParse } from "../../utilities/TestcaseFormat";
+import { CreateProblemRequest, ProblemGroupPermissionCreateRequest, CreateImportPdfRequest } from "../apis/Problem.api";
 import { CreateProblemRequestForm } from "../forms/CreateProblemRequestForm";
 
 export const transformCreateProblemRequestForm2CreateProblemRequest = (
@@ -20,6 +20,7 @@ export const transformCreateProblemRequestForm2CreateProblemRequest = (
 		),
 		time_limit: createRequest.time_limit,
 		allowed_languages: createRequest.allowedLanguage.filter((language) => language !== "").join(","),
+		view_mode: createRequest.view_mode,
 	}
 
 	const groups = createRequest.groupPermissions.map((groupPermission) => ({
@@ -29,4 +30,10 @@ export const transformCreateProblemRequestForm2CreateProblemRequest = (
 	}))
 
 	return {request, groups};
+};
+
+export const transformFile2ImportPdfRequest = (pdfFile: File): CreateImportPdfRequest => {
+	const request = new FormData();
+	request.append("file", pdfFile, pdfFile.name);
+	return request
 };

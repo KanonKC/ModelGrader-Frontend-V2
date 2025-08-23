@@ -5,9 +5,9 @@ import CreateProblemForm, {
 } from "../../../components/Forms/CreateProblemForm";
 import { toast } from "../../../components/shadcn/UseToast";
 import NavbarSidebarLayout from "../../../layout/NavbarSidebarLayout";
-import { ProblemService } from "@/services/Problem.service";
-import { transformCreateProblemRequestForm2CreateProblemRequest } from "@/types/adapters/CreateProblemRequestForm.adapter";
-import { CreateProblemRequestForm } from "@/types/forms/CreateProblemRequestForm";
+import { ProblemService } from "../../../services/Problem.service";
+import { transformCreateProblemRequestForm2CreateProblemRequest, transformFile2ImportPdfRequest } from "../../../types/adapters/CreateProblemRequestForm.adapter";
+import { CreateProblemRequestForm } from "../../../types/forms/CreateProblemRequestForm";
 
 const formInitialValue: CreateProblemRequestForm = {
 	title: "",
@@ -25,43 +25,54 @@ const formInitialValue: CreateProblemRequestForm = {
 	time_limit: 1.5,
 	groupPermissions: [],
 	allowedLanguage: [],
+	view_mode: "plate",
+	pdf_url: "",
 };
 
 const CreateProblem = () => {
 	const accountId = String(localStorage.getItem("account_id"));
+	const token = String(localStorage.getItem("token"));
 	const navigate = useNavigate();
 
-	const handleSave: OnProblemSaveCallback = (setLoading, createRequest) => {
-		setLoading(true);
+	const HandleSave: OnProblemSaveCallback = async (setLoading, createRequest, pdfFile) => {
+		try {
+			setLoading(true);
 
-		const { request, groups } =
-			transformCreateProblemRequestForm2CreateProblemRequest(
+			const { request, groups } = transformCreateProblemRequestForm2CreateProblemRequest(
 				createRequest
 			);
 
-		ProblemService.create(accountId, request)
-			.then((response) => {
-				return ProblemService.updateGroupPermissions(
-					response.data.problem_id,
-					accountId,
-					groups
-				);
-			})
-			.then((response) => {
-				setLoading(false);
-				toast({
+			const createRes = await ProblemService.create(request, token)
+			const updateGroupRes = await ProblemService.updateGroupPermissions(
+				createRes.data.problem_id,
+				accountId,
+				groups,
+			)
+
+			if (pdfFile.size !== 0 && createRequest.view_mode === "pdf") {
+				const pdfRequest = transformFile2ImportPdfRequest(pdfFile);
+				await ProblemService.importPdf(updateGroupRes.data.problem_id, pdfRequest, token)
+				console.log("Import Pdf complete")
+			}
+			toast({
 					title: "Create Completed",
 				});
-				navigate(`/my/problems/${response.data.problem_id}/edit`);
-			});
+			navigate(`/my/problems/${updateGroupRes.data.problem_id}/edit`);
+			return updateGroupRes.data.problem_id
+		} catch (e) {
+			console.log(e);
+			toast({ title: "Create failed" });
+		} finally {
+			setLoading(false)
+		}
 	};
 
 	return (
 		<NavbarSidebarLayout>
 			<CreateProblemForm
 				createRequestInitialValue={formInitialValue}
-				onProblemSave={(setLoading, createRequest) =>
-					handleSave(setLoading, createRequest)
+				onProblemSave={(setLoading, createRequest, pdfFile) =>
+					HandleSave(setLoading, createRequest, pdfFile)
 				}
 			/>
 		</NavbarSidebarLayout>

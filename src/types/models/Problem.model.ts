@@ -24,8 +24,10 @@ export type ProblemModel = {
     testcases: TestcaseModel[]
     created_date: string;
     updated_date: string;
-    allowed_languages: string
+    allowed_languages: string;
     difficulty: number;
+    view_mode: string;
+    pdf_url: string;
 }
 
 export type ProblemSecureModel = {
